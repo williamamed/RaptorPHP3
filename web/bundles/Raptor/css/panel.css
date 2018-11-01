@@ -1,0 +1,139 @@
+/* 
+    Document   : panel
+    Created on : 27-mar-2015, 15:20:52
+    Author     : Dinobyte
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.panel-rpt-main-window a{
+    background: #777;
+    text-decoration: none;
+    color: #402878 ;
+}
+.panel-rpt-main-window a:visited{
+   
+   text-decoration: none
+}
+.panel-rpt-btn { 
+    padding: 10px;
+    background: #333;
+    color: white !important;
+}
+.panel-rpt-btn:hover { 
+    color: #402878 !important;
+    background: #b9b9ba
+}
+#rpt-eyes img:hover{
+    
+}
+.panel-rpt-main-window input{
+    color:#402878 ;
+}
+.panel-rpt-main-window{
+    border: 1px solid #777;
+	border-color: rgba(0,0,0,0.2);
+	
+        color: white;
+
+	cursor: pointer;
+	display: inline-block;
+	font: bold 100%/2.1 Lucida Grande, Tahoma, sans-serif;
+        font-size: 11px;
+	padding: 2px;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	position: fixed;
+	z-index: 100000000;
+	
+        background-color: #262b30 ;
+        bottom:5px;
+        right:5px;
+        padding:10px;
+        padding-top:2px;
+        float: left;
+        display: none;
+        
+}
+.panel-rpt-shortcut{
+    cursor: pointer;
+    text-decoration: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    position: fixed;
+    z-index: 100000000;
+    bottom:5px;
+    right:5px;
+    
+}
+.panel-rpt-x{
+    float: right;
+    display: table-cell;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+    text-align: center;
+    background: #cc0033 !important;
+    color: white;
+}
+.panel-rpt-x:hover{
+    
+    background: #990033 !important
+}
+.panel-rpt-data{
+    max-height: 400px;
+    padding: 10px;
+    border: 0px solid black;
+    overflow-y:  scroll;
+    overflow-x: hidden;
+    border-bottom-width: 1px;
+    border-bottom-color: #9d4cff;
+    border-top-width: 1px;
+    border-top-color: #9d4cff;
+    user-select: select;
+    
+}
+.panel-rpt-main-window input[type="text"]{
+    padding: 5px !important;
+    height: 30px;
+    width: 100%;
+}
+
+.circle {
+        display: block;
+        position: relative;
+        padding: 0;
+        z-index: 98;
+        margin: 0 auto;
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+        background-color: #343a40;
+        transition: 0.2s;
+        text-align: center;
+    }
+    .circle:active {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
+    }
+    .circle:hover {
+        cursor: pointer;
+        background-color: #545f6b;
+        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3);
+    }
+    .circle img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -15px;
+        margin-top: -15px;
+        width: 30px;
+        height: 30px;
+        transition: 0.5s;
+    }

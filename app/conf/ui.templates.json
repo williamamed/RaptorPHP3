@@ -1,0 +1,50 @@
+{
+    "boot": {
+        "title": "Bootstrap 4",
+        "icon":"Raptor/img/ui/bootstrap/bootstrap-32.png",
+        "templates": [
+            {
+                "title": "Plantilla en blanco",
+                "desc":"Crea una plantilla en blanco de bootstrap",
+                "url": "genui/create",
+                "icon": "Raptor/img/ui/bootstrap/bootstrap-empty.png"
+            }
+        ]
+    },
+    "ext": {
+        "title": "Extjs 4",
+        "icon":"Raptor/img/ui/extjs/ext-16.gif",
+        "templates": [
+            {
+               "title": "Plantilla básica",
+               "desc":"Crea una plantilla Extjs en blanco",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/form-vbox.png" 
+            },
+            {
+               "title": "Plantilla Grid",
+               "desc":"Crea una plantilla Grid",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/grid.gif" 
+            },
+            {
+               "title": "Plantilla Tree-Grid",
+               "desc":"Crea una plantilla Tree-Grid básica",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/extjs/acc-tree.gif" 
+            }
+        ]
+    },
+    "ng": {
+        "title": "Angular 1.7.x",
+        "icon":"Raptor/img/ui/angular/angular-16.png",
+        "templates": [
+            {
+               "title": "Plantilla en blanco",
+               "desc":"Crea una platilla Angular-Bootstrap básica vinculada con la biblioteca de angular lista para su uso <b style='color:white;background: red;padding: 3px;'>New</b>",
+               "url": "genui/create",
+               "icon": "Raptor/img/ui/angular/bootstrap-empty.png"
+            }
+        ]
+    }
+}

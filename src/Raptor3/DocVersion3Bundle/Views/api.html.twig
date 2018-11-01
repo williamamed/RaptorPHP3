@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor 3 Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 40px;
+
+            }
+            .jumbotron{
+                background-image: url({{ asset('Raptor3/DocVersion3/img/layer.png') }});
+                background-position: center;
+            }
+
+
+
+        </style>
+
+
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+       
+        <link rel="shortcut icon" href="{{ asset('Raptor/v3/img/logo-php.png') }}">
+    </head>
+
+    <body class="fondo">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
+            <a class="navbar-brand" href="#"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </nav>
+
+
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1 style="color: #5a32a3;text-shadow: 0 2px 0 #FFFFFF;">Raptor PHP 3</h1>
+                <p style="text-shadow: 0 1px 0 #FFFFFF;">Aprende sobre la estructura, arquitectura y opciones de configuración, el framework full stack  Raptor hace del desarrollo un proceso más fácil, con un índice de reducción del tiempo de un 50%.</p>
+                <p><a class="btn btn-primary btn-lg" href="{{ path("_raptor_apidoc_proyect") }}" role="button">Ver más &raquo;</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row" style="text-align: center">
+                <div class="col-md-4">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/js.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+                    <h2>Cliente(javascript)</h2>
+                    <p>Las funciones javascript del cliente hacen posible la integración con el lado del servidor, permitiendo mecanismo de seguridad, ajuste al contexto idiomático y una interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap. </p>
+                    <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_client") }}" role="button">Ver más &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/php.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+                    <h2>Servidor</h2>
+                    <p>Contiene toda la lógica detrás del servidor, implementando una arquitectura orientada a componentes en base a la extensión del núcleo Slim y complementando con tecnologías como Doctrine ORM, Twig y AOP.</p>
+                    <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_server") }}" role="button">Ver más &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/abs.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+                    <h2>Capa de abstracción</h2>
+                    <p>Funciones visuales de utilidad para el desarrollo, contiene todo la lógica para un desarrollo ágil aportando la abstracción necesaria en la realización de las tareas. Podrás encontrarlas accediendo al Panel de control de Raptor.</p>
+                    <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_abstraction") }}" role="button">Ver más &raquo;</a></p>
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="jumbotron2">
+                <br><br>
+                <h2>Consejos para el desarrollo</h2>
+                <p>&raquo; Utilizar un debugger como Firebug en el cliente ayuda a detectar y resolver los posibles errores en tus javascript.</p>
+                <p>&raquo; Mantenga a la mano las API's de Extjs y Bootstrap, las propiedades y potencialidades de ambas tecnologías son amplias</p>
+            </div>
+            <hr>
+            <div class="jumbotron2">
+
+                <p><i class="icon-raptor-info" style="margin-right: 5px;"></i>Esta API se encuentra en la versión {{ version }}, trabajamos para mejorar la documentación existente.</p>
+                <p><i class="icon-raptor-info" style="margin-right: 5px;"></i>La documentación asociada al servidor y las clases PHP se actualizarán cuando el framework sea actualizado, no existe necesidad de cambiar el RaptorDoc.</p>
+
+            </div>
+            <hr>
+            <footer>
+                <p>&copy; Proyecto Raptor 2018</p>
+            </footer>
+        </div> <!-- /container -->
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script type="text/javascript">
+            $(document.body).ready(function () {
+
+            });
+
+
+        </script>
+    </body>
+</html>
+

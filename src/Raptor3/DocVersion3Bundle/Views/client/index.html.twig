@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor Client Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor3/DocVersion3/css/perfect-scrollbar.css') }}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 50px;
+            }
+
+
+            /*
+             * Global add-ons
+             */
+
+            .sub-header {
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            /*
+             * Top navigation
+             * Hide default border to remove 1px line.
+             */
+            .navbar-fixed-top {
+                border: 0;
+            }
+
+            /*
+             * Sidebar
+             */
+
+            /* Hide for mobile, show later */
+            .sidebar {
+                display: none;
+            }
+            @media (min-width: 768px) {
+                .sidebar {
+                    position: fixed;
+                    top: 51px;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1000;
+                    display: block;
+                    padding: 20px;
+                    overflow-x: hidden;
+                    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+                    background-color: #f5f5f5;
+                    border-right: 1px solid #eee;
+                }
+            }
+
+            /* Sidebar navigation */
+            .nav-sidebar {
+                margin-right: -21px; /* 20px padding + 1px border */
+                margin-bottom: 20px;
+                margin-left: -20px;
+            }
+            .nav-sidebar > li > a {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+            .nav-sidebar > li > a >b{
+                color: #ff3333;
+            }
+            .nav-sidebar > li > b {
+                padding-right: 20px;
+                padding-left: 10px;
+            }
+            .nav-sidebar > .active > a,
+            .nav-sidebar > .active > a:hover,
+            .nav-sidebar > .active > a:focus {
+                color: #fff;
+                background-color: #428bca;
+            }
+
+
+            /*
+             * Main content
+             */
+
+            .main {
+                padding: 20px;
+            }
+            @media (min-width: 768px) {
+                .main {
+                    padding-right: 40px;
+                    padding-left: 40px;
+                }
+            }
+            .main .page-header {
+                margin-top: 0;
+            }
+
+
+            /*
+             * Placeholder dashboard ideas
+             */
+
+            .placeholders {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .placeholders h4 {
+                margin-bottom: 0;
+            }
+            .placeholder {
+                margin-bottom: 20px;
+            }
+            .placeholder img {
+                display: inline-block;
+                border-radius: 50%;
+            }
+
+
+
+
+
+        </style>
+
+
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
+        <link rel="shortcut icon" href="{{ asset('Raptor/ico/raptor-32.png') }}">
+    </head>
+
+    <body class="fondo">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-form navbar-">
+                <input type="text" id="buscar" class="form-control" placeholder="Buscar...">
+            </div>
+        </nav>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar" style="overflow: hidden">
+                    <ul class="nav nav-sidebar flex-column">
+                        <li class="nav-item" class="active"><b>Raptor</b> <span class="sr-only">(current)</span></li>
+                        <li class="nav-item" ><a href="#msg"><b style="color: #333333">msg</b></a>
+                            <ul class="nav flex-column" style="padding-left: 30px">
+                                <li class="nav-item"><a class="nav-link" href="#msg.confirm">confirm()</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#msg.error">error()</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#msg.exception">exception()</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#msg.info">info()</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#msg.show">show()</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#msg.wait">wait()</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#getFront">getFront()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getBundleResource">getBundleResource()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getLanguage">getLanguage()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getTag">getTag()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getToken">getToken()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getUser">getUser()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#controlActions">controlActions()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#DATA"><b>DATA</b></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#ERROR"><b>ERROR</b></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#EXCEPTION"><b>EXCEPTION</b></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#INFO"><b>INFO</b></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#QUESTON"><b>QUESTON</b></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#WAIT"><b>WAIT</b></a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar flex-column">
+                        <li class="nav-item"><b>Interactive</b> <span class="sr-only">(current)</span></li>
+
+                        <li class="nav-item"><a class="nav-link" href="#inter.show">show()</a></li>
+
+                    </ul>
+                </div>
+
+
+                <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+                    <h1 class="page-header">Biblioteca Raptor Javascript </h1>
+                    <p>Las funciones javascript del cliente hacen posible la integración con el lado del servidor, permitiendo mecanismo de seguridad, ajuste al contexto idiomático y una interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap.</p>
+
+
+                    <!-- Confirm -->
+                    <br>
+                    <h3 id="msg">Mensajería</h3>
+                    <p class="text-muted">El paquete de Raptor es una interfaz integrada de mensajería, permitiendo mostrar mensajes estándar de acuerdo a la tecnología que se utilice en el momento(Extjs, Bootstrap)</p>
+
+
+                    <br>
+                    <hr>
+                    <h4 id="msg.confirm">Raptor.msg.confirm( title, msg, fn, scope)</h4>
+                    <p class="text-muted">Muestra una ventana de confimación, permitiendo escojer entre 2 opciones</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">title: string</b><span> Título de la ventana de confirmación (Tener en cuenta que para Extjs este parámetro se omite)</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span> Texto del cuerpo de la ventana de confirmación</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">fn: function</b><span> Función a ejecutar cuando se pulse sí</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">scope: object</b><span> Scope con que se ejecutará la función anterior</span></h5>
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+// Para extjs
+Raptor.msg.confirm('cuerpo del mensaje',function(){
+    alert('ha pulsado en si')
+});
+
+// Para bootstrap
+Raptor.msg.confirm('titulo del mensaje','cuerpo del mensaje',function(){
+    alert('ha pulsado en si')
+});
+                    </pre>
+
+                    <!-- error -->
+                    <br>
+                    <hr>
+                    <h4 id="msg.error">Raptor.msg.error( msg, float)</h4>
+                    <p class="text-muted">Muestra una ventana de error que puede ser configurada como flotante</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">float: boolean (opcional)</b><span>  Determina si es una ventana flotante o fija por defecto true (Solo aplica para Extjs)</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+
+Raptor.msg.error('ventana flotante de error');
+
+                    </pre>
+
+                    <!-- error -->
+                    <br>
+                    <hr>
+                    <h4 id="msg.exception">Raptor.msg.exception( title, msg, trace)</h4>
+                    <p class="text-muted">Muestra una ventana de exception con detalles sobre las trazas del error</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">title: string</b><span> Título de la ventana de exception (Tener en cuenta que para Extjs este parámetro se omite)</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span> Texto del cuerpo de la ventana de exception</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">trace: string</b><span> texto sobre las trazas del error</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+// Para extjs
+Raptor.msg.exception('cuerpo del mensaje');
+
+// Para bootstrap
+Raptor.msg.exception('titulo del mensaje','cuerpo del mensaje');
+                    </pre>
+
+
+
+                    <!-- info -->
+                    <br>
+                    <hr>
+                    <h4 id="msg.info">Raptor.msg.info( msg, duration, background)</h4>
+                    <p class="text-muted">Muestra una ventana flotante de infomación</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">duration: integer (opcional)</b><span>  Duración de la ventana flotante de información, por defecto 15 seg</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">background: string (opcional)</b><span>  Color de del fonde de la ventana de información, por defecto #402878</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+
+Raptor.msg.info('ventana flotante de infomacion');
+
+                    </pre>
+
+
+                    <!-- show -->
+                    <br>
+                    <hr>
+                    <h4 id="msg.show">Raptor.msg.show( cod, arguments...)</h4>
+                    <p class="text-muted">De acuerdo al código pasado por parámetro llama a las funciones del paquete de mensajería, los seguientes parametros serán las opciones de la función a llamar</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">cod: integer</b><span>  Código de la función de mensajería a ejecutar</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">arguments... : objects (opcional)</b><span> Parámetro de la función de mesajería a ejecutar</span></h5>
+
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+
+Raptor.msg.show(Raptor.INFO,'ventana flotante de infomacion');
+
+Raptor.msg.show(Raptor.ERROR,'ventana flotante de error');
+
+                    </pre>
+
+
+                    <!-- wait -->
+                    <br>
+                    <hr>
+                    <h4 id="msg.wait">Raptor.msg.wait( msg )</h4>
+                    <p class="text-muted">Muestra un cuadro de dialógo de espera</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del mensaje de espera</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+
+var msg=Raptor.msg.wait('Por favor espere....');
+// espere por la accion y cierre la ventana
+msg.close();
+
+
+                    </pre>
+
+                    <br>
+                    <h3 >Funciones utilitarias</h3>
+                    <p class="text-muted">Estan funciones permiten la integración con los datos del servidor, además de soporte a mecanismos de seguridad</p>
+
+
+
+                    <!-- getFront -->
+                    <br>
+                    <hr>
+                    <h4 id="getFront">Raptor.getFront()</h4>
+                    <p class="text-muted">Devuelve la URL relativa del frontal de la aplicación</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> URL relativa del frontal de la aplicación </span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var front=Raptor.getFront();
+//  /Raptor2/web/dev.php
+                    </pre>
+
+                    <!-- getBundleResource -->
+                    <br>
+                    <hr>
+                    <h4 id="getBundleResource">Raptor.getBundleResource( resource )</h4>
+                    <p class="text-muted">Devuelve la URL absoluta al recurso especificado por parámetro</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">resource: string</b><span> URL relativa al la locación pública web</span></h5>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> URL absoluta del recurso especificado </span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var res=Raptor.getBundleResource('Raptor/img/logo.png');
+//  /Raptor2/web/bundles/Raptor/img/logo.png
+                    </pre>
+
+
+                    <!-- getLanguage -->
+                    <br>
+                    <hr>
+                    <h4 id="getLanguage">Raptor.getLanguage()</h4>
+                    <p class="text-muted">Devuelve el lenguaje actual de la aplicación</p>
+
+                    <br>
+
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Abreviatura del lenguaje actual, ej. es, en </span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var lang=Raptor.getLanguage();
+//  es
+                    </pre>
+
+
+                    <!-- getTag -->
+                    <br>
+                    <hr>
+                    <h4 id="getTag">Raptor.getTag( tag )</h4>
+                    <p class="text-muted">Devuelve el texto definido para el tag especificado en el lenguaje actual, el tag deberá estar definido en el directorio Translations en los archivos json que representan a cada idioma. Si no se encuentra el tag esta función devolverá una cadena vacía.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">tag: string</b><span> El tag que representa el texto que se desea mostrar para el idioma actual</span></h5>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Texto definido para el tag en el lenguaje actual o una cadena vacía sino se encontró </span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var msg=Raptor.getTag('msg_error');
+//  Un mensaje de error en el lenguaje por defecto, español
+                    </pre>  
+
+
+
+                    <!-- getToken -->
+                    <br>
+                    <hr>
+                    <h4 id="getToken">Raptor.getToken()</h4>
+                    <p class="text-muted">Devuelve el token de seguridad utilizado para la protección CSRF en la sesión activa.</p>
+
+                    <br>
+
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Token CSRF</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var token=Raptor.getToken();
+//  IHihdKUndmu545687NKkdLLJiod
+                
+                    </pre>  
+
+
+                    <!-- getUser -->
+                    <br>
+                    <hr>
+                    <h4 id="getUser">Raptor.getUser()</h4>
+                    <p class="text-muted">Devuelve el nombre de usuario autenticado.</p>
+
+                    <br>
+
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Nombre de usuario autenticado o public si no se encuentra autenticado</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var user=Raptor.getUser();
+//  admin
+                    </pre>   
+
+                    <!-- controlActions -->
+                    <br>
+                    <hr>
+                    <h4 id="controlActions">Raptor.controlActions()</h4>
+                    <p class="text-muted">Ordena al sistema a ejecutar el mecanismo de auto muestra de acciones de los botones.</p>
+                    <p class="text-muted">Cada elemento HTML o componentes visuales Extjs pueden tener una atributo privilegeName que deberá coincidir con el nombre de privilegio registrado en el módulo de seguridad, si el usuario autenticado no tiene los privilegios Raptor machea estos atributos y ejecuta una rutina para no mostrar aquellos componentes a los cuales este usuario no tenga permisos.</p>
+                    <br>
+                    <i>Esta función solo podrá ser invocada cuando el módulo de seguridad Symtarsus se encuentre instalado</i>
+                    <br>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+Ext.create('Ext.Button', {
+    text: Raptor.getTag('delete'),
+    disabled:true,
+    privilegeName:'delete',
+    action:'delete',
+});
+
+Raptor.controlActions();
+//  Pone en hidden todo los componentes con el atributo privilegeName que el usuario autenticado no tenga permisos
+                    </pre>  
+
+                    <!-- DATA -->
+                    <br>
+                    <hr>
+                    <h4 id="DATA">Raptor.DATA</h4>
+                    <p class="text-muted">Código para el envío de datos JSON.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.DATA: 6</b></h5>
+
+                    <br>
+
+
+                    <!-- ERROR -->
+                    <br>
+                    <hr>
+                    <h4 id="ERROR">Raptor.ERROR</h4>
+                    <p class="text-muted">Código mensajes de error.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.ERROR: 3</b></h5>
+
+                    <br>
+
+
+                    <!-- EXCEPTION -->
+                    <br>
+                    <hr>
+                    <h4 id="EXCEPTION">Raptor.EXCEPTION</h4>
+                    <p class="text-muted">Código mensajes de EXCEPTION.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.EXCEPTION: 5</b></h5>
+
+                    <br>
+
+
+                    <!-- INFO -->
+                    <br>
+                    <hr>
+                    <h4 id="INFO">Raptor.INFO</h4>
+                    <p class="text-muted">Código mensajes de INFO.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.INFO: 1</b></h5>
+
+                    <br>
+
+
+                    <!-- QUESTON -->
+                    <br>
+                    <hr>
+                    <h4 id="QUESTON">Raptor.QUESTON</h4>
+                    <p class="text-muted">Código mensajes de confirmación.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.QUESTON: 2</b></h5>
+
+                    <br>
+
+                    <!-- WAIT -->
+                    <br>
+                    <hr>
+                    <h4 id="WAIT">Raptor.WAIT</h4>
+                    <p class="text-muted">Código mensajes de espera.</p>
+
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">Raptor.WAIT: 4</b></h5>
+
+                    <br>
+
+                    <br>
+                    <hr>
+                    <h3 id="msg">Interactive Guide</h3>
+                    <p class="text-muted">El complento javascript de Interactive Guide permite la ejecución de los tutoriales definidos en cada módulo, el nombre especificado deberá estar definido anteriormente.</p>
+
+                    <!-- Interactive -->
+                    <br>
+                    <hr>
+                    <h4 id="inter.show">Interactive.show( name, condition )</h4>
+                    <p class="text-muted">Ordena a Interactive Guide ejecutar el tutorial especificado.</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la guia a ejecutar</span></h5>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">condition: string(opcional)</b><span> Nombres de tutoriales separado por OR, AND que serán evaluados para verificar si han sido mostrados</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+Interactive.show('welcome.name');
+//Muestra la guia definida con el nombre welcome.name
+
+Interactive.show('welcome.name','welcome.tuto1 and welcome.tuto2');
+//Muestra la guia definida con el nombre welcome.name si los tutoriales welcome.tuto1 y welcome.tuto2 han sido mostrados
+                    </pre> 
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor3/DocVersion3/js/perfect-scrollbar.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script type="text/javascript">
+            $(document.body).ready(function () {
+                window.prettyPrint && prettyPrint();
+                $('.sidebar').perfectScrollbar();
+
+                $('#buscar').keyup(function (event) {
+
+                    if ($(this).val()) {
+                        $('.nav-sidebar li').hide();
+                        $(".nav-sidebar li:contains('" + $(this).val() + "')").show();
+                    } else {
+                        $('.nav-sidebar li').show();
+                    }
+                });
+
+            });
+
+
+        </script>
+    </body>
+</html>
+

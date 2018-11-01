@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        {% block icon %}
+
+        {%endblock%}
+        <title>{{ title }}</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+        <style type="text/css">
+            body{
+                height: 100%;
+                background: #262b30;
+                color:white
+            }
+            pre{
+                color:#bcbcbc
+            }
+            h1{
+                color: #804fe2 !important;
+                font-size: 60px !important
+            }
+        </style>
+    </head>
+
+    <body>
+
+
+        <div class="container" >
+            <div class="row">
+                {% block content %}
+
+                {% endblock %}    
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+
+        <script type="text/javascript">
+
+        </script>
+
+    </body>
+</html>
+

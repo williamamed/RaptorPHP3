@@ -1,0 +1,211 @@
+
+</div>
+<div style="padding: 35px;" >
+    <h4 class="featurette-heading text-center"><img class="featurette-image text-center" src="{{ asset('Raptor/v3/img/logo-php.png') }}" style="margin-right: 15px;margin-top: 25px" width="120"></h4>
+    <h2 class="featurette-heading text-center"><span class="" >Bienvenido a Raptor PHP 3</span></h2>
+        
+    
+    <hr>
+    <br><br>
+    <div class="featurette" style="background: transparent !important;">
+            
+            <p class="lead">
+                La nueva versión Raptor PHP 3 mantiene su base arquitectónica concebida en la versión 2 así como su manejador core Slim por su
+                sencillez y ligereza. Se realizaron mejoras relativas a la configuración del framework migrando todos los archivos yml a json, cambios
+                en la declaración de rutas a través de anotaciones y declaración de apis dinámicas. Se realizaron optimizaciones en el trabajo con sesiones para permitir 
+                atender peticiones concurrentemente y algunas correcciones en la instalación automática de esquemas de base de datos para postgresql.
+                <br><br>
+                Se incluye el soporte y generación de plantillas Bootstrap 4 y Angular 1.7.9.
+                <br><br>
+                Para empezar, mire los requerimientos iniciales debajo en la siguiente tabla:<br>
+                <table class="table table-dark">
+                    <thead>
+                        <th scope="col">Requerimientos</th>
+                        <th scope="col">Valor actual</th>
+                    <thead>
+                    <tbody>
+                        <tr>
+                            <td>PHP 5.4 > <span class="label label-danger">Required</span></td>
+                            <td>
+                            {% if version[1]==true %}
+                               <span class="label label-success">{{ version[0] }}</span>     
+                            {% else %}
+                               <span class="label label-danger">{{ version[0] }}</span>          
+                            {% endif %}
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            <td>ZIP Extension <span class="label label-danger">Required for installer</span></td>
+                            <td>
+                            {% if other['zip']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MCRYPT Extension <span class="label label-danger">Required by system</span></td>
+                            <td>
+                            {% if other['mcrypt']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OPENSSL Extension <span class="label label-warning">Required by SAML</span></td>
+                            <td>
+                            {% if other['openssl']==false %}
+                               <span class="label label-danger">not active</span>     
+                            {% else %}
+                               <span class="label label-success">active</span>          
+                            {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </p>
+            <br>
+            <h3 class="featurette-heading"><img src="{{ asset('Raptor/img/logo-syn.png') }}" width="90" alt="..." >Componente de seguridad Syntarsus</h3>
+            <hr>
+            <p class="lead">
+            El módulo de seguridad Syntarsus utiliza un modelo estructurado basado en RBAC y CAEM(Control de acceso para escenarios multientidad), 
+            permitiendo desplegar soluciones para diferentes ambientes organizacionales. Se incluye para esta nueva versión el Control Vertical de Acceso a Estructuras, 
+            encargada de prevenir accesos no autorizados de usuarios a estructuras fuera de su contexto organizacional.<br><br>
+            
+            Las descripciones de rutas para seguridad ahora serán establecidas de conjunto con la anotación @Route encargada de otorgar más información en el momento de asignar provilegios.
+            Fueron migradas las funcionalidades de gestión de roles hacia un esquema jerárquico evitando las escaladas de privilegios y permitiendo la utilización de múltiples roles para un usuario.
+            
+            </p>
+            <br>
+            <br>
+            <h3 class="featurette-heading"><img src="{{ asset('Raptor/img/logo-int.png') }}" width="90" alt="..." >Interactive Guide (Guías Interactivas)</h3>
+            <hr>
+            <p class="lead">
+            This is one of the best funtions in Raptor 2, the module erase the old idea of users manual. The interactive
+            functions will give you the necesary tools to show tutorials in real time and interact with the user.<br><br>
+            
+            The module is installed by default under the vendor Raptor2 in the src location, to use it only you need is create the necesary templates about your content and call it in real time in the interface based on events of user interaction<br><br>
+            
+            With interactive you will point objects to user atention, show messages and give a author face(this trigger a care sensation).<br><br>
+            
+            
+            </p>
+            <br>
+            
+            <div class="row text-center"><h3>Fundadores y colaboradores del Proyecto Raptor</h3></div>
+            <hr>
+            <br>
+            <div class="container-fluid text-center">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/Authors/amed.jpg') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. William Amed</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Otto Haus</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/Authors/richard.jpg') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Ricardo Suarez</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Jorge Miralles</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Jorge Carmenate</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="row" style="margin-top: 15px">    
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>MSc. Pedro Abreu</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>MSc. Ivan Rodriguez</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Yordanis Carralero</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Lic. Roberto Garcia</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="">
+                            <img src="{{ asset('Raptor/img/account.png') }}" width="60" alt="..." class="rounded-circle">
+                            <div class="caption">
+                                <p>Ing. Alejandro Lora</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <br>   
+         
+            <hr>
+          <div class="row text-center">
+              <p>Estos chicos son la base del proyecto hoy y son miembros y moderadores en nuestra pequeña comunidad, agradecemos a todos por el tiempo dedicado a los proyectos, ideas, recomendaciones y las horas de pruebas dedicadas con el único propósito de ayudar a otros.</p>    
+              
+              <h4 class="text-center" style="width: 100%">A todos muchas gracias !!</h4>
+              <br><br>
+          </div>  
+    </div>
+
+
+</div>

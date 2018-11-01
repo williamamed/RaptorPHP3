@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor 3 Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor3/DocVersion3/css/perfect-scrollbar.css') }}" rel="stylesheet">
+
+        <style type="text/css">
+            body {
+                padding-top: 50px;
+            }
+
+
+            /*
+             * Global add-ons
+             */
+
+            .sub-header {
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            /*
+             * Top navigation
+             * Hide default border to remove 1px line.
+             */
+            .navbar-fixed-top {
+                border: 0;
+            }
+
+            /*
+             * Sidebar
+             */
+
+            /* Hide for mobile, show later */
+            .sidebar {
+                display: none;
+            }
+            @media (min-width: 768px) {
+                .sidebar {
+                    position: fixed;
+                    top: 51px;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1000;
+                    display: block;
+                    padding: 20px;
+                    overflow-x: hidden;
+                    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+                    background-color: #f5f5f5;
+                    border-right: 1px solid #eee;
+                }
+            }
+
+            /* Sidebar navigation */
+            .nav-sidebar {
+                margin-right: -21px; /* 20px padding + 1px border */
+                margin-bottom: 20px;
+                margin-left: -20px;
+            }
+            .nav-sidebar > li > a {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+            .nav-sidebar > .active > a,
+            .nav-sidebar > .active > a:hover,
+            .nav-sidebar > .active > a:focus {
+                color: #fff;
+                background-color: #428bca;
+            }
+
+
+            /*
+             * Main content
+             */
+
+            .main {
+                padding: 20px;
+            }
+            @media (min-width: 768px) {
+                .main {
+                    padding-right: 40px;
+                    padding-left: 40px;
+                }
+            }
+            .main .page-header {
+                margin-top: 0;
+            }
+
+
+            /*
+             * Placeholder dashboard ideas
+             */
+
+            .placeholders {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .placeholders h4 {
+                margin-bottom: 0;
+            }
+            .placeholder {
+                margin-bottom: 20px;
+            }
+            .placeholder img {
+                display: inline-block;
+                border-radius: 50%;
+            }
+
+
+            .plugin-list li{
+                padding: 5px;
+            }
+
+
+        </style>
+
+
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
+        <link rel="shortcut icon" href="{{ asset('Raptor/ico/raptor-32.png') }}">
+    </head>
+
+    <body class="fondo">
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar" style="overflow: hidden;">
+                    <ul class="nav nav-sidebar flex-column" >
+                        <li class="nav-item"><a class="nav-link" href="#">Introducción <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#estructura">Estructura</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#arquitectura">Arquitectura</a>
+                            <ul class="nav flex-column" style="padding-left: 30px">
+                                <li class="nav-item"><a class="nav-link" href="#aspect">Aspectos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#controller">Controladores</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#compiler">Compiler</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#manifiest">Manifiesto de instalación</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#reglas">Reglas de Rutas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#mainclass">La clase principal</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tutorials">Tutoriales(Interactive Guide)</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#enrutamiento">Enrutamiento</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#plugin">View Plugins</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#Configuracion">Configuración</a></li>
+                    </ul>
+
+                </div>
+
+
+                <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+                    <h1 class="page-header">Introducción</h1>
+                    <p>Raptor PHP 3 aparece luciendo el nuevo look definido para las bases de los proyectos del programa de desarrollo, apareciendo en su descripción oficial como Raptor PHP 3. Esta nueva versión se enfoca en mejoras funcionales de la arquitectura planteda para Raptor 2 donde pueden apreciarse cambios en diferentes conceptos en el manejo del framework, aunque en general se mantiene la misma filosofía de trabajo.</p>
+                    <p>Oficialmente Raptor PHP 3 pertenece al programa de desarrollo del Proyecto Raptor apoyado, por organizaciones e intituciones como la Unión de Informáticos de Cuba y los Joven Club de Computación y Electrónica. Se orienta netamente a proporcionar una herramineta de desarrollo para la industria y programadores cubanos siguiendo las líneas de trabajo especificadas en la política de informatización.</p>
+                    
+                    <p>La idea detrás, es que todas las funciones proporcionadas por Raptor puedan realizarse a través de interfaces visuales, siendo capaces de garantizar la abstracción para cualquier tipo de desarrollador. El concepto de realizar todas estas acciones a nivel de interfaz garantiza la accesibilidad tanto para unos como para otros.</p>
+                    <hr>
+                    <h3 id="estructura">Estructura</h3>
+                    <p>La estructura del proyecto es bastante común, agrupando cada una de las partes fundamentales de un aplicación en directorios diferentes. En resumen encontraremos directorios con toda la configuración, bibliotecas del lado del servidor, código fuente los módulos(bundles) y el directorio de publicación de recursos web.</p>
+                    <div style="background: #333333;color:white;padding: 10px">
+                        <ul class="nav nav-sidebar" style="margin-left: 0px !important">
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>app</b><i> (Directorio de configuración)</i>
+                                <ul class="" style="list-style: none outside none">
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>cache</span></li>
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>config</span>
+                                        <ul class="" style="list-style: none outside none">
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>options.yml</span><i> (Archivo principal de configuración, conexión de base datos, directivas del framework etc..)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>bundles.yml</span><i> (Registro de bundles)</i></li>
+                                        </ul>
+                                    </li>
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Sessions</span></li>
+                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>Main.php</span></li>
+                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>AppAspectKernel.php</span></li>
+                                </ul>
+                            </li>
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>libs</b><i> (Contiene las bibliotecas PHP, Raptor, Doctrine, Twig, AOP etc..)</i></li>
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>src</b><i> (Aquí estará el código de nuestra aplicación organizado por módulos)</i>
+                                <ul class="" style="list-style: none outside none">
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Raptor2</span></li>
+                                    <li><b>...</b></li>
+
+                                </ul>
+                            </li>
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>web</b><i> (Directorio público)</i>
+                                <ul class="" style="list-style: none outside none">
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>SSO</span><i> (Manejador de autenticación única SAML, activo solo cuando el módulo de seguridad lo requiera)</i></li>
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>bundles</span><i> (Directorio de publicación de recursos web, JS, CSS, etc..)</i></li>
+                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>index.php</span></li>
+                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>dev.php</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <h3 id="arquitectura">Arquitectura</h3>
+                    <p>Raptor plantea una arquitectura basada en componentes, promoviendo la reutilización y buenas prácticas en el desarrollo.</p>
+                    <p>La lógica de nuestro código estará dividida en <b>módulos(bundles)</b> que estarán a su vez agrupados por vendors, los vendors solo representarán un ente agrupador determinante solo de forma organizativa.</p>
+                    <div style="background: #333333;color:white;padding: 10px">
+                        <ul class="nav nav-sidebar" style="margin-left: 0px !important">
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>ejemplo</b><i> (nombre del vendor)</i>
+                                <ul class="" style="list-style: none outside none">
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>RecursosHumBundle</span><i> (Un ejemplo de módulo)</i></li>
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>EconomiaBundle</span><i> (otro ejemplo de módulo agrupado en el mismo vendor)</i>
+                                        <ul class="" style="list-style: none outside none">
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Aspect</span><i> (Aquí estará toda la lógica de AOP)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Compiler</span><i> (Directivas de minificación de recursos web para el módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Controller</span><i> (Los controladores de nuestro módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Manifiest</span><i> (Contiene un archivo install.json donde estarán las directivas de exportación e instalación de este módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Model</span><i> (Los modelos de nuestro módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Resources</span><i> (Recursos web del módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Rule</span><i> (Reglas de ejecución de rutas)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Translation</span><i> (Contexto idiomático i18n)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Tutorials</span><i> (Directorio de definición de tutoriales o guias de usuario)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Views</span><i> (Plantillas web)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>EconomiaBundle.php</span><i> (Clase principal del módulo, define el comportameinto global del mismo)</i></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <br>  
+                    <h4 id="aspect">Definición de Aspectos</h4>
+                    <p>La Programación Orientada a Aspectos(AOP) es una de las funcionalidades que se mantiene en esta versión y la lógica estará determinada por el framework Go! AOP.</p>
+                    <p>Go! AOP permite resolver los problemas de la tradicional programación orientada a objetos, garantizando un eficiente sistema de intersección de funciones del código existente.</p>
+
+                    <b>Características</b>
+                    <ul>
+                        <li>Intersección y ejecución de métodos public o protected en una clase</li>
+                        <li>Intersección y ejecución de métodos static o métodos en una clase final</li>
+                        <li>Intersección y ejecución de métodos en traits</li>
+                        <li>Intersección y acceso a propiedades public/protected en objetos</li>
+                        <li>Conector para inicialización de clases estáticas</li>
+                        <li>Conector para inicialización de objetos</li>
+                        <li>Intersección e invocación de funciones del sistema PHP</li>
+                        <li>Capacidad de cambiar los valores de retorno de métodos/funciones</li>
+                    </ul>
+                    <p>AOP framework usa simples clases PHP para la declaración de aspectos que residirán en el directorio Aspect de nuestro módulo y serán registrados en la clase principal del módulo.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Aspect;
+
+use Go\Aop\Aspect;
+use Go\Aop\Intercept\FieldAccess;
+use Go\Aop\Intercept\MethodInvocation;
+use Go\Lang\Annotation\After;
+use Go\Lang\Annotation\Before;
+use Go\Lang\Annotation\Around;
+use Go\Lang\Annotation\Pointcut;
+
+/**
+ * Monitor aspect
+ */
+class MonitorAspect implements Aspect
+{
+
+    /**
+     * Method that will be called before real method
+     *
+     * @param MethodInvocation $invocation Invocation
+     * @Before("execution(public Example->*(*))")
+     */
+    public function beforeMethodExecution(MethodInvocation $invocation)
+    {
+        $obj = $invocation->getThis();
+        echo 'Calling Before Interceptor for method: ',
+             is_object($obj) ? get_class($obj) : $obj,
+             $invocation->getMethod()->isStatic() ? '::' : '->',
+             $invocation->getMethod()->getName(),
+             '()',
+             ' with arguments: ',
+             json_encode($invocation->getArguments()),
+             "\n";
+    }
+}
+                    </pre>
+
+                    <p>En la clase principal del módulo se registrará el Aspecto</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle;
+use Raptor\Bundle\Bundle;
+use Go\Core\AspectContainer;
+use Raptor\Raptor;
+use Raptor\Bundle\Route\RuleContainer;
+use Raptor\Bundle\Annotations\Route;
+
+/**
+ * @Route("/economia")
+ */
+class EconomiaBundle extends Bundle{
+
+    public function registerBundleAspect(AspectContainer $appAspectContainer) {
+        $appAspectContainer->registerAspect(new Aspect\MonitorAspect());
+    }
+
+    public function entrance(Raptor $app) {
+
+    }
+
+    public function registerRouteRule(RuleContainer $ruleContainer) {
+
+    }
+
+}
+                    </pre>
+
+
+                    <br>
+                    <h4 id="controller">Definición de Controladores</h4>
+                    <p>Los controladores son el concepto que modela la lógica de interacción de la capa de negocio con la capa de presentación, como en el resto de las tecnologías es bastante simple su definición.</p>
+                    <p>Residirán en el directorio Controller en forma de clases que deberán contener sufijo Controller, ejemplo DefaultController.</p>
+                    <p>Las clases controladoras deberán heredar de Raptor\Bundle\Controller\Controller y en donde se definirán las acciones en forma de métodos.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Controller;
+
+use Raptor\Bundle\Controller\Controller;
+use Raptor\Bundle\Annotations\Route;
+/**
+ * @Route("/gestionar")
+ */
+class DefaultController extends Controller{
+    
+    /**
+     * Add your definition Route and the RouteName[optional]
+     *
+     * @Route("/index")
+     * 
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @param \Slim\Route $route
+     */
+    public function indexAction($request,$response,$route) {
+        return "Hola mundo";
+    }
+    
+}
+                    </pre>
+                    <p>Todas las acciones iran acompañadas de un bloque de anotaciones de código que establecerán su configuración(rutas, descripción etc..).</p>
+
+                    <br>
+                    <h4 id="compiler">Definición de un Compiler</h4>
+                    <p>El compiler residirá en el directorio Compiler y se encargará de las directivas de minificación de nuestros recursos web(js, css) contenidos en el directorio Resources.</p>
+                    <p>Por defecto Raptor mueve nuestros recursos tal y como están en la carpeta Resources hacia el directorio público(web/bundles), el compiler se encarga de realizar un proceso de minificación en la movida, creando un nuevo archivo con el contenido especificado para un mejor rendimiento en la carga de estos recursos por el navegador.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Compiler;
+
+use Raptor\Asset\Resources;
+
+class Compiler extends Resources{
+    
+    public function create() {
+        $this->setAsset('js/all.js')
+                ->add('js/file1.js')
+                ->add('js/file2.js')
+                ->compile(Resources::JS);
+        
+        $this->setAsset('css/all.js')
+                ->add('bootstrap/css/bootstrap.css',false)
+                ->add('css/mi-css.css')
+                ->compile(Resources::CSS);
+	
+    }
+}
+                    </pre>
+
+
+                    <br>
+                    <h4 id="manifiest">Manifiesto de instalación</h4>
+                    <p>Para la rutina de exportación de un componente el sistema requerirá la creación de un manifiesto de instalación ya que este componente luego será importado.</p>
+                    <p>Lo primero es la creación del directorio Manifiest dentro de nuestro componente, luego se crea el archivo install.json dentro del mismo con las siguientes claves.</p>
+                    <pre class="prettyprint linenums" >
+{
+    "author": "Dinobyte S.L",
+    "description": "Lorem itsum",
+    "installScript": "Manifiest\/Install.php ",
+    "namespace": "examples.EconomiaBundle.EconomiaBundle",
+    "installed": 0
+}
+                    </pre>
+                    <p>El atributo namespace debera especificarse separado por (.) y se refiere al namespace de la clase principal del bundle, el atributo installed deberá definirse en 0 para la exportación.</p>
+
+                    <p>El atributo installScript es opcional y solo establece un script para realizar acciones adicionales en la instalación tales como el copiado de los recursos web, creación de tablas, archivos etc.</p>
+                    <pre class="prettyprint linenums" >
+&lt;?php
+
+$app=  \Raptor\Raptor::getInstance();
+$message='El componente fue instalado correctamente';
+Raptor\Bundle\Publisher\Publisher::run('\ejemplos\EconomiaBundle\EconomiaBundle');
+return $message;
+
+?&gt;
+                    </pre>
+
+
+
+                    <br>
+                    <h4 id="reglas">Definición de Reglas de Rutas</h4>
+                    <p>Una regla de ruta es similar a los Aspectos, solo que sirven como instersectores de ejecución de determinados patrones de rutas.</p>
+                    <p>Las reglas son definidas en base a expresiones regulares, en caso de coicidir con la ruta actual se ejecuta dicha regla. Estarán ubicadas en el directorio Rule de nuestro módulo y se definen en forma de clases.</p>
+                    <p>La clase que define la regla deberá implementar la interfaz \Raptor\Bundle\Route\Rule, la lógica a realizar se especifica en el método call de la clase, el método deberá retornar falso en caso de no querer interrumpir el flujo de ejecución o verdadero en caso de terminar la ejecución del flujo.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Rule;
+/**
+ * 
+ * @Pattern /economia/index
+ * @Priority 9
+ * 
+ */
+class MiRegla implements \Raptor\Bundle\Route\Rule{
+    
+     public function call(\Raptor\Raptor $app) {
+        //alguna accion especial antes de ejecutar las acciones asociadas a esta ruta
+        return false;
+    }    
+}
+                    </pre>
+                    <p>Para que el sistema reconozca la regla esta deberá ser registrada de igual forma que los aspectos en la clase principal del módulo.</p>
+
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle;
+use Raptor\Bundle\Bundle;
+use Go\Core\AspectContainer;
+use Raptor\Raptor;
+use Raptor\Bundle\Route\RuleContainer;
+use Raptor\Bundle\Annotations\Route;
+/**
+ * @Route("/economia")
+ */
+class EconomiaBundle extends Bundle{
+
+    public function registerBundleAspect(AspectContainer $appAspectContainer) {
+        
+    }
+
+    public function entrance(Raptor $app) {
+
+    }
+
+    public function registerRouteRule(RuleContainer $ruleContainer) {
+        $ruleContainer->add(new Rule\MiRegla());
+    }
+
+}
+                    </pre>
+                    
+                    <p>Otra forma de registro de la regla para un patrón de ruta es en la propia anotación de la ruta, permitiendo unificar el concepto ruta y regla de ruta.</p>
+
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Controller;
+
+use Raptor\Bundle\Controller\Controller;
+use Raptor\Bundle\Annotations\Route;
+/**
+ * @Route("/gestionar")
+ */
+class DefaultController extends Controller{
+    
+    /**
+     * Add your definition Route and the RouteName[optional]
+     *
+     * @Route("/index",rule="\ejemplo\EconomiaBundle\Rule\MiRegla")
+     * 
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @param \Slim\Route $route
+     */
+    public function indexAction($request,$response,$route) {
+        return "Hola mundo";
+    }
+    
+}
+                    </pre>
+
+
+                    <br>
+                    <br>
+                    <h4 id="mainclass">La clase principal</h4>
+                    <p>Cada módulo contendrá una clase principal con el sufijo Bundle, esta clase determina el comportamiento global de nuestro módulo registrando los Aspectos, Reglas de Rutas, método de ejecución inicial y el prefijo de ruta del módulo si se desea.</p>
+                    <p>La anotación @Route determina el prefijo de ruta que utilizarán todas las rutas declaradas en los controladores, así que a todas la rutas del módulo se le añadirá el valor especificado al inicio.</p>
+
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle;
+use Raptor\Bundle\Bundle;
+use Go\Core\AspectContainer;
+use Raptor\Raptor;
+use Raptor\Bundle\Route\RuleContainer;
+use Raptor\Bundle\Annotations\Route;
+/**
+ * @Route("/economia")
+ */
+class EconomiaBundle extends Bundle{
+
+    public function registerBundleAspect(AspectContainer $appAspectContainer) {
+        //registro de aspectos
+    }
+
+    public function entrance(Raptor $app) {
+        //este metodo se ejecutara cada vez que se llame a una ruta que pertenesca a alguna accion del modulo
+    }
+
+    public function registerRouteRule(RuleContainer $ruleContainer) {
+         //registro de reglas de rutas
+    }
+
+}
+                    </pre>
+                    <br>
+
+                    <h4 id="tutorials">Tutoriales(Interactive Guide)</h4>
+                    <p>El directorio Tutorials servirá para definir todas las guías interactivas de usuario, estas serán manejadas por el componente Interactive Guide.</p>
+
+                    <p>Para la definición de las guías deberán crearse directorios con la abreviatura del lenguaje a utilizar, en caso de español la abreviatura será <b>es</b>. Luego deberán crearse 2 directorios(authors y docs) dentro de esta carpeta.</p>
+                    <p>La carpeta <b>authors</b> contendrá todos los autores de los tutoriales contenidos en archivos JSON y con el siguiente formato.</p>
+                    <pre class="prettyprint linenums" >
+{
+    "name": "Jhon Doe",
+    "img":"Raptor/img/logo.png",
+    "reference":"Founder of this proyect"
+}
+                    </pre>
+                    <p>Solo deberá especificarse el nombre, la imagen que representa al autor y una pequeña referencia de quien es.</p>
+
+                    <p>La carpeta <b>docs</b> contendrá los tutoriales en cuestión, organizados en carpetas en la forma que desees, estos serán llamados separados por (.) de acuerdo a la estructura de carpetas.</p>
+                    <p>Los tutoriales dentro del directorio docs seran definidos con marcado html con la misma extensión.</p>
+                    <p>Un ejemplo sería la siguiente definición de un tutorial <b>welcome.html</b></p>
+
+                    <pre class="prettyprint linenums" >
+&lt;div&gt;Welcome to Interactive API !!&lt;/div&gt;
+
+                    </pre>
+
+                    <div style="background: #333333;color:white;padding: 10px">
+                        <ul class="nav nav-sidebar" style="margin-left: 0px !important">
+                            <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>Tutorials</b>
+                                <ul class="" style="list-style: none outside none">
+
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>es</span>
+                                        <ul class="" style="list-style: none outside none">
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>authors</span>
+                                                <ul class="" style="list-style: none outside none">
+                                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>jhon.json</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>docs</span>
+                                                <ul class="" style="list-style: none outside none">
+                                                    <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>welcome.html</span></li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>Guia.php</span></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <br>
+
+                    <p>Hasta este punto ya se encuentra definido el marcado de nuestra guía, ahora será necesario otorgarle el comportamiento a nuestro tutorial. Para esto debemos definir una clase Guia.php que implementa la interfaz \Raptor\Bundle\Route\Rule. Una vez creada la clase en el método call definiremos el comportamiento de la siguiente forma.</p>
+
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Tutorials;
+/**
+ * Description of Guia
+ *
+ * 
+ */
+class Guia implements \Raptor\Bundle\Route\Rule{
+    /**
+     *
+     * @var \Raptor2\InteractiveBundle\Manager\InteractiveManager
+     */
+    private $interactive;
+    
+
+    public function call(\Raptor\Raptor $app) {
+        $this->interactive=$app->getInyector()->get('InteractiveManager');
+        
+        $this->interactive->add(array(
+            'name'=>'welcome',
+            'seconds'=>35,
+            'style'=>array(
+                'background'=>'darkblue'
+            ),
+         // 'next'=>'tutorial_siguiente',
+            'author'=>'jhon',
+            'position'=>'right top'
+        ),'EconomiaBundle');
+        
+        //No olvidarse de retornar false para continuar con el flujo de ejecucion
+        return false;
+    }
+    
+}
+                    </pre>
+
+                    <p>El método add del InteractiveManager es quién realiza la magía, recibe 2 parámetros, el primero un array asociativo con los atributos del tutorial y el segundo el bundle en donde buscará los datos del tutorial especificado en el <b>name</b>.</p>
+
+                    <p><b>name: </b> El nombre del tutorial a buscar en el directorio <b>docs</b>, no se especifica la extensión .html. Si el tutorial se encuentra dentro de otras subcarpetas dentro de docs pues se especifica separado por (.), ejemplo <b>subcarpeta.welcome</b></p>
+                    <p><b>seconds: </b> La cantidad de segundos que demorará mostrándose el tutorial.</p>
+                    <p><b>style: </b> Un array con los estilos de la ventana flotante</p>
+                    <p><b>next: </b> De especificarse una vez terminado de mostrarse el tutorial actual automaticamente se mostrará el especificado, de igual forma que en <b>name</b> aquí se especifica el nombre del tutorial a mostrar.</p>
+                    <p><b>author: </b> Aquí se especifica el nombre del archivo JSON de la carpeta authors.</p>
+                    <p><b>position: </b> Esta será la posición en la pantalla donde será mostrado el tutorial, las posiciones permitidas son right, top, left y bottom</p>
+                    <p><b>waitSeconds: </b>Esta será la cantidad de segundos que se esperará antes de mostrar el tutorial.</p>
+                    <p><b>pointer: </b>Este atributo de ser definido mostrará un apuntador en forma de flecha, este apuntará al elemento html definido en el selector, antes del selector puede ser definido la orientación de la flecha. ejemplo. <b>arrow:down #idElemento</b>, esto mostrará una flecha apuntando hacia abajo el elemento especificado. Las propiedades de orientacion pueden ser <b>arrow:right</b>, <b>arrow:left</b>, <b>arrow:up</b> y <b>arrow:down</b></p>
+                    <br>
+                    <p>Para que el sistema se ponga en espera para la ejecución de nuestro tutoriales debemos registrar la clase Guia.php como un regla de ruta en la clase principal.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle;
+use Raptor\Bundle\Bundle;
+use Go\Core\AspectContainer;
+use Raptor\Raptor;
+use Raptor\Bundle\Route\RuleContainer;
+use Raptor\Bundle\Annotations\Route;
+/**
+ * @Route("/economia")
+ */
+class EconomiaBundle extends Bundle{
+
+    public function registerBundleAspect(AspectContainer $appAspectContainer) {
+        
+    }
+
+    public function entrance(Raptor $app) {
+
+    }
+
+    public function registerRouteRule(RuleContainer $ruleContainer) {
+        $ruleContainer->addGuia(new Tutorials\Guia());
+    }
+
+}
+                    </pre>
+                    <p>Una vez registrado los tutoriales ya podemos llamarlos de acuerdo a alguna interacción del usuario, ejemplo un click de un botón. Para esto solo debemos llamar vía javascrip a <b>Interactive.show('welcome').</b></p>
+                    <a id="tuto" class="btn btn-primary">Click aquí para ver el tutorial</a>
+
+                    <br><br>
+
+                    <hr>
+                    <h3 id="enrutamiento">Enrutamiento</h3>
+                    <p>El sistema de rutas es una de las partes mejoradas para esta versión, además siendo uno de los factores más importantes dentro de cualquier framework.</p>
+                    <p>Una ruta esta compuesta por 2 partes, la ruta físca y la ruta virtual. La ruta física es la parte de la dirección URL que representa una locación física en el servidor web, donde en una dirección como la siguiente <b>http://localhost/Raptor2/web/dev.php/economia/index</b> la ruta física correspondería a <b>/Raptor2/web/dev.php</b></p>
+                    <p>Para el enrutamiento de Raptor solo se tomarán en cuenta las rutas virtuales, que en el ejemplo anterior correspondería a <b>/economia/index</b>. Ahora bien, la mejora en el enrutamiento radica en la definición de las rutas virtuales, ya que ahora estas son definidas mediante anotaciones de código <b>@Route</b> en las propias acciones de los controladores</p>
+                    <p>Esto trae consigo que las rutas siempre sean definidas en conjunto con la acción, tributando a la unión de estos conceptos ya que el sistema se basa precisamente en la ejecución de una acción de acuerdo a su patrón de ruta virtual. Además de agrupar y remover todas las configuraciones excesivas esto garantiza que toda la definición esté donde por responsabilidad debe estar de acuerdo a la arquitectura orientada a componentes planteada.</p>
+                    <p>De igual forma en esta versión se añade a la configuración de rutas opcionalmente, el método por donde escuchará esta ruta, y si se ejecutará siguiendo la protección CSRF</p>
+                    <pre class="prettyprint linenums" >
+
+    /**
+     * La ruta /index esta asociada a la accion indexAction del controlador
+     * actual
+     *
+     * @Route("/index",method="GET",csrf=true)
+     * 
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @param \Slim\Route $route
+     */
+    public function indexAction($request,$response,$route) {
+        return "Hola mundo";
+    }
+    
+}
+                    </pre>
+                    <h4>Prefijos de rutas</h4>
+                    <p>Los prefijos de rutas son el complemento del sistema de enrutamiento, y se basa en la definición de estos para la agrupación de determinados patrones de rutas en las acciones.</p>
+                    <p>Pueden ser definidos en 2 niveles o sea los 2 niveles superiores a las acciones, de acuerdo a esto el nivel superior a una acción de un controlador es el propio controlador. Así que es posible establecerle a un controlador la anotación <b>@Route</b> de igual manera, de esta forma automaticamente pasaría a ser un prefijo de las rutas definidas en las acciones.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle\Controller;
+
+use Raptor\Bundle\Controller\Controller;
+
+/**
+ * @Route("/gestionar")
+ */
+class DefaultController extends Controller{
+    
+    /**
+     * Aunque la ruta definida en esta accion es /index la anotacion Route del
+     * controlador le establece un prefijo /gestionar, por lo que realmente la
+     * ruta de la accion seria /gestionar/index, y asi sucesivamente para todas
+     * las acciones que sean definidas en este controlador
+     *
+     * @Route("/index")
+     * 
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @param \Slim\Route $route
+     */
+    public function indexAction($request,$response,$route) {
+        return "Hola mundo";
+    }
+    
+}
+                    </pre>
+
+                    <p>El próximo y útimo nivel de definición de prefijos de rutas es en la clase principal del bundle, ya que esta agrupa a todos los controladores del módulo. De igual forma en esta clase es posible establecer la anotación @Route que les será añadida a todos los controladores como prefijo.</p>
+                    <pre class="prettyprint linenums" >
+namespace ejemplo\EconomiaBundle;
+use Raptor\Bundle\Bundle;
+use Go\Core\AspectContainer;
+use Raptor\Raptor;
+use Raptor\Bundle\Route\RuleContainer;
+
+/**
+ * @Route("/economia")
+ */
+class EconomiaBundle extends Bundle{
+
+                    </pre>    
+
+                    <p>Siguiendo los niveles establecidos en los ejemplos anteriores la ruta para la acción del controlador sería <b>/economia/gestionar/index</b> </p>
+
+                    <br><br>
+                    <hr>
+                    <h3 id="plugin">View Plugins</h3>
+                    <p>Los ViewPlugins es una de las nuevas funciones en Raptor 2, en pocas y entendibles palabras permite la inyección de código en los hotpots declarados en el sistema para determinados patrones de ruta.</p>
+                    <p>Hay que tener en cuenta que Raptor viene con algunos hotpots declarados por defecto que nos permite la inyección de código en el panel de control de Raptor y en la biblioteca core javascript de Raptor.</p>
+                    <p>Si deseas utilizar los hotpots declarados en Raptor puedes ver la siguiente lista:</p>
+                    <ul class="plugin-list">
+                        <li><code>raptor_bundle</code>, nombre de plugin reservado para inyectar contenido html en el menú bundles del panel de control.</li>
+                        <li><code>raptor_tools</code>, nombre de plugin reservado para inyectar contenido html en el menú tools del panel de control.</li>
+                        <li><code>raptor_panel</code>, nombre de plugin reservado para inyectar contenido html en el menú principal del panel de control.</li>
+                        <li><code>core_library_inside</code>, nombre de plugin reservado para inyectar funciones javascript en la clase core enviada al cliente. Ejemplo <pre class="prettyprint">getHola: function(){ … }, getHola2: function(){ … }</pre>, estos extractos son añadidos al objeto Raptor del lado del cliente.</li>
+                        <li><code>core_library_outside</code>, nombre de plugin reservado para inyectar funciones javascript en el espacio de variables de la librería core, este contenido es inyectadoo luego de la creación del objeto Raptor.</li>
+                        <li><code>core_header</code>, nombre de plugin reservado para inyectar contenido html en la sección header de la respuesta actual, es inyectado luego del script del core de Raptor.</li>
+                    </ul>
+
+                    <p><b>Desarollemos un ejemplo !!</b></p>
+                    <p>Para este ejemplo declararemos un objeto javascript con funciones para que sea accesible en todos los patrones de rutas. Para esto creamos en un hipotetico MiEjemploBundle una plantilla con el código a inyectar, que en este caso será la definición del objeto javascript.</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin2.png") }}">
+                    <p>Una vez creada la plantilla procedemos a declarar su contenido.</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin3.png") }}">
+                    <p>En la definición vemos un par de funciones de ejemplo para utilizar luego.</p>
+                    <p>Ahora viene lo interesante, pues inyectaremos este código en las páginas de los patrones de rutas que queramos. Para inyectar el código en determinados patrones de ruta tendremos que declarar una regla de ruta que se encargará de esta acción.</p>
+                    <p>Creamos una clase Plugin.php que implementará la interfaz Rule.</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin4.png") }}">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin5.png") }}">
+                    <p>Dentro del método call es donde en realidad le decimos que inyecte el contenido que queremos en donde queremos. La función setViewPlugin se encarga de esta acción, el primer parámetro es el hotpot donde inyectaremos el contenido, el segundo parámetro es el contenido en cuestión.</p>
+                    <p>Para el ejemplo utilizamos el hotpot <code>core_library_outside</code>, que no es más que el global scope del navegador</p>
+                    <p>Ahora debemos decirle a Raptor para qué rutas queremos ejecutar esta regla, para esto vamos ala clase principal de componente y en método registerRouteRule añadimos lo siguiente.</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin6.png") }}">
+                    <p>Esta definición le dice a Raptor que solo debe ejecutar la regla que inyecta el contenido cuando la ruta sea <b>/ejemplos/hola1</b>. Lógicamente podemos especificar que inyecte el contenido para todas las rutas también.</p>
+
+                    <p>Ahora probemos en el navegador el ejemplo ejecutando la ruta <b>/ejemplos/hola1</b></p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin7.png") }}">
+                    <p>Hecho esto podemos ver que efectivamente el código fue inyectado y que la definición de nuestra clase se encuentra en el global scope del navegador.</p>
+                    <p>Las potencialidades de este mecanismo son muchas ya que podemos inyectar cuanto contenido queramos para disímiles acciones, como implementar tu propia biblioteca core javascript y hacerla accesible para determinado módulos o rutas. Este mecanismo permite no solo la inyección de javascript sino que también podemos inyectar HTML, CSS, etc. En general podemos inyectar cualquier contenido en donde queramos.</p>
+
+                    <p>Si necesitas más, pues puedes declarar tus propios hotpot utilizando la función plugin en twig. Esta función espera un solo parámetro y es el nombre del hotpot.</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/plugin1.png") }}">
+                    <p>Con solo llamar esta función en la parte de la plantilla que queramos estaríamos diciéndole a Raptor que todo el contenido que sea declarado para este hotpot lo inyecte en esa locación. ¿Bastante simple no?</p>
+
+
+
+                    <br><br>
+
+                    <hr>
+                    <h3 id="Configuracion">Configuración</h3>
+                    <p>Las opciones de configuración de framework se encuentran en la nueva carpeta  config dentro del directorio app, estas controlan el comportamiento general del sistema además del registro de los componentes del sistema.</p>
+                    <p>La configuración de Raptor tiene una característica y es que cuando el sistema lee la configuración esta pasa a ser cacheada para aumentar el rendimiento, esto implica que cuando el sistema lee la configuración establecida en estos archivos no vuelve a learla hasta tanto no se le indique al framework lo contrario. El re-cacheo de configuración puede realizarse a traves del panel de control de Raptor, en la opción <b>Limpiar caché</b>, también es posible limpiar la cache manualmente en caso de algún problema eliminando el directorio <b>app/cache/system</b>.</p>
+                    <p>Las directivas ahora en el archivo <b>options.json</b>(antiguo options.yml) se encarga de establecer todas las posibles opciones del framework.</p>
+<pre class="prettyprint linenums" >
+{
+    "database": {
+        "driver": "pdo_pgsql",
+        "dbname": "testing",
+        "user": "postgres",
+        "port": "5432",
+        "password": "postgres",
+        "host": "localhost"
+    },
+    "raptor": {
+        "language": "es",
+        "secret": "6k3i6690@cj34%k#0jk4e@0gdd$i393%",
+        "cache": "3",
+        "services": "http:\/\/localhost\/Raptor2\/web\/index.php",
+        "locales": [
+            "es",
+            "en"
+        ],
+        "name": "Raptor3new"
+    }
+}
+
+                    </pre>  
+                    <br><br>
+                    <p>Por defecto es modificado por el gestor de configuración del panel de control de Raptor.</p>
+                    
+                    <br><br>
+                    <p>Existen otras opciones que pueden ser establecidas como las que aparecen a continuación</p>
+<pre class="prettyprint linenums" >
+{
+    "raptor": {
+        "proxy": "user:pass@10.0.0.1:8080",
+        "session_expire": "50000",
+        "session_remote":true
+    }
+}
+
+                    </pre>  
+                    <br><br>
+                    <p><b>proxy:</b>esta configuración le permite al sistema acceder a través del proxy especificado, usualmente en desarrollo es utilizado para descargar e instalar los paquetes del repositorio de raptor.</p>
+                    <p><b>session_expire:</b>establece el tiempo de duración de la sesión en segundos(por defecto es 0 que significa que no expira).</p>
+                    <p><b>session_remote:</b> esta directiva es utilizada para entornos con balance de carga, garantizando que las sesiones sean almacenadas por el gestor de base de datos, raptor implementa esta lógica si se le establece como valor true. Si se desea puede asignársele el nombre de la clase personalizada que manejará esta lógica en caso de que se quiera que raptor no la maneje.</p>
+                    <p>Es posible adicionar opciones personalizadas a este archivo de configuración que pueden ser obtenidas en cualquier parte de nuestra app.</p>
+                    <p>Veamos un ejemplo !!</p>
+<pre class="prettyprint linenums" >
+{
+    "mis_opciones": {
+        "dato1": "aqui pongo mis valores",
+        "dato2": ["valor","valor2"]
+    }
+}
+
+                    </pre>  
+                    <br><br>
+                    <p>Para el ejemplo definimos un tag <b>mis_opciones</b> que agrupa 2 tags <b>dato1</b> y <b>dato2</b>, donde hemos colocado algunos valores que accederemos en nuestra app.</p>
+                    <p>Obtiendo y modificando valores</p>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/opt-4.png") }}">
+                    <br><br>
+                    <p>Para obtener los valores cacheados solo debemos acceder a getConfOption del cargador de configuración, que nos devolverá un array con todas las directivas de configuración en forma de array asociativo. Luego de modificar los valores lo seteamos en el cargador, escribimos y obligamos al sistema a cachear las nuevas opciones.</p>
+                    <br>
+                    <h4>Registro Manual de Bundles</h4>
+                    <p>Raptor cuenta con un sistema automatizado de creación y manejo de bundle a través del panel de control, a pesar de esto es posible manipular manualmente los bundles registrados en el sistema interviniendo en el archivo <b>components.json</b>(antiguo bundles.yml) del directorio <b>app/conf.</b></p>
+                    <p>Usted debe ser cuidadoso ya que el registro de los componentes se hace en el formato JSON establecido de la siguiente forma.</p>
+
+                    <pre class="prettyprint">
+[
+    "\\Raptor2\\InteractiveBundle\\InteractiveBundle",
+    "\\Raptor2\\ServiceBundle\\ServiceBundle",
+    "\\examples\\exampleBundle\\exampleBundle"
+]      
+                    </pre>
+
+                    <p>En el registro debe especificarse el nombre de clase completo de la clase principal del bundle en cuestión que se desea instalar.</p>
+                    <p><b>Nota.</b><br>Una vez registrado o eliminado un componente usted debe limpiar la cache de configuración de Raptor, ya sea a través del panel de control o bien eliminando la carpeta <b>system</b> dentro del directorio <b>app/cache</b>, esto obliga al framework a re-cachear toda la configuración nueva.</p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor3/DocVersion3/js/perfect-scrollbar.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script type="text/javascript">
+            $(document.body).ready(function () {
+                window.prettyPrint && prettyPrint();
+                $('#tuto').click(function () {
+                    Interactive.perfil.reject = false;
+                    Interactive.calling = function (name, condition) {
+
+                        var msg = new Interactive.Core();
+                        msg.setRoot(Raptor.getFront()+'/interactive/tutorial');
+                        msg.call(name);
+                        this.before = msg;
+                    }
+                    Interactive.show('welcome');
+
+                })
+                $('.sidebar').perfectScrollbar({wheelSpeed: 10});
+            });
+
+
+        </script>
+    </body>
+</html>
+

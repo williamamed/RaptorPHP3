@@ -1,0 +1,20 @@
+{% extends "@systemBundle/error/base.html.twig" %}
+{% block icon %}
+        <link rel="icon" href="{{ asset("Raptor/v3/img/logo-php.png") }}">
+{%endblock%}
+{%block content%}
+<div class="col" style="margin-top: 35px">
+    <h1  style="font-size: 50px;color: #bcbcbc"><img src="{{ asset('Raptor/v3/img/logo-php.png') }}" height="70"> Error </h1>
+    <hr>
+    <p  style="color: white;font-size: 20px">La aplicación no pudo ejecutarse correctamente debido al siguiente error:</p>
+    <h3>Detalles</h3>
+    <div><strong>Tipo:</strong> {{class}}</div>
+    <div><strong>Código:</strong> {{e.getCode}}</div>
+    <div><strong>Mensaje:</strong> {{e.getMessage}}</div>
+    <div><strong>Archivo:</strong> {{e.getFile}}</div>
+    <div><strong>Línea:</strong> {{e.getLine}}</div>
+    <h3>Traza de ejecución</h3>
+    <pre class="col">{{e.getTraceAsString}}</pre>
+    
+</div>
+{%endblock%}

@@ -1,0 +1,7 @@
+{
+    "author": "Dinobyte S.L",
+    "description": "RaptorDoc v2.0.2",
+    "installScript": "Manifiest\/Install.php",
+    "namespace": "Raptor2.DocBundle.DocBundle",
+    "installed": 1
+}

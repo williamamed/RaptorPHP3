@@ -1,0 +1,100 @@
+
+<div class="container-fluid" style="padding: 40px;" >
+    <h2 class="featurette-heading"><span class="">Instalador de componentes</span></h2>
+    <br>
+    
+    {% if finfo %}
+    {% if flash['bundleinstaller_msg'] %}
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>{{ flash['bundleinstaller_msg']|raw }}</strong> 
+    </div>
+    {% endif %}
+    
+    <hr>
+    <h4 class="featurette-heading"><span class="text-muted">Por favor elija un componente para instalar o suba uno</span></h4>
+    <br>
+    <div class="featurette" style="background: transparent !important;">
+        <form class="form-horizontal" action="{{ path('_raptor_bundle_installer_upload') }}" method="POST" enctype="multipart/form-data" >
+            <div class="row">
+                <div class="col-md-5">
+                <label class="control-label" for="mybundle">Instalar el componente exportado</label>
+                    <div class="controls">
+                        <input id="file-field" class="form-control" type="file" name="mybundle" style="display: none">
+                    </div>
+                 <div class="input-group">
+                     <input type="text" id="show-field" class="form-control" disabled>
+                    <span class="input-group-btn">
+                        <button id="myfield" class="btn btn-default" type="button">Explorar</button>
+                    </span>
+                  </div>
+                </div> 
+
+             </div>
+             <div class="row pull-left" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <button type="submit" id="btn-config" class="btn btn-success"><i class="icon-raptor-configure icon-white" style="margin-right: 5px"></i>Subir</button>
+                    </div>
+
+                </div>   
+            </form>
+
+            <br><br>
+            <p class="lead">
+
+
+            </p>
+
+        </div>
+    <h2 class="featurette-heading text-center" style="margin-top: 50px"><span class="">Repositorio de componentes</span></h2>
+        <hr>
+        
+        <div class="row text-center">
+            {% if modules|length ==0 %}
+                <h3 class="featurette-heading text-center" style="margin-top: 50px;margin-bottom: 50px"><span class="">Sin componentes para instalar...</span></h3>      
+            {% else %}
+                 
+                {% for item in modules %}
+                    <div class="col-md-4">
+                        {% if item['type']=='local' %}
+                            {% if item['image'] %}
+                                <img src="{{ asset(item['image']) }}" width="115">
+                            {% else %}
+                                <img src="{{ asset('Raptor/img/logo.png') }}" width="115">
+                            {% endif %}
+                        {% else %}
+                                <img src="{{ item['image'] }}" width="115">
+                        {% endif %}
+                        <h2>{{ item['name'] }}</h2>
+                        <p>{{ item['description']|slice(0,80) }} <b>...</b></p>
+                        <h4><span class="text-muted">{{ item['author'] }}</span></h4>
+                        <p><a class="btn btn-success" href="{{ path('_raptor_bundle_installer_module') }}?name={{ item['name'] }}&type={{ item['type'] }}&url={{ item['file'] }}" role="button">Instalar &raquo;</a></p>
+                      </div>
+                {% endfor %}
+            {% endif %}
+            
+      </div>
+     {% else %}
+        <h4 class="featurette-heading"><span style="color: #ff3366;margin-bottom: 50px">La extensión fileinfo no está habilitada, active la extensión en el archivo php.ini de su servidor web</span></h4>
+        <hr>
+     {% endif %}
+</div>
+
+
+<script type="text/javascript">
+        $(document.body).ready(function() {
+
+            $('#myfield').click(function(){
+                $('#file-field').trigger('click');
+            })
+            $('#file-field').change(function(){
+                $('#show-field').val($('#file-field').val());
+            });
+            $('.btn-success').click(function(){
+                UIR.load.show('Installing module...');
+            })
+        });
+       
+</script>
+
+

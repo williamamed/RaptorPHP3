@@ -1,0 +1,10 @@
+getActions:function(){
+    var priv=new Array();
+    {% for item in privileges %}
+        priv.push('{{ item.getName }}');
+    {% endfor %}
+    {% for item in privilegesOther %}
+        priv.push('{{ item.getRoute|replace({'/':'_'}) }}');
+    {% endfor %}
+    return priv;
+}

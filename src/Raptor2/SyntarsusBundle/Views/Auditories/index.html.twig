@@ -1,0 +1,11 @@
+{% extends "@SyntarsusBundle/ext-layout.html.twig" %}
+
+{% block javascript %}
+    {% if conf('debug')==true %}
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/Auditories/js/all-classes.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/Auditories/js/app.js') }}"></script>
+    {% else %}
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/Auditories/js/all.js') }}"></script>
+    {% endif %}
+{% endblock %}
+

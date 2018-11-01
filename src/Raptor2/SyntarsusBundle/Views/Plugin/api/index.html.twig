@@ -1,0 +1,44 @@
+{% extends "@systemBundle/template.html.twig" %}
+{% block content %}
+<style type="text/css">
+        .api-text h4,.api-text b{
+            color:  #402878;
+        }
+</style>
+<div class="container" style="padding: 20px;" >
+<h1>Servicios API del módulo de seguridad</h1>
+       
+        <h3><span class="muted">Esta documentación es generada por Raptor 3 dynamic API </span></h3>
+          
+     
+        <hr>
+        {% for item in api %}
+            {% if item.hasApi==true %}
+                <div class="row" style="">
+                    <div class="span12">
+                        
+                        <pre class="api-text">{{ item.text|raw }}</pre>
+                        <h4>Version {{ item.version }}</h4>
+
+                    </div>
+
+                </div>
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div> 
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document.body).ready(function(){
+           
+            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+           
+        });
+        
+        </script> 
+{% endblock %}
+
+

@@ -1,0 +1,299 @@
+<?php
+
+namespace examples\exampleBundle\Model\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * examples\exampleBundle\Model\Entity\SecurityUser
+ *
+ * @Table(name="public.security_user")
+ * @Entity(repositoryClass="examples\exampleBundle\Model\Repository\SecurityUserRepository")
+ */
+class SecurityUser
+{
+    /**
+     * @var integer $id
+     *
+     * @Column(name="id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="SEQUENCE")
+     * @SequenceGenerator(sequenceName="public.security_user_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string $fullname
+     *
+     * @Column(name="fullname", type="string", length=255, nullable=false)
+     */
+    private $fullname;
+
+    /**
+     * @var string $username
+     *
+     * @Column(name="username", type="string", length=255, nullable=false)
+     */
+    private $username;
+
+    /**
+     * @var string $email
+     *
+     * @Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string $password
+     *
+     * @Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var boolean $state
+     *
+     * @Column(name="state", type="boolean", nullable=true)
+     */
+    private $state;
+
+    /**
+     * @var string $icon
+     *
+     * @Column(name="icon", type="string", length=255, nullable=true)
+     */
+    private $icon;
+
+    /**
+     * @var integer $attempts
+     *
+     * @Column(name="attempts", type="integer", nullable=true)
+     */
+    private $attempts;
+
+    /**
+     * @var datetime $lastattempt
+     *
+     * @Column(name="lastattempt", type="datetime", nullable=true)
+     */
+    private $lastattempt;
+
+    /**
+     * @var Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure
+     *
+     * @ManyToOne(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure")
+     * @JoinColumns({
+     *   @JoinColumn(name="id_estructure", referencedColumnName="id")
+     * })
+     */
+    private $idEstructure;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set fullname
+     *
+     * @param string $fullname
+     * @return SecurityUser
+     */
+    public function setFullname($fullname)
+    {
+        $this->fullname = $fullname;
+        return $this;
+    }
+
+    /**
+     * Get fullname
+     *
+     * @return string 
+     */
+    public function getFullname()
+    {
+        return $this->fullname;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return SecurityUser
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return SecurityUser
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return SecurityUser
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set state
+     *
+     * @param boolean $state
+     * @return SecurityUser
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return boolean 
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     * @return SecurityUser
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string 
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * Set attempts
+     *
+     * @param integer $attempts
+     * @return SecurityUser
+     */
+    public function setAttempts($attempts)
+    {
+        $this->attempts = $attempts;
+        return $this;
+    }
+
+    /**
+     * Get attempts
+     *
+     * @return integer 
+     */
+    public function getAttempts()
+    {
+        return $this->attempts;
+    }
+
+    /**
+     * Set lastattempt
+     *
+     * @param datetime $lastattempt
+     * @return SecurityUser
+     */
+    public function setLastattempt($lastattempt)
+    {
+        $this->lastattempt = $lastattempt;
+        return $this;
+    }
+
+    /**
+     * Get lastattempt
+     *
+     * @return datetime 
+     */
+    public function getLastattempt()
+    {
+        return $this->lastattempt;
+    }
+
+    /**
+     * Set idEstructure
+     *
+     * @param Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure $idEstructure
+     * @return SecurityUser
+     */
+    public function setIdEstructure(\Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure $idEstructure = null)
+    {
+        $this->idEstructure = $idEstructure;
+        return $this;
+    }
+
+    /**
+     * Get idEstructure
+     *
+     * @return Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure 
+     */
+    public function getIdEstructure()
+    {
+        return $this->idEstructure;
+    }
+}

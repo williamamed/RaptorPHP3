@@ -1,0 +1,58 @@
+{% extends "@systemBundle/template.html.twig" %}
+{% block content %}
+<div class="container" style="padding: 20px;" >
+<h1><img src="{{ asset('Raptor/img/tech/saml-big.png') }}" width="100" style="margin-right: 10px;"/> SAML Configuration</h1>
+       
+        <br>
+        
+        <div class="row" style="">
+        <div class="span12">
+           <h2></h2>
+          <p>Activate the SAML module to control the identification and autentication proccess<br>
+	  <br>Yo may want edit other configuration in directory :<br>
+              <b>web/SSO/config</b><br>
+              <b>web/SSO/metadata</b><br>
+		  </p>
+		  <br>
+          <p>
+          {% if samlconfig==true %}
+            <a class="btn btn-success" href="{{ path('_raptor_syntarsus_activate') }}?state=deactivate"><i class="icon-cog icon-white" style="margin-right: 5px"></i>Deactivate</a>
+            {% else %}
+            <a class="btn btn-danger" href="{{ path('_raptor_syntarsus_activate') }}?state=activate"><i class="icon-cog icon-white" style="margin-right: 5px"></i>Activate</a>
+            {% endif %}
+          </p>
+          <br>
+          <br>
+         
+          <div class="span5">
+              <b>Config directory</b><br><br>
+          {% for item in config %}
+             {{ item }}<br>
+          {% endfor %}
+          </div>
+          <br>
+          <div class="span5">
+               <b>Metadata directory</b><br><br>
+          {% for item in metadata %}
+                {{ item }}<br>
+          {% endfor %}
+          </div>
+        </div>
+        
+      </div>
+    </div> 
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document.body).ready(function(){
+           
+            $(window.parent.document.body).find('#tabla').height($(document.body).outerHeight(true));
+           
+        });
+        
+        </script> 
+{% endblock %}
+
+

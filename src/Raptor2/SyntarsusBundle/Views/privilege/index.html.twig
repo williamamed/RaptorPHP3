@@ -1,0 +1,12 @@
+{% extends "@SyntarsusBundle/layout.html.twig" %}
+
+{% block javascript %}
+    
+   {% if conf('debug')==true %}
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/privilege/js/all-classes.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/privilege/js/app.js') }}"></script>
+    {% else %}
+        <script type="text/javascript" src="{{ asset('Raptor2/Syntarsus/privilege/js/all.js') }}"></script>
+    {% endif %}
+{% endblock %}
+

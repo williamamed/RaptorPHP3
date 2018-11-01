@@ -1,0 +1,7 @@
+{
+    "name": "SyntarsusBundle",
+    "description": "El modulo de seguridad (Syntarsus) implementa un modelo estructurado RBAC  permitiendo ajustar tu sistema a ambientes organizacionales complejos representandolos en una estructura de arbol.",
+    "file":"SyntarsusBundle.zip",
+    "image":"Raptor/img/logo-syn.png",
+    "author": "Proyecto Raptor 2018"
+}

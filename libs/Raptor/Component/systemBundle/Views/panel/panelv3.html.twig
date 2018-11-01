@@ -1,0 +1,305 @@
+<style>
+    /* 
+      ##Device = Desktops
+      ##Screen = 1281px to higher resolution desktops
+    */
+
+    @media (min-width: 1281px) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 90%;
+            height: 100%;
+            right: 0px;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: -90%;
+        }
+
+    }
+
+    /* 
+      ##Device = Laptops, Desktops
+      ##Screen = B/w 1025px to 1280px
+    */
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 90%;
+            height: 100%;
+            right: 0px;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: -90%;
+        }
+
+    }
+
+    /* 
+      ##Device = Tablets, Ipads (portrait)
+      ##Screen = B/w 768px to 1024px
+    */
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 90%;
+            height: 100%;
+            right: 0%;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: 0px;
+        }
+
+    }
+
+    /* 
+      ##Device = Tablets, Ipads (landscape)
+      ##Screen = B/w 768px to 1024px
+    */
+
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 25%;
+            height: 100%;
+            right: 0px;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: -25%;
+        }
+
+    }
+
+    /* 
+      ##Device = Low Resolution Tablets, Mobiles (Landscape)
+      ##Screen = B/w 481px to 767px
+    */
+
+    @media (min-width: 481px) and (max-width: 767px) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 80%;
+            height: 100%;
+            right: -80%;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: 0px;
+        }
+
+    }
+
+    /* 
+      ##Device = Most of the Smartphones Mobiles (Portrait)
+      ##Screen = B/w 320px to 479px
+    */
+
+    @media (min-width: 320px) and (max-width: 480px) {
+
+        .sidebar-map{
+            position: fixed;
+            -webkit-transition: all .25s ease-out;
+            -moz-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+        }
+
+        .sidebar-map-left{
+            width: 80%;
+            height: 100%;
+            right: -80%;
+
+        }
+
+        .sidebar-map-left.active{
+
+            right: 0px;
+        }
+
+    }  
+    .sidebar-map{
+        background-color: #343a40 ;
+        top: 0px;
+        z-index: 1000000;
+        height: 100%
+    }
+
+    .sidebar-map .list-group-item{
+        background-color: #443859 !important;
+        border: 1px solid #544a66
+    }
+    .sidebar-map label{
+        color: #b3b6bf;
+    }
+    .circle {
+        display: block;
+        position: relative;
+        padding: 0;
+        z-index: 98;
+        margin: 0 auto;
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+        background-color: #9d4cff;
+        transition: 0.2s;
+        text-align: center;
+    }
+    .circle:active {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
+    }
+    .circle:hover {
+        cursor: pointer;
+        background-color: #aa7fff;
+        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3);
+    }
+    .circle img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -15px;
+        margin-top: -15px;
+        width: 30px;
+        height: 30px;
+        transition: 0.5s;
+    }
+    
+    .panel-rpt-btn { 
+    padding: 10px;
+    background: #cccccc;
+    float: left;
+    margin-right: 3px;
+    margin-bottom: 3px
+    
+}
+.panel-rpt-btn:hover { 
+    color: #402878 ;
+    background: #b9b9ba
+}
+</style>
+<div class="sidebar-map sidebar-map-left active" id="sidebar-swipe" >
+    <div class="" style="padding: 5px;background-color: #262b30;float: left;width: 100%;height: 100px">
+        <div style="padding: 15px">Time: <span style="color:{{ color }}">{{ time }}</span>
+        |
+        Memory: <span style="">{{ memory }}</span>
+        </div>
+        <div style="float: left;padding-left: 15px">
+            <span id="panel-rpt-session" class="panel-rpt-btn">Session</span>
+        
+        <span id="panel-rpt-header" class="panel-rpt-btn">Headers</span>
+        
+        <span id="panel-rpt-routes" class="panel-rpt-btn">Routes</span>
+        
+        <a class="panel-rpt-btn btn-rpt-clear" >Clear cache</a>
+        
+        <a href="{{ path('_raptor_front') }}" class="panel-rpt-btn" target="main">Raptor Main Panel</a>
+        </div>
+    </div>
+    <div class="" style="padding: 10px;background-color: #1a1d21;float: left;height: calc(100% - 150px);width: 98%;padding: 15px;">
+        <div style="height: 100%;overflow-y: auto;width: 100%;display: none">
+            {% for key,tag in routes %}
+            <div>       
+                <b id="id-route-{{ key }}">
+                    <a href="{{ path(key) }}" target="RaptorPanel" style="background: none;color: white"><span style="color: #0079d2">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
+                </b>
+            </div>  
+            {% endfor %}
+        </div>
+        <div style="height: 100%;width: 100%;">
+            
+            <div style="text-align: center;top: 50%;position: absolute;width: 100%">       
+                <img  height="80" src="{{ asset('Raptor/v3/img/logo-php.png') }}">
+                <h3 style="color: #999999">Raptor 3 profiler</h3>
+            </div>  
+            
+        </div>
+    </div>
+    
+    <label class="circle" data-toggle="offcanvas" for="toogle" style="position:absolute;z-index:10;left:-40px;top:100px">
+        
+    </label>
+
+</div>
+<script type="text/javascript">
+    Debug = {
+        Panel: function() {
+            $(document.body).ready(function() {
+                $('[data-toggle=offcanvas]').click(function() {
+
+                    $('.sidebar-map').toggleClass('active');
+
+                });
+
+            });
+        }
+    }
+
+    if (!window.$) {
+        var script2 = document.createElement('script');
+        script2.onload = script2.onreadystatechange = script2.onerror = null;
+        script2.type = 'text/javascript';
+
+        script2.onload = function() {
+            Debug.Panel()
+        };
+        script2.src = '{{ asset('bootstrap/js/jquery.js') }}';
+        document.getElementsByTagName('head')[0].appendChild(script2);
+    } else
+        Debug.Panel();
+    
+
+
+
+</script>
+

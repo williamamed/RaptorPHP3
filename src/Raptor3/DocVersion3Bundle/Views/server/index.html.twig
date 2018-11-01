@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Raptor Servidor Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 50px;
+            }
+            .starter-template {
+                padding: 40px 15px;
+                text-align: center;
+                width: 100% !important;
+                background-image: url({{ asset('Raptor3/DocVersion3/img/layer.png') }});
+                background-position: center;
+            }
+
+            .api-tree li{
+                list-style: none;
+
+                padding-left: 15px;
+            }
+
+            .api-tree span{
+                font-size: 16px;
+                font-weight: 100 !important;
+                line-height: 1.4;
+            }
+            .api-tree a{
+                font-size: 16px;
+                font-weight: 100 !important;
+                line-height: 1.4;
+            }
+
+
+        </style>
+
+
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
+        <link rel="shortcut icon" href="{{ asset('Raptor/ico/raptor-32.png') }}">
+    </head>
+
+    <body class="fondo">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-form navbar-">
+                <input type="text" id="buscar" class="form-control" placeholder="Buscar...">
+            </div>
+        </nav>
+
+        <div class="starter-template">
+            <img src="{{ asset("Raptor3/DocVersion3/img/php.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+            <h1>Servidor</h1>
+
+            <p class="lead">Contiene toda la lógica detrás del servidor, implementando una arquitectura orientada a componentes en base a la extensión del núcleo Slim y complementando con tecnologías como Doctrine ORM, Twig y AOP.</p>
+            <hr>
+
+        </div>     
+        <div class="container">
+
+            <hr> 
+            <h3>Clases</h3>
+            <hr> 
+            <ul class="api-tree">
+                <li style="border-left: none;"><span>Raptor/</span>
+
+                    <ul>
+                        <li style="border-left: none;"><a href="#" >Raptor</a></li>
+                        <li><span>Asset/</span>
+                            <ul>
+                                <li><a href="#">AssetCompiler</a></li>
+                                <li><a href="#">Resources</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Bundle/</span>
+                            <ul>
+                                <li><span>Controller/</span>
+                                    <ul>
+                                        <li><a href="#">Controller</a></li>
+                                    </ul>
+                                </li>
+                                <li><span>Form/</span>
+                                    <ul>
+                                        <li><a href="#">Validation</a></li>
+                                    </ul>
+                                </li>
+                                <li><span>Publisher/</span>
+                                    <ul>
+                                        <li><a href="#">Extjs</a></li>
+                                        <li><a href="#">Publisher</a></li>
+                                    </ul>
+                                </li>
+                                <li><span>Route/</span>
+                                    <ul>
+                                        <li><a href="#">Rule</a></li>
+                                        <li><a href="#">RuleContainer</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Bundle</a></li>
+                                <li><a href="#">Collector</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Cache/</span>
+                            <ul>
+                                <li><a href="#">Cache</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Configuration/</span>
+                            <ul>
+                                <li><a href="#">ConfigurationLoader</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Core/</span>
+                            <ul>
+                                <li><span>Inyector/</span>
+                                    <ul>
+                                        <li><a href="#">Container</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">App</a></li>
+                                <li><a href="#">Location</a></li>
+                                <li><a href="#">Router</a></li>
+                                <li><a href="#">Service</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Language/</span>
+                            <ul>
+
+                                <li><a href="#">Language</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li><span>Persister/</span>
+                            <ul>
+
+                                <li><a href="#">Exporter</a></li>
+                                <li><a href="#">Importer</a></li>
+                                <li><a href="#">Store</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Security/</span>
+                            <ul>
+                                <li><span>Sessions/</span>
+                                    <ul>
+                                        <li><a href="#">NativeSession</a></li>
+                                        <li><a href="#">SessionStore</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">AbstractSecurityManager</a></li>
+                                <li><a href="#">SecureHash</a></li>
+                                <li><a href="#">Security</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li><span>Template/</span>
+                            <ul>
+
+                                <li><a href="#">View</a></li>
+                            </ul>
+                        </li>
+
+                        <li><span>Util/</span>
+                            <ul>
+
+                                <li><a href="#">ClassLocation</a></li>
+                                <li><a href="#">ClassUtility</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">ItemList</a></li>
+                                <li><a href="#">Timer</a></li>
+                                <li><a href="#">Zip</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script type="text/javascript">
+            $(document.body).ready(function () {
+                window.prettyPrint && prettyPrint();
+                $('#buscar').keyup(function (event) {
+
+                    if ($(this).val()) {
+                        $('.api-tree li').hide();
+                        $(".api-tree li:contains('" + $(this).val() + "')").show();
+
+                    } else {
+                        $('.api-tree li').show();
+
+                    }
+                });
+                $('.api-tree a').each(function () {
+
+                    var clas = new Array();
+                    $(this).parentsUntil('.api-tree', 'li').each(function () {
+
+                        if ($(this).children('span').html())
+                            clas.push($(this).children('span').html())
+
+                    })
+                    clas = clas.reverse();
+                    var name = clas.join('');
+
+                    $(this).attr('href', '{{ path("_raptor_apidoc_server") }}?class=' + name + $(this).html());
+                });
+            });
+
+
+        </script>
+    </body>
+</html>
+

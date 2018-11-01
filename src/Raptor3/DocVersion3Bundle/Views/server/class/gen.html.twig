@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Clase Raptor Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor/css/icons_rpt.css') }}" rel="stylesheet">
+        <link href="{{ asset('Raptor3/DocVersion3/css/perfect-scrollbar.css') }}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 50px;
+            }
+
+
+            /*
+             * Global add-ons
+             */
+
+            .sub-header {
+                padding-bottom: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            /*
+             * Top navigation
+             * Hide default border to remove 1px line.
+             */
+            .navbar-fixed-top {
+                border: 0;
+            }
+
+            /*
+             * Sidebar
+             */
+
+            /* Hide for mobile, show later */
+            .sidebar {
+                display: none;
+            }
+            @media (min-width: 768px) {
+                .sidebar {
+                    position: fixed;
+                    top: 51px;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1000;
+                    display: block;
+                    padding: 20px;
+                    overflow-x: hidden;
+                    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+                    background-color: #f5f5f5;
+                    border-right: 1px solid #eee;
+                }
+            }
+
+            /* Sidebar navigation */
+            .nav-sidebar {
+                margin-right: -21px; /* 20px padding + 1px border */
+                margin-bottom: 20px;
+                margin-left: -20px;
+            }
+            .nav-sidebar > li > a {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+            .nav-sidebar > li > a >b{
+                color: #ff3333;
+            }
+            .nav-sidebar > li > b {
+                padding-right: 20px;
+                padding-left: 10px;
+            }
+            .nav-sidebar > .active > a,
+            .nav-sidebar > .active > a:hover,
+            .nav-sidebar > .active > a:focus {
+                color: #fff;
+                background-color: #428bca;
+            }
+
+
+            /*
+             * Main content
+             */
+
+            .main {
+                padding: 20px;
+            }
+            @media (min-width: 768px) {
+                .main {
+                    padding-right: 40px;
+                    padding-left: 40px;
+                }
+            }
+            .main .page-header {
+                margin-top: 0;
+            }
+
+
+            /*
+             * Placeholder dashboard ideas
+             */
+
+            .placeholders {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .placeholders h4 {
+                margin-bottom: 0;
+            }
+            .placeholder {
+                margin-bottom: 20px;
+            }
+            .placeholder img {
+                display: inline-block;
+                border-radius: 50%;
+            }
+
+
+            .icon-raptor-back {
+                background-position: -200px -80px !important;	   
+            }
+
+            .icon-raptor-prop {
+                background-position: -380px -80px !important;
+
+            }
+            .icon-raptor-method {
+                background-position: -380px -60px !important;
+
+            }
+
+
+
+        </style>
+
+
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/ico/apple-touch-icon-57-precomposed.png') }}">
+        <link rel="shortcut icon" href="{{ asset('Raptor/ico/raptor-32.png') }}">
+    </head>
+
+    <body class="fondo">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('_raptor_apidoc_server') }}"><i class="icon-raptor-back icon-white" style="margin-right: 5px"></i>ir atrás</a>
+                </li>
+
+            </ul> 
+            <div class="navbar-form navbar-">
+                <input type="text" id="buscar" class="form-control" placeholder="Buscar...">
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 col-md-3 sidebar" style="overflow: hidden">
+                    <ul class="nav nav-sidebar flex-column">
+                        <li class="nav-item"><b>{{ classname }}</b> <span class="sr-only">(current)</span></li>
+                                {% for item in prop %}
+                            <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}" style="color: #00cc66"><i class="icon-raptor-prop" style=""></i>{{ item['name'] }}</a></li>
+                                {% endfor %}
+
+                        {% for item in cons %}
+                            <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}" style="color: #ff3333"><i class="icon-raptor-prop" style=""></i>{{ item['name'] }}</a></li>
+                                {% endfor %}
+
+                        {% for item in method %}
+                            <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}"><i class="icon-raptor-method" style=""></i>{{ item['name'] }}()</a></li>
+                            {% endfor %}
+
+                    </ul>
+
+                </div>
+
+
+                <div class="col-sm-8 offset-sm-4 col-md-9 offset-md-3 main">
+                    <h1 class="page-header">Clase {{ classname }} </h1>
+                    <p>Para usar esta clase usted debe especificar el namespace <b>{{ classname }}</b>.</p>
+                    <br>
+                    <p class="text-muted">{{ description }}</p>
+
+
+
+                    <pre class="prettyprint linenums" >
+use {{ classname }};
+                    </pre>
+                    <h2>Constantes</h2>  
+                    {% for item in cons %}
+
+                        <br>
+                        <hr>
+                        <h4 id="{{ item['name'] }}" style="color: #ff3333">{{ item['name'] }}</h4>
+
+                        <pre class="text-muted">{{ classname }}::{{ item['name'] }}</pre>
+
+
+                        <h5 style="padding: 5px"><b class="text-muted">Valor: </b><span> {{ item['value'] }}</span></h5>
+                        <br>
+
+
+                    {% endfor %}
+
+                    <h2>Propiedades públicas</h2>  
+                    {% for item in prop %}
+
+                        <br>
+                        <hr>
+                        <h4 id="{{ item['name'] }}" style="color: #6666ff">{{ item['name'] }}</h4>
+                        {% if item['description'] %}
+                            <pre class="text-muted">{{ item['description'] }}</pre>
+                        {% else %}
+                            <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
+                        {% endif %}
+
+                        <h5 style="padding: 5px"><b class="text-muted">Tipo: </b><span> {{ item['type'] }}</span></h5>
+                        <br>
+
+
+                    {% endfor %}
+                    <h2>Métodos</h2>    
+                    {% for item in method %}
+
+                        <br>
+                        <hr>
+                        <h4 id="{{ item['name'] }}">{% if item['static'] %} <span class="text-muted">static public </span>{% else %}<span class="text-muted"> public </span>{% endif %}{{ item['name'] }}({{ item['param']|join(', ') }})</h4>
+                        {% if item['description'] %}
+                            <pre class="text-muted">{{ item['description'] }}</pre>
+                        {% else %}
+                            <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
+                        {% endif %}
+
+                        <br>
+                        {% for tag in item['tag'] %}
+                            <h5 style="padding: 5px"><b class="text-muted">{{ tag[0] }}: </b><span> {{ tag[1] }}</span></h5>
+                        {% endfor %}
+                        <br>
+
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="{{ asset('bootstrap/js/all.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor3/DocVersion3/js/perfect-scrollbar.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script type="text/javascript">
+            $(document.body).ready(function () {
+                window.prettyPrint && prettyPrint();
+                $('.sidebar').perfectScrollbar();
+                $('#buscar').keyup(function (event) {
+
+                    if ($(this).val()) {
+                        $('.nav-sidebar li').hide();
+                        $(".nav-sidebar li:contains('" + $(this).val() + "')").show();
+                    } else {
+                        $('.nav-sidebar li').show();
+                    }
+                });
+            });
+
+
+        </script>
+    </body>
+</html>
+

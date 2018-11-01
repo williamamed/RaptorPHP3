@@ -1,0 +1,21 @@
+{
+    "database": {
+        "driver": "pdo_pgsql",
+        "dbname": "testing",
+        "user": "postgres",
+        "port": "5432",
+        "password": "postgres",
+        "host": "localhost"
+    },
+    "raptor": {
+        "language": "es",
+        "secret": "6k3i6690@cj34%k#0jk4e@0gdd$i393%",
+        "cache": "3",
+        "services": "http:\/\/localhost\/Raptor2\/web\/index.php",
+        "locales": [
+            "es",
+            "en"
+        ],
+        "name": "Raptor3new"
+    }
+}

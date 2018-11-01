@@ -1,0 +1,187 @@
+
+<div class="container-fluid" style="padding: 35px;" >
+    <h2 class="featurette-heading"><span class="">Opciones de la aplicación</span></h2>
+    <hr>
+    <h5 class="featurette-heading"><span class="text-muted">Esta es la configuración básica, puedes añadir otras configuraciones en el archivo options.json directamente.</span></h5>
+    <br>
+    {% if flash['config_err'] %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Ops an error ocurred!</strong> {{ flash['config_err'] }}
+    </div>
+    {% endif %}
+    {% if flash['config_succ'] %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>{{ flash['config_succ'] }}</strong> {{ flash['config_succ_detail'] }}
+    </div>
+    {% endif %}
+    <br>
+    <div class="featurette" style="background: transparent !important;">
+        <form class="form-horizontal" method="POST" action="{{ path('_raptor_configuration_configure') }}">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="El nombre de proyecto es usado también para el nombre de sesión" class="control-label" for="proyect">Nombre de proyecto</label>
+                    <div class="controls">
+                        <input class="form-control" name="proyect" type="text" id="proyect" placeholder="Nombre de proyecto" value="{{ raptor.name }}">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h4>Configuración de base de datos</h4>
+            <hr style="margin-bottom:0px;margin-top: 0px">
+            <div class="row">
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Driver para usar en la conexión" class="control-label" for="driver">Driver</label>
+                    <div class="controls">
+                        <select class="form-control" name="driver" id="driver">
+                            <option >pdo_pgsql</option>
+                            <option >pdo_mysql</option>
+                            <option >pdo_sqlite</option>
+                            <option >pdo_odbc</option>
+                            <option >pdo_oci</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+            </div>     
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Base de datos a conectar" class="control-label" for="inputDB">Nombre de la base de datos</label>
+                    <div class="controls">
+                        <input class="form-control" name="db" type="text" id="inputDB" placeholder="" value="{{ db.dbname }}">
+                    </div>
+                </div>    
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Dirección de la base de datos" class="control-label" for="inputHost">Host</label>
+                    <div class="controls">
+                        <input name="host" class="form-control" type="text" id="inputHost" placeholder="" value="{{ db.host }}">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Puerto de conexión de la base de datos" class="control-label" for="inputPort">Puerto</label>
+                    <div class="controls">
+                        <input name="port" class="form-control" type="text" id="inputPort" placeholder="" value="{{ db.port }}">
+                    </div>
+                </div>
+            </div>  
+
+            <div class="row">
+
+
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Usuario de la base de datos" class="control-label" for="inputUser">Usuario</label>
+                    <div class="controls">
+                        <input name="user" class="form-control" type="text" id="inputUser" placeholder="" value="{{ db.user }}">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Contraseña de la base de datos" class="control-label" for="inputPass">Contraseña</label>
+                    <div class="controls">
+                        <input name="password" class="form-control" type="password" id="inputPass" placeholder="" value="{{ db.password }}">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <br>
+            <h4>General</h4>
+            <hr style="margin-bottom:0px;margin-top: 0px">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Llave secreta, usada para crear la protección contra ataques CSRF, cifrado, tokens etc.. " class="control-label" for="inputSecret">Llave secreta</label>
+                    <div class="input-group">
+                        <input name="secret" class="form-control" type="text" id="inputSecret" placeholder="" value="{{ raptor.secret }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" class="" id="Generator" type="button">Generar!</button>
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <label data-toggle="tooltip" data-placement="top" title="Lenguaje por defecto a utilizar en el contexto idiomático" class="control-label" for="lang">Languaje</label>
+                    <div class="controls">
+
+                        <select class="form-control" name="lang" id="lang" >
+                         {% for item in raptor.locales %}
+                                <option>{{ item }}</option>
+                          {% endfor %}
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <label data-toggle="tooltip" data-placement="top" title="Tiempo por defecto de la caché http" class="control-label" for="cache">Caché</label>
+                        <div class="controls">
+                            <input name="cache" class="form-control" type="text" id="cache" placeholder="" value="{{ raptor.cache }}">
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="row">
+
+
+                </div>
+
+
+                <div class="row pull-left" style="margin-top: 40px;margin-bottom: 40px;">
+                    <div class="col-md-4">
+                        <button type="submit" id="btn-config" class="btn btn-success"><i class="icon-raptor-configure icon-white" style="margin-right: 5px"></i>Configurar</button>
+                    </div>
+
+                </div>
+
+
+
+            </form>
+
+            <br><br>
+
+
+        </div>
+
+        <script type="text/javascript">
+            $(document.body).ready(function() {
+
+
+                $('#Generator').click(generateSecret);
+                $('#driver').val("{{db.driver}}");
+                $('#lang').val("{{raptor.language}}");
+                $('#btn-config').click(function() {
+                    $(this).attr({disabled: true});
+                    UIR.load.show('Configuring Raptor....')
+                })
+
+                Interactive.show('raptor.configuration.conf');
+                $('[data-toggle="tooltip"]').tooltip();
+
+            });
+            function generateSecret() {
+
+                for (var c = ''; c.length < 32; )
+                    c += 'abcdefgh1234567890@#$%*ijklmnopqrstuvwxyz'.charAt(Math.random() * 26)
+
+                $('#inputSecret').val(c);
+            }
+            </script>
+
+        </div>
+
+
+
