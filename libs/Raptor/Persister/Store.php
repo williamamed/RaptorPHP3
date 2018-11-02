@@ -249,7 +249,6 @@ class Store extends \Slim\Middleware {
                 $association = new ItemList($meta->associationMappings);
                 $me = $this;
                 
-                
                 $association->each(function($k, $v, $l) use (&$me) {
                             $v['targetEntity'] = $me->translateSchemas($v['targetEntity']);
                             $v['sourceEntity'] = $me->translateSchemas($v['sourceEntity']);
@@ -259,6 +258,12 @@ class Store extends \Slim\Middleware {
                 
                 $real = $this->translateSchemas($class);
                 
+                $tableschema=  explode('.', $meta->table['name']);
+                if(count($tableschema)>1)
+                    $meta->table['name']=$tableschema[1];
+                else
+                    $meta->table['name']=$tableschema[0];
+                
                 //\Raptor\Raptor::debug($meta->associationMappings);
                 
                 $meta->name = $namespace . $this->namespaceSeparator . 'Model' . $this->namespaceSeparator . 'Entity' . $this->namespaceSeparator . $real;
@@ -266,7 +271,7 @@ class Store extends \Slim\Middleware {
 
                 // $meta->namespace='Entities\\'.$class;
                 $meta->customRepositoryClassName = $namespace . $this->namespaceSeparator . 'Model' . $this->namespaceSeparator . 'Repository' . $this->namespaceSeparator . $real . 'Repository';
-
+                    
                 //TODO buscar entidades ya creadas    
                 foreach ($meta->associationMappings as $key => $value) {
                     $names = $this->entityManager->getConfiguration()->getEntityNamespaces();
@@ -296,8 +301,8 @@ class Store extends \Slim\Middleware {
                     }
                 }
                 
-                //$meta->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadataInfo::GENERATOR_TYPE_IDENTITY);
-                //$meta->setSequenceGeneratorDefinition(array());
+                $meta->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadataInfo::GENERATOR_TYPE_IDENTITY);
+                $meta->setSequenceGeneratorDefinition(array());
                 $metadata[] = $meta;
 
                 $rep->writeEntityRepositoryClass(

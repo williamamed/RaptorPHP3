@@ -573,7 +573,12 @@ class Raptor extends \Slim\Slim {
     
     static public function debug($param) {
         $trace = debug_backtrace();
-        file_put_contents(Core\Location::get(Core\Location::APP).'/debug', "Debug --> Called in Class --> ".$trace[1]['class']." line: ".$trace[1]['line']." ---> ".var_export($param, true)."\n",FILE_APPEND);
+        if(file_exists(Core\Location::get(Core\Location::APP).'/debug'))
+            $current=  file_get_contents(Core\Location::get(Core\Location::APP).'/debug');
+        else
+            $current="\n";
+        
+        file_put_contents(Core\Location::get(Core\Location::APP).'/debug', "Debug --> Called in Class --> ".$trace[1]['class']." line: ".$trace[0]['line']." ---> ".var_export($param, true)."\n".$current);
      
     }
     

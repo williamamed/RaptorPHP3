@@ -190,7 +190,7 @@ class Controller {
         else{
             $reflect = new \ReflectionClass($this->getApp()->getCurrentBundle());
             
-            return $this->app->getStore()->getManager()->getRepository($reflect->getName().":".$entityName);
+            return $this->app->getStore()->getManager()->getRepository($reflect->getShortName().":".$entityName);
         }
     }
     

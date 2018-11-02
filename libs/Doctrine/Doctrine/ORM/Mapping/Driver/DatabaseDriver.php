@@ -229,8 +229,21 @@ class DatabaseDriver implements Driver
         foreach ($this->manyToManyTables AS $manyTable) {
             foreach ($manyTable->getForeignKeys() AS $foreignKey) {
                 // foreign  key maps to the table of the current entity, many to many association probably exists
-                \Raptor\Raptor::debug(array(strtolower($tableName) , strtolower($foreignKey->getForeignTableName()),$manyTable->getName()));  
-                if (strtolower($tableName) == strtolower($foreignKey->getForeignTableName())) {
+                // FIX RAPTOR MAPEADOR RELACIONAL MUCHOS A MUCHOS
+                $schema=explode('.',strtolower($tableName));
+                if(count($schema)>1)
+                    $schema=$schema[0];
+                else 
+                    $schema="";
+                
+                $fkconvert=  explode('.', strtolower($foreignKey->getForeignTableName()));
+                if(count($fkconvert)==1)
+                    $fkconvert=$schema.".".strtolower($foreignKey->getForeignTableName());
+                else
+                    $fkconvert=strtolower($foreignKey->getForeignTableName());
+                //-----------------------------------------------
+                
+                if (strtolower($tableName) == strtolower($fkconvert)) {
                     $myFk = $foreignKey;
                     $otherFk = null;
                     foreach ($manyTable->getForeignKeys() AS $foreignKey) {
