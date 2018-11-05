@@ -1,15 +1,21 @@
 ﻿-----------------------------------------------------
 VERSION 3.0.1
 -----------------------------------------------------
-- Arreglar la instalacion del modulo de seguridad para postgres -- X
-- Mejorar mecanismo de gestion de sesiones, evitar el bloqueo -- X
-- Arreglar la gestion de APIS -- X
-- Diseñar todos los mensajes de respuesta, incluyendo panel de control 404, 500 -- X
-- Cambiar los tutoriales interactivos ajustarlos a la version 3 -- X
-- Implementar el Manifest y el require
-- Revisar el EVAC flow
-- Adicionar al modulo seguridad un campo extraData al usuario
-- Implementar en el core javascript el paso de mensajes entre tabs
-- Arreglar los mensajes ajax de error y 404 -- X
-- Poner en el generador de clases doctrine generateValue IDENTITY --- X
-- Arreglar el instalador del modulo de seguridad para que soporte esquemas postgres
+- X Arreglar la instalacion del modulo de seguridad para postgres 
+- X Mejorar mecanismo de gestion de sesiones, evitar el bloqueo 
+- X Arreglar la gestion de APIS 
+- X Diseñar todos los mensajes de respuesta, incluyendo panel de control 404, 500 
+- X Cambiar los tutoriales interactivos ajustarlos a la version 3 
+- X Implementar el Manifest y el require
+-   Revisar el EVAC flow
+- X Adicionar al modulo seguridad un campo extraData al usuario
+- X Implementar en el core javascript el paso de mensajes entre tabs
+- X Arreglar los mensajes ajax de error y 404 
+- X Poner en el generador de clases doctrine generateValue IDENTITY 
+- X Arreglar el instalador del modulo de seguridad para que soporte esquemas postgres
+- X Implementar la version en el Manifest
+- X Crear el Manifest al crear el componente
+-   Componente de portabilidad de base de datos integrado al core
+- X Paso de mensajes de estado de autenticacion, desconectar todas los tabs
+-   Redisenar la entrada del SAML en el modulo de seguridad
+- X Arreglar la instalacion del modulo de seguridad, tableExist
