@@ -1,0 +1,9 @@
+{
+    "author": "Proyecto Raptor 2018",
+    "description": "",
+    "namespace": "Raptor2.ServiceBundle.ServiceBundle",
+    "version":"3.0.1",
+    "require":{
+        "system":">=@3.0.1"
+    }
+}

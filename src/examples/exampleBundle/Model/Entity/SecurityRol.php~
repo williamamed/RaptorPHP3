@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * examples\exampleBundle\Model\Entity\SecurityRol
  *
- * @Table(name="public.security_rol")
+ * @Table(name="security_rol")
  * @Entity(repositoryClass="examples\exampleBundle\Model\Repository\SecurityRolRepository")
  */
 class SecurityRol
@@ -17,8 +17,7 @@ class SecurityRol
      *
      * @Column(name="id", type="integer", nullable=false)
      * @Id
-     * @GeneratedValue(strategy="SEQUENCE")
-     * @SequenceGenerator(sequenceName="public.security_rol_id_seq", allocationSize=1, initialValue=1)
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -36,7 +35,34 @@ class SecurityRol
      */
     private $belongs;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ManyToMany(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityPrivilege", inversedBy="idRol")
+     * @JoinTable(name="public.security_rol_security_privilege",
+     *   joinColumns={
+     *     @JoinColumn(name="id_rol", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @JoinColumn(name="id_privilege", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $idPrivilege;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ManyToMany(targetEntity="examples\exampleBundle\Model\Entity\SecurityUser", mappedBy="idRol")
+     */
+    private $idUser;
+
+    public function __construct()
+    {
+        $this->idPrivilege = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idUser = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -89,5 +115,45 @@ class SecurityRol
     public function getBelongs()
     {
         return $this->belongs;
+    }
+
+    /**
+     * Add idPrivilege
+     *
+     * @param Raptor2\SyntarsusBundle\Model\Entity\SecurityPrivilege $idPrivilege
+     */
+    public function addSecurityPrivilege(\Raptor2\SyntarsusBundle\Model\Entity\SecurityPrivilege $idPrivilege)
+    {
+        $this->idPrivilege[] = $idPrivilege;
+    }
+
+    /**
+     * Get idPrivilege
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIdPrivilege()
+    {
+        return $this->idPrivilege;
+    }
+
+    /**
+     * Add idUser
+     *
+     * @param examples\exampleBundle\Model\Entity\SecurityUser $idUser
+     */
+    public function addSecurityUser(\examples\exampleBundle\Model\Entity\SecurityUser $idUser)
+    {
+        $this->idUser[] = $idUser;
+    }
+
+    /**
+     * Get idUser
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
     }
 }

@@ -95,7 +95,7 @@ class SecurityManager extends \Raptor\Security\AbstractSecurityManager implement
         if (!$app->getSecurity()->isAuthenticated()) {
             $app->getLanguage()->setCurrentBundle('\Raptor2\SyntarsusBundle\SyntarsusBundle');
             $this->handleAuthenticationRequest();
-
+            $this->app->setViewPlugin('core_library_outside', $this->app->render('@SyntarsusBundle/SecurityManager/plugin/hermeslogin.js.twig'));
             $app->response()->write($app->render($this->template, array(
                         'error' => $this->errorMessage,
                         'username' => $this->app->request()->post('username')
@@ -278,6 +278,7 @@ class SecurityManager extends \Raptor\Security\AbstractSecurityManager implement
                         'privileges' => $aprobedOwn,
                         'privilegesOther' => $aprobedOther
             )));
+            $this->app->setViewPlugin('core_library_outside', $this->app->render('@SyntarsusBundle/SecurityManager/plugin/hermes.js.twig'));
             $params = $this->app->request()->params();
             $log_a = "";
 

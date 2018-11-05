@@ -187,7 +187,7 @@
             {% for key,tag in routes %}
         <div>       
             <b id="id-route-{{ key }}">
-                <a href="{{ path(key) }}" target="RaptorPanel" style="background: none;color: white"><span style="color: #93989e">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
+                <a href="{{ path(key) }}" target="_blank" style="background: none;color: white"><span style="color: #93989e">{{ key }}:&nbsp;</span>{{ tag.getPattern }}</a>
             </b>
             </div>  
             {% endfor %}

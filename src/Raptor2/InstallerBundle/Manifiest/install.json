@@ -1,6 +1,6 @@
 {
     "author": "Dinobyte S.L",
     "description": "Interactive Guide",
-    "namespace": "Raptor2.InteractiveBundle.InteractiveBundle",
+    "namespace": "Raptor2.InstallerBundle.InstallerBundle",
     "version": "1.0.2"
 }

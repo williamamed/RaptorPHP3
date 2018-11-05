@@ -2,6 +2,6 @@
     "author": "Dinobyte S.L",
     "description": "RaptorDoc v2.0.2",
     "installScript": "Manifiest\/Install.php",
-    "namespace": "Raptor2.DocBundle.DocBundle",
-    "installed": 1
+    "namespace": "Raptor3.DocVersion3Bundle.DocVersion3Bundle",
+    "version": "3.0.1"
 }

@@ -178,7 +178,7 @@ class Security extends \Slim\Middleware {
      * @return array
      */
     public function getUser() {
-        return $this->getApplication()->getSession()->get();
+        return $this->getApplication()->getSession()->get()?$this->getApplication()->getSession()->get():array();
     }
     
     /**

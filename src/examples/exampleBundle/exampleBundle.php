@@ -20,7 +20,7 @@ class exampleBundle extends \Raptor\Bundle\Bundle {
 
     public function registerRouteRule(\Raptor\Bundle\Route\RuleContainer $ruleContainer) {
         //$ruleContainer->add('/examples/new/example', new Rule\MyRule());
-        
+        //$this->app->addCommand(new \Doctrine\ORM\Tools\Console\Command\InfoCommand());
         
     }
 

@@ -39,26 +39,28 @@ Raptor\Bundle\Publisher\Publisher::run('\Raptor2\SyntarsusBundle\SyntarsusBundle
 $app->getConfigurationLoader()->setConfOption(array('syntarsus' => array('auth' => 'native', 'samlbase' => dirname($app->request()->getUrl() . $_SERVER['SCRIPT_NAME']))));
 $app->getConfigurationLoader()->writeOptions();
 
-if (!$app->getStore()->getManager()->getConnection()->getSchemaManager()->tablesExist(array('security_category', 'security_estructure', 'security_privilege', 'security_rol', 'security_trace', 'security_user'))) {
+if (!$app->getStore()->getImporter()->tablesExist(array('security_category', 'security_estructure', 'security_privilege', 'security_rol', 'security_trace', 'security_user'))) {
     /**
      * Generate all tables of Syntarsus
      */
-    $import = $app->getStore()->getImporter()->createIfNotExist(true);
+    $import = $app->getStore()
+            ->getImporter()
+            ->createIfNotExist(true);
     $result = $import->import(__DIR__ . '/data/security.php');
-
+    
 
     if ($result)
-        $message = "The Syntarsus Module was installed correctly";
+        $message = "El modulo de seguridad Syntarsus fue instalado correctamente!!";
     else {
         $error = $import->getErrors();
-        $message = "An error ocurred, the Syntarsus Module cannot be installed correctly:
-Details:  $error           
+        $message = "Un error ocurrió y el módulo de seguridad Syntarsus no pudo ser instalado
+Detalles:  $error           
 ";
     }
 } else {
     Raptor\Bundle\Publisher\Publisher::run('\Raptor2\SyntarsusBundle\SyntarsusBundle');
-    $message = "The Syntarsus Module was installed correctly, but cannot install the database tables:
- Details:  We found a similar installed schema        
+    $message = "El modulo de seguridad Syntarsus fue instalado correctamente!!, pero no pudimos instalar las tablas relacionadas al componente:
+ Razón:  Las Tablas ya se encuentran creadas   
 ";
     return $message;
 }

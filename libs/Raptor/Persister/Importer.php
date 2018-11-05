@@ -275,6 +275,17 @@ class Importer {
         }
         return $table;
     }
+    
+    public function tablesExist($tables) {
+        $normalized=array();
+        foreach ($tables as $value) {
+            $normalized[]='public.'.$value;
+        }
+        
+        return $this->store->getManager()->getConnection()->getSchemaManager()->tablesExist($normalized) ||
+                $this->store->getManager()->getConnection()->getSchemaManager()->tablesExist($tables);
+        
+    }
 
 }
 

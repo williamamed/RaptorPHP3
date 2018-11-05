@@ -31,6 +31,22 @@ class DefaultController extends Controller{
             return "No se especifico ninguna redireccion......";
     }
     
+    /**
+     * 
+     *
+     * @Route("/security/logout")
+     * 
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @param \Slim\Route $route
+     */
+    public function logoutAction($request,$response,$route) {
+        $this->getApp()->getSecurity()->getManager()->logout();
+        if($request->get('redirect'))
+            $this->redirect(urldecode($request->get('redirect')),false);
+    }
+    
     
 }
 

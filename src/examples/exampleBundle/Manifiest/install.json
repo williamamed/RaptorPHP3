@@ -2,5 +2,9 @@
     "author": "Dinobyte S.L",
     "description": "This is a bundle example",
     "installScript": "Installer\/Install.php",
-    "installed": 1
+    "namespace":"examples.exampleBundle.exampleBundle",
+    "version": "1.0.3",
+    "require":{
+        "system":">=@3.0.1"
+    }
 }

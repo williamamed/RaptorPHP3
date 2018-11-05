@@ -66,7 +66,7 @@ class BundleImporter {
                             $error.=(is_string($message) ? $message : '');
                         }
                         \Raptor\Raptor::getInstance()->getConfigurationLoader()->forceLoad();
-                        \Raptor\Raptor::getInstance()->getConfigurationLoader()->registerBundle('\\'.  join('\\',$parts));
+                        //\Raptor\Raptor::getInstance()->getConfigurationLoader()->registerBundle('\\'.  join('\\',$parts));
                         
                     } else {
                         //Show error

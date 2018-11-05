@@ -91,10 +91,15 @@ class ConfigurationLoader {
         if ($this->cache->isDirty()) {
             $app = Location::get(Location::APP);
             $this->monitor->execute();
-            $this->options['bundles'] = json_decode(file_get_contents($app . '/conf/components.json'), true);
-            
-            $this->checkForGhosts();
-            
+            /**
+             * INICIO Revision anterior Raptor 2
+             */
+            //$this->options['bundles'] = json_decode(file_get_contents($app . '/conf/components.json'), true);
+            //$this->checkForGhosts();
+            /**
+             * FIN Revision anterior
+             */
+            $this->readManifestFiles();
             $this->options['options'] = json_decode(file_get_contents($app . '/conf/options.json'), true);
             
             //$this->options['options'] = \Raptor\Yaml\Yaml::parse($app . '/conf/options.yml');
@@ -106,7 +111,7 @@ class ConfigurationLoader {
              * if(development)
              */
             //$this->options['bundles'] = array_merge(\Raptor\Yaml\Yaml::parse(__DIR__ . '/../Component/bundles.yml'), $this->options['bundles']);
-            $this->options['bundles'][]="\\Raptor\\Component\\systemBundle\\systemBundle";
+            //$this->options['bundles'][]="\\Raptor\\Component\\systemBundle\\systemBundle";
             /**
              * Must call this before the Reader
              */
@@ -125,7 +130,7 @@ class ConfigurationLoader {
             $this->reader->load();
             $this->options['routes'] = $this->reader->getDefinitions();
             $this->options['location'] = $this->reader->getLocation();
-            $this->options['specifications'] = $this->reader->getSpecifications();
+            //$this->options['specifications'] = $this->reader->getSpecifications();
             $this->options['description'] = $this->reader->getDescriptions();
             $this->options['rules'] = $this->reader->getRules();
             $appr->getAppAspectKernel()->init(array(
@@ -182,7 +187,6 @@ class ConfigurationLoader {
             }
             
         }
-        
     }
 
     private function decodeFunctions($text) {
@@ -345,7 +349,7 @@ class ConfigurationLoader {
     /**
      * 
      * Fuerza al cargador a re-leer la configuracion
-     * and cached
+     * 
      */
     public function forceLoad() {
        
@@ -370,13 +374,16 @@ class ConfigurationLoader {
     }
 
     /**
-     * Añade un bundle al archivo de registro de bundles
+     * Añade un bundle al archivo de registro de bundles, esta funcionalidad sera removida
+     * el archivo de bundles ha desaparecido a partir de la version 3.0.1
+     * 
+     * @deprecated desde version 3.0.1
      * @param array|string $bundles
      */
     public function registerBundle($bundles) {
+        throw new \Exception("EL archivo de registro de bundles fue removido para esta version, el proceso se realiza de forma interna y automatica");
         $app = Location::get(Location::APP);
         $real_bundles = json_decode(file_get_contents($app . '/conf/components.json'), true);
-        //$real_bundles = \Raptor\Yaml\Yaml::parse($app . '/conf/bundles.yml');
         
         if (is_array($bundles)) {
             $real_bundles = array_merge($real_bundles, $bundles);
@@ -385,15 +392,19 @@ class ConfigurationLoader {
         }
         
         file_put_contents($app . '/conf/components.json', json_encode($real_bundles, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
-        //$ymlParam = \Raptor\Yaml\Yaml::dump($real_bundles);
-        //file_put_contents($app . '/conf/bundles.yml', $ymlParam);
+        
     }
 
     /**
-     * Remueve un bundle del archivo de registro de bundles
+     * 
+     * Remueve un bundle del archivo de registro de bundles, esta funcionalidad sera removida
+     * el archivo de bundles ha desaparecido a partir de la version 3.0.1
+     * 
+     * @deprecated desde version 3.0.1
      * @param string $bundle
      */
     public function unRegisterBundle($bundle) {
+        throw new \Exception("EL archivo de registro de bundles fue removido para esta version, el proceso se realiza de forma interna y automatica");
         $app = Location::get(Location::APP);
         $real_bundles = json_decode(file_get_contents($app . '/conf/components.json'), true);
         //$real_bundles = \Raptor\Yaml\Yaml::parse($app . '/conf/bundles.yml');
@@ -501,6 +512,72 @@ class ConfigurationLoader {
      */
     private function callbackInstall($file) {
         include $file;
+    }
+    
+    private function readManifestFiles(){
+        $appLocation = \Raptor\Core\Location::get(\Raptor\Core\Location::APP);
+        $src = \Raptor\Core\Location::get(\Raptor\Core\Location::SRC);
+        
+        $resultManifest=\Raptor\Util\Files::find($src,'install.json');
+        $resultManifest[]=__DIR__.'/../Component/systemBundle/Manifest/install.json';
+        $this->options['bundles']=array();
+        $this->options['specifications']=array();
+        //$this->options['bundles'][]="\\Raptor\\Component\\systemBundle\\systemBundle";
+        // Busca componentes
+        foreach ($resultManifest as $manifest) {
+            $meta = json_decode(utf8_encode(file_get_contents($manifest)), true);
+            if(isset($meta['version']) and isset($meta['namespace'])){
+                $path=  explode('.', $meta['namespace']);
+                if(file_exists($src.'/'.  join('/', $path).'.php') || file_exists(__DIR__.'/../../'.  join('/', $path).'.php')){
+                    
+                    $name="\\".  join("\\", $path);
+                    $class = new \Wingu\OctopusCore\Reflection\ReflectionClass($name);
+                    $require=array();
+                    if(isset($meta['require'])){
+                        $require=$meta['require'];
+                    }
+                    
+                    $this->options['specifications'][$class->getShortName()] = array(
+                        'location' => \Raptor\Util\ClassLocation::getLocation($name), 
+                        'namespace' => $class->getNamespaceName(),
+                        'name' => $class->getName(),
+                        'version' => $meta['version'],
+                        'packagename' => str_replace('Bundle','', $class->getShortName()),
+                        'require'=> $require,
+                        'nameinbundles'=> $name
+                    );
+                    
+                    $this->options['bundles'][]=$name;
+                }
+            }
+        }
+        // Verificacion de requisitos componentes
+        $notReady=array();
+        foreach ($this->options['specifications'] as $name=>$bundle) {
+            foreach ($bundle['require'] as $depend => $valueVersion) {
+                if(isset($this->options['specifications'][$depend.'Bundle'])){
+                    $version=  explode('@', $valueVersion);
+                    if(count($version)==2){
+                        if(version_compare($this->options['specifications'][$depend.'Bundle']['version'], $version[1], $version[0])!=1){
+                            $notReady[]=array('name'=>$name,'nameinbundles'=>$bundle['nameinbundles']);
+                        }
+                    }else{
+                        if(version_compare($this->options['specifications'][$depend.'Bundle']['version'], $version[0])!=1){
+                            $notReady[]=array('name'=>$name,'nameinbundles'=>$bundle['nameinbundles']);
+                        }    
+                    }
+                }else{
+                    $notReady[]=array('name'=>$name,'nameinbundles'=>$bundle['nameinbundles']);
+                }
+            }
+        }
+        // Elimina los componentes que no cumplen el require
+        
+        foreach ($notReady as $bundle) {
+            unset($this->options['specifications'][$bundle['name']]);
+            unset($this->options['bundles'][$bundle['nameinbundles']]);
+        }
+        
     }
 
 }

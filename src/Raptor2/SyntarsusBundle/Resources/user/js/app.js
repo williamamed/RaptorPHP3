@@ -6,10 +6,10 @@
 
 Ext.application({
     name: 'GestUser',
-    paths:{
-        'GestUser': Raptor.getBundleResource('Raptor2/Syntarsus/user/js/app')
-    },
-    requires: ['Ext.container.Viewport'],
+//    paths:{
+//        'GestUser': Raptor.getBundleResource('Raptor2/Syntarsus/user/js/app')
+//    },
+//    requires: ['Ext.container.Viewport'],
     // automatically create an instance of AM.view.Viewport
     autoCreateViewport: true,
     launch:function(){
@@ -19,6 +19,10 @@ Ext.application({
     stores: ['User','Rol','Estructure','State'],
     controllers: ['Users','Roles']
 });
+
+hermes.on('raptor-login',function(){
+    
+})
 
 
 

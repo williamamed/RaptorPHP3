@@ -78,10 +78,17 @@ class SecurityUser
     private $lastattempt;
 
     /**
+     * @var text $extraData
+     *
+     * @Column(name="extra_data", type="text", nullable=true)
+     */
+    private $extraData;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ManyToMany(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityRol", inversedBy="idUser")
-     * @JoinTable(name="security_user_rol",
+     * @JoinTable(name="public.security_user_rol",
      *   joinColumns={
      *     @JoinColumn(name="id_user", referencedColumnName="id")
      *   },
@@ -294,6 +301,28 @@ class SecurityUser
     }
 
     /**
+     * Set extraData
+     *
+     * @param text $extraData
+     * @return SecurityUser
+     */
+    public function setExtraData($extraData)
+    {
+        $this->extraData = $extraData;
+        return $this;
+    }
+
+    /**
+     * Get extraData
+     *
+     * @return text 
+     */
+    public function getExtraData()
+    {
+        return $this->extraData;
+    }
+
+    /**
      * Add idRol
      *
      * @param Raptor2\SyntarsusBundle\Model\Entity\SecurityRol $idRol
@@ -312,7 +341,7 @@ class SecurityUser
     {
         return $this->idRol;
     }
-
+    
     /**
      * Get idRol
      *
@@ -323,7 +352,7 @@ class SecurityUser
         $this->idRol = [];
         return $this;
     }
-
+    
     /**
      * Set idEstructure
      *

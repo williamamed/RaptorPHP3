@@ -52,20 +52,20 @@ EOT
     {
         /* @var $entityManager \Doctrine\ORM\EntityManager */
         $entityManager = $this->getHelper('em')->getEntityManager();
-
+        
         $entityClassNames = $entityManager->getConfiguration()
                                           ->getMetadataDriverImpl()
                                           ->getAllClassNames();
-
+        
         if (!$entityClassNames) {
             throw new \Exception(
                 'You do not have any mapped Doctrine ORM entities according to the current configuration. '.
                 'If you have entities or mapping files you should check your mapping configuration for errors.'
             );
         }
-
+        
         $output->writeln(sprintf("Found <info>%d</info> mapped entities:", count($entityClassNames)));
-
+        
         foreach ($entityClassNames as $entityClassName) {
             try {
                 $cm = $entityManager->getClassMetadata($entityClassName);

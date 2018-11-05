@@ -685,6 +685,7 @@ $data=array (
       'icon' => NULL,
       'attempts' => '0',
       'lastattempt' => '2016-11-28 19:49:14',
+      'extra_data' => '',
     ),
   ),
 );

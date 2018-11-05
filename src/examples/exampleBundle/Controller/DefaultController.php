@@ -5,11 +5,11 @@
  * and open the template in the editor.
  */
 
-
 namespace examples\exampleBundle\Controller;
 
 use Raptor\Bundle\Annotations\Route;
 use Raptor\Bundle\Annotations\Api;
+
 /**
  * Description of DefaultController
  * 
@@ -40,58 +40,64 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
      * @param \Slim\Http\Response $response
      * @param \Slim\Route $route
      */
-    public function indexAction($request,$response,$route) {
+    public function indexAction($request, $response, $route) {
         /**
          * You can use the next params
          * The current request, response and the route
          * 
          */
         //\Doctrine\Common\Annotations\AnnotationRegistry::registerAutoloadNamespace("examples\exampleBundle\Annotation", __DIR__."/../../../src");
-        
-        /**$reader = new \Doctrine\Common\Annotations\AnnotationReader();
-        //\Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('Route');
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('RouteName');
-        \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('api');
-        
-        $reflClass = new \ReflectionClass($this);
-        $classAnnotations = $reader->getClassAnnotations($reflClass);
-        $methods=$reader->getMethodAnnotation(new \ReflectionMethod('\examples\exampleBundle\Controller\DefaultController','indexAction'),'examples\exampleBundle\Annotation\Route');
-        print_r($methods);
-        foreach ($classAnnotations AS $annot) {
-            print_r($annot);
-            if ($annot instanceof \examples\exampleBundle\Annotation\Route) {
-                echo $annot->name; // prints "foo";
-            }
-        }*/
-       /**$session_id = session_id();
-        $this->app->getSession()->set('hola', "ddd");
-        $this->app->getSession()->writeSession();
-        session_start($session_id);
-        $this->app->getSession()->set('hola2', "ddduuuuuuuu");
-        $this->app->getSession()->writeSession();*/
-        $import=$this->app->getStore()
-                ->getImporter();
-        $result = $import
-                ->createIfNotExist(true)
-                ->deleteIfExist()
-                ->import(__DIR__ . '/../../../Raptor2/SyntarsusBundle/Installer/data/security.php');
+
+        /*         * $reader = new \Doctrine\Common\Annotations\AnnotationReader();
+          //\Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('Route');
+          \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('RouteName');
+          \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('api');
+
+          $reflClass = new \ReflectionClass($this);
+          $classAnnotations = $reader->getClassAnnotations($reflClass);
+          $methods=$reader->getMethodAnnotation(new \ReflectionMethod('\examples\exampleBundle\Controller\DefaultController','indexAction'),'examples\exampleBundle\Annotation\Route');
+          print_r($methods);
+          foreach ($classAnnotations AS $annot) {
+          print_r($annot);
+          if ($annot instanceof \examples\exampleBundle\Annotation\Route) {
+          echo $annot->name; // prints "foo";
+          }
+          } */
+        /*         * $session_id = session_id();
+          $this->app->getSession()->set('hola', "ddd");
+          $this->app->getSession()->writeSession();
+          session_start($session_id);
+          $this->app->getSession()->set('hola2', "ddduuuuuuuu");
+          $this->app->getSession()->writeSession(); */
+        /*         * $import=$this->app->getStore()
+          ->getImporter();
+          $result = $import
+          ->createIfNotExist(true)
+          ->deleteIfExist()
+          ->import(__DIR__ . '/../../../Raptor2/SyntarsusBundle/Installer/data/security.php');
 
 
-        if ($result)
-            $message = "The Syntarsus Module was installed correctly";
-        else {
-            $error = $import->getErrors();
-            $message = "An error ocurred, the Syntarsus Module cannot be installed correctly:
-    Details:  $error           
-    ";
-        }
-        return $message;
-        throw new \Exception("estyo es un error");
+          if ($result)
+          $message = "The Syntarsus Module was installed correctly";
+          else {
+          $error = $import->getErrors();
+          $message = "An error ocurred, the Syntarsus Module cannot be installed correctly:
+          Details:  $error
+          ";
+          }
+          return $message;
+          throw new \Exception("estyo es un error"); */
+        
+        if ($this->app->getStore()->getImporter()->tablesExist(array('security_category', 'security_estructure', 'security_privilege', 'security_rol', 'security_trace', 'security_user'))) {
+            echo "Ya estan creadas";
+        } else
+            echo 'no';
+        die;
         return $this->render('@exampleBundle/MyAppAngular/index.html.twig');
         print_r($_SESSION);
-        return "Hello World !! ".$route->getName();
+        return "Hello World !! " . $route->getName();
     }
-    
+
     /**
      * Save and Get data into a database
      * @Route ("/new/example/persisting")
@@ -104,15 +110,15 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
          * 
          * We need to check if the persona table exist and create it if not exist [this is only for examples purposes]
          */
-        if (!$this->getStoreManager()->getConnection()->getSchemaManager()->tablesExist(array('persona'))){
-            $this->getStore()->generateSchema('exampleBundle',array('Persona'));
+        if (!$this->getStoreManager()->getConnection()->getSchemaManager()->tablesExist(array('persona'))) {
+            $this->getStore()->generateSchema('exampleBundle', array('Persona'));
         }
-        
+
         /**
          * Save a Person entity
          * 
          */
-        $persona=new \examples\exampleBundle\Model\Entity\Persona();
+        $persona = new \examples\exampleBundle\Model\Entity\Persona();
         $persona->setNombre('Liams');
         $persona->setApellidos('Adam');
         $persona->setSexo(true);
@@ -124,13 +130,13 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
          * and return an array of results
          * exampleBundle:Persona is the alias for \examples\exampleBundle\Model\Entity\Persona
          */
-        $list=new \Raptor\Util\ItemList(
+        $list = new \Raptor\Util\ItemList(
                 $this->getStoreManager()
-                ->getRepository('exampleBundle:Persona')
-                ->findAll());
+                        ->getRepository('exampleBundle:Persona')
+                        ->findAll());
         return $list->toJson();
     }
-    
+
     /**
      * This example shows the way to export estandar data
      * storaged in your database, some time you need to export
@@ -153,9 +159,8 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
 
             return file_get_contents(__DIR__ . '/exportExample.php');
         }
-        
     }
-    
+
     /**
      * This example shows the way to export estandar data
      * storaged in your database, some time you need to export
@@ -171,7 +176,7 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
         
         return "hola";
     }
-    
+
     /**
      * Getting the Dynamic API
      * @Route ("/new/example/getapi")
@@ -181,63 +186,63 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
         /**
          * Get the cached api declared in all controller files
          */
-        $conf=  $this->app->getApi();
-        $text='';
-        if($conf===false)
+        $conf = $this->app->getApi();
+        $text = '';
+        if ($conf === false)
             return "There isn't api declared";
-        
+
         /**
          * Listing by category name
          */
-        foreach ($conf as $api_category_name=> $api_category_array) {
-           /**
-            * Iterate each category
-            */
-            $text.='<h2>'.$api_category_name.'</h2>';
-            
+        foreach ($conf as $api_category_name => $api_category_array) {
+            /**
+             * Iterate each category
+             */
+            $text.='<h2>' . $api_category_name . '</h2>';
+
             foreach ($api_category_array as $api_estructure) {
                 /**
                  * Verify if the api is valid
                  */
-                if($api_estructure->hasApi){
-                    $text.='<h4>'.$api_estructure->name.'</h4>';
-                    if($api_estructure->route!=false)
-                        $text.='<b>Route: '.$api_estructure->route.'</b><br>';
-                    
-                    $text.='<b>Clase: '.$api_estructure->class.'</b><br>';
-                    $text.='<b>Metodo: '.$api_estructure->method.'</b><br>';
-                    $text.='<pre>'.$api_estructure->text.'</pre><br>';
+                if ($api_estructure->hasApi) {
+                    $text.='<h4>' . $api_estructure->name . '</h4>';
+                    if ($api_estructure->route != false)
+                        $text.='<b>Route: ' . $api_estructure->route . '</b><br>';
+
+                    $text.='<b>Clase: ' . $api_estructure->class . '</b><br>';
+                    $text.='<b>Metodo: ' . $api_estructure->method . '</b><br>';
+                    $text.='<pre>' . $api_estructure->text . '</pre><br>';
                 }
-            }  
+            }
         }
-        
+
         return $text;
     }
-    
+
     /**
      * Creating and Exporting a Zip
      * @Route ("/new/example/exportzip")
      * 
      */
     public function exportZipAction() {
-        $zip=new \Raptor\Util\Zip();
+        $zip = new \Raptor\Util\Zip();
         /**
          * Give the directory or a file to compress
          * in this case will be the Controller directory
          * of this bundle 
          */
-        
         $zip->create(__DIR__);
         $this->app->contentType(\Raptor\Raptor::ZIP);
         $this->app->response()->headers()->set('Content-Disposition', 'attachment; filename="testing.zip"');
         return $zip->output();
     }
-    
+
     /**
      *
      * @var \PHPExcel 
      */
     private $excel;
+
     /**
      * Creating a Excel
      * 
@@ -248,7 +253,7 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
         /**
          * An example of excel exporting
          */
-        $this->excel=$this->get('PHPExcel');
+        $this->excel = $this->get('PHPExcel');
         $this->excel->createSheet(0);
         $this->excel->getActiveSheet()
                 ->setCellValue('A2', "No")
@@ -257,14 +262,13 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
         $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
         $objWriter->save('php://output');
         $this->excel->disconnectWorksheets();
-        
+
         $this->app->response()->headers()->set('Content-Disposition', 'attachment; filename="example"');
-        
+
         $this->app->response()->headers()->set('Cache-Control', 'max-age=0');
         $this->app->contentType(\Raptor\Raptor::EXCEL);
     }
-    
-    
+
     /**
      * Printing a barcode 39
      * 
@@ -272,7 +276,7 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
      * 
      */
     public function barcodeAction() {
-        
+
         $colorfg = new \BCGColor(0, 0, 0);
         $colorbg = new \BCGColor(255, 255, 255);
 
@@ -292,9 +296,8 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
 
         $drawing->finish(\BCGDrawing::IMG_FORMAT_PNG);
         $this->app->contentType(\Raptor\Raptor::PNG);
-        
     }
-    
+
     /**
      * Creating a PDF or WORD with PhpOffice
      * 
@@ -302,7 +305,7 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
      * 
      */
     public function listAction() {
-        
+
         $phpWord = $this->get('PhpWord');
         $phpWord->addFontStyle('rStyle', array('bold' => true, 'italic' => true, 'size' => 16, 'allCaps' => true, 'doubleStrikethrough' => true));
         $phpWord->addParagraphStyle('pStyle', array('align' => 'center', 'spaceAfter' => 100));
@@ -372,10 +375,8 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
         $this->app->response()->headers()->set('Content-Disposition', 'attachment; filename="' . $file . '"');
         $this->app->response()->headers()->set('Content-Type', 'application/pdf');
         $this->app->response()->headers()->set('Content-Transfer-Encoding', 'binary');
-        
     }
-    
-    
+
 }
 
 ?>

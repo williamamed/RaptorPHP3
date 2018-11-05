@@ -13,7 +13,7 @@ use Raptor\Bundle\Route\RuleContainer;
 use Raptor\Bundle\Annotations\Route;
 
 /**
- * @Route("/raptor")
+ * @Route("")
  */
 class DocVersion3Bundle extends Bundle{
 

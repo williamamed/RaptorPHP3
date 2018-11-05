@@ -20,7 +20,7 @@ class DefaultController extends Controller{
     /**
      * 
      *
-     * @Route("")
+     * @Route("",name="_raptor_apidoc")
      * 
      * 
      * @param \Slim\Http\Request $request
@@ -35,7 +35,7 @@ class DefaultController extends Controller{
     /**
      * Add your definition Route and the RouteName[optional]
      *
-     * @Route("/proyect")
+     * @Route("/proyect",name="_raptor_apidoc_proyect")
      * 
      * 
      * @param \Slim\Http\Request $request
@@ -50,7 +50,7 @@ class DefaultController extends Controller{
     /**
      * Add your definition Route and the RouteName[optional]
      *
-     * @Route("/client")
+     * @Route("/client",name="_raptor_apidoc_client")
      * 
      * 
      * @param \Slim\Http\Request $request
@@ -65,7 +65,7 @@ class DefaultController extends Controller{
     /**
      * Add your definition Route and the RouteName[optional]
      *
-     * @Route("/abstraction")
+     * @Route("/abstraction",name="_raptor_apidoc_abstraction")
      * 
      * 
      * @param \Slim\Http\Request $request
@@ -80,7 +80,7 @@ class DefaultController extends Controller{
     /**
      * Add your definition Route and the RouteName[optional]
      *
-     * @Route("/server")
+     * @Route("/server",name="_raptor_apidoc_server")
      * 
      * 
      * @param \Slim\Http\Request $request

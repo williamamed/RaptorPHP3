@@ -117,7 +117,9 @@ class Store extends \Slim\Middleware {
 
         $definitions->each(function($key, $value) use (&$config, &$annotations) {
                     $config->addEntityNamespace($key, $value['namespace'] . '\\Model\\Entity');
-                    $annotations[] = $value['location'];
+                    $real=realpath($value['location'].'/Model/Entity');
+                    if($real)
+                        $annotations[] =$real;
                 });
 
         $driverImpl = $config->newDefaultAnnotationDriver($annotations);

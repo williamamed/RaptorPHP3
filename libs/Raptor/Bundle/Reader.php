@@ -130,7 +130,7 @@ class Reader {
 
             $prefix = '';
             $this->location[$class->getShortName()] = \Raptor\Util\ClassLocation::getLocation($bundle);
-            $this->specif[$class->getShortName()] = array('location' => \Raptor\Util\ClassLocation::getLocation($bundle), 'namespace' => $class->getNamespaceName(), 'name' => $class->getName());
+            //$this->specif[$class->getShortName()] = array('location' => \Raptor\Util\ClassLocation::getLocation($bundle), 'namespace' => $class->getNamespaceName(), 'name' => $class->getName());
 
             $controllerDir = \Raptor\Util\ClassLocation::getLocation($bundle) . '/Controller';
             $listfiles = \Raptor\Util\Files::find($controllerDir, "*Controller.php");

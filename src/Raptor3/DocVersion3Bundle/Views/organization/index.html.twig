@@ -192,8 +192,8 @@
                                     <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>cache</span></li>
                                     <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>config</span>
                                         <ul class="" style="list-style: none outside none">
-                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>options.yml</span><i> (Archivo principal de configuración, conexión de base datos, directivas del framework etc..)</i></li>
-                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>bundles.yml</span><i> (Registro de bundles)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>options.json</span><i> (Archivo principal de configuración, conexión de base datos, directivas del framework etc..)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/code.png") }}"><span>ui.templates.json</span><i> (Registro del generador plantillas, DESARROLLO)</i></li>
                                         </ul>
                                     </li>
                                     <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Sessions</span></li>
@@ -233,7 +233,7 @@
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Aspect</span><i> (Aquí estará toda la lógica de AOP)</i></li>
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Compiler</span><i> (Directivas de minificación de recursos web para el módulo)</i></li>
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Controller</span><i> (Los controladores de nuestro módulo)</i></li>
-                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Manifiest</span><i> (Contiene un archivo install.json donde estarán las directivas de exportación e instalación de este módulo)</i></li>
+                                            <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Manifest</span><i> (Contiene un archivo install.json donde estarán las directivas de exportación e instalación de este módulo)</i></li>
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Model</span><i> (Los modelos de nuestro módulo)</i></li>
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Resources</span><i> (Recursos web del módulo)</i></li>
                                             <li><img width="25" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><span>Rule</span><i> (Reglas de ejecución de rutas)</i></li>
@@ -397,18 +397,21 @@ class Compiler extends Resources{
 
                     <br>
                     <h4 id="manifiest">Manifiesto de instalación</h4>
-                    <p>Para la rutina de exportación de un componente el sistema requerirá la creación de un manifiesto de instalación ya que este componente luego será importado.</p>
-                    <p>Lo primero es la creación del directorio Manifiest dentro de nuestro componente, luego se crea el archivo install.json dentro del mismo con las siguientes claves.</p>
+                    <p>El manifiesto contiene todos los metadatos relacionados a la instalación del componente, el cargador de componentes de Raptor 3 requiere que exista este archivo para poder reconocer el componente.</p>
+                    <p>Lo primero es la creación del directorio Manifest dentro de nuestro componente, luego se crea el archivo install.json dentro del mismo con las siguientes claves.</p>
                     <pre class="prettyprint linenums" >
 {
     "author": "Dinobyte S.L",
     "description": "Lorem itsum",
     "installScript": "Manifiest\/Install.php ",
-    "namespace": "examples.EconomiaBundle.EconomiaBundle",
-    "installed": 0
+    "namespace": "examples.EconomiaBundle.EconomiaBundle",//Este atributo es obligatorio
+    "version": "1.0.1",//Este atributo es obligatorio
+    "require":{
+        "system":">=@3.0.1"
+    }
 }
                     </pre>
-                    <p>El atributo namespace debera especificarse separado por (.) y se refiere al namespace de la clase principal del bundle, el atributo installed deberá definirse en 0 para la exportación.</p>
+                    <p>El atributo namespace debera especificarse separado por (.) y se refiere al namespace de la clase principal del bundle, así mismo la versión del componente también deberá ser especificada.</p>
 
                     <p>El atributo installScript es opcional y solo establece un script para realizar acciones adicionales en la instalación tales como el copiado de los recursos web, creación de tablas, archivos etc.</p>
                     <pre class="prettyprint linenums" >
@@ -857,21 +860,7 @@ class EconomiaBundle extends Bundle{
                     <br><br>
                     <p>Para obtener los valores cacheados solo debemos acceder a getConfOption del cargador de configuración, que nos devolverá un array con todas las directivas de configuración en forma de array asociativo. Luego de modificar los valores lo seteamos en el cargador, escribimos y obligamos al sistema a cachear las nuevas opciones.</p>
                     <br>
-                    <h4>Registro Manual de Bundles</h4>
-                    <p>Raptor cuenta con un sistema automatizado de creación y manejo de bundle a través del panel de control, a pesar de esto es posible manipular manualmente los bundles registrados en el sistema interviniendo en el archivo <b>components.json</b>(antiguo bundles.yml) del directorio <b>app/conf.</b></p>
-                    <p>Usted debe ser cuidadoso ya que el registro de los componentes se hace en el formato JSON establecido de la siguiente forma.</p>
-
-                    <pre class="prettyprint">
-[
-    "\\Raptor2\\InteractiveBundle\\InteractiveBundle",
-    "\\Raptor2\\ServiceBundle\\ServiceBundle",
-    "\\examples\\exampleBundle\\exampleBundle"
-]      
-                    </pre>
-
-                    <p>En el registro debe especificarse el nombre de clase completo de la clase principal del bundle en cuestión que se desea instalar.</p>
-                    <p><b>Nota.</b><br>Una vez registrado o eliminado un componente usted debe limpiar la cache de configuración de Raptor, ya sea a través del panel de control o bien eliminando la carpeta <b>system</b> dentro del directorio <b>app/cache</b>, esto obliga al framework a re-cachear toda la configuración nueva.</p>
-
+                    
                 </div>
             </div>
         </div>

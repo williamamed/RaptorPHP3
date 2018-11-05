@@ -123,6 +123,8 @@ class Raptor extends \Slim\Slim {
      */
     private $bundle;
     
+    private $commands;
+            
     function __construct(array $userSettings = array()) {
         $userSettings['view'] = '\Raptor\Template\View';
         
@@ -135,6 +137,7 @@ class Raptor extends \Slim\Slim {
             return new http\Request($c['environment']);
         });
         $this->bundle=null;
+        $this->commands=array();
     }
     
     /**
@@ -229,6 +232,23 @@ class Raptor extends \Slim\Slim {
         $this->inyector = new Core\Inyector\Container();
         
         parent::run();
+    }
+    
+    /**
+     * Adiciona un comando a la consola
+     * 
+     * @param Symfony\Component\Console\Command\Command $command
+     */
+    public function addCommand($command) {
+        $this->commands[]=$command;
+    }
+    
+    /**
+     * Retorna todos los comandos registrados
+     * @return array
+     */
+    public function getCommands() {
+        return $this->commands;
     }
     
     /**

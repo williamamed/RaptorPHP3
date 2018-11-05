@@ -7,4 +7,10 @@ getActions:function(){
         priv.push('{{ item.getRoute|replace({'/':'_'}) }}');
     {% endfor %}
     return priv;
+},
+onFocusVerify:function(){
+    if(Raptor.markreload){
+     //Raptor.msg.wait('Estamos recargando esta página como mecanismo de protección del módulo de seguridad....')
+     window.location.reload()
+    }
 }

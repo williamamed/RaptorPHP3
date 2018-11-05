@@ -1,8 +1,0 @@
-[
-    "\\Raptor2\\InteractiveBundle\\InteractiveBundle",
-    "\\Raptor2\\ServiceBundle\\ServiceBundle",
-    "\\examples\\exampleBundle\\exampleBundle",
-    "\\Raptor2\\InstallerBundle\\InstallerBundle",
-    "\\Raptor2\\SyntarsusBundle\\SyntarsusBundle",
-    "\\Raptor3\\DocVersion3Bundle\\DocVersion3Bundle"
-]

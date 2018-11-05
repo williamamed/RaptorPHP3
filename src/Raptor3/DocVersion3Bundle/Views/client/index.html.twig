@@ -177,6 +177,7 @@
                         <li class="nav-item"><a class="nav-link" href="#getTag">getTag()</a></li>
                         <li class="nav-item"><a class="nav-link" href="#getToken">getToken()</a></li>
                         <li class="nav-item"><a class="nav-link" href="#getUser">getUser()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#getUser">getRoute()</a></li>
                         <li class="nav-item"><a class="nav-link" href="#controlActions">controlActions()</a></li>
                         <li class="nav-item"><a class="nav-link" href="#DATA"><b>DATA</b></a></li>
                         <li class="nav-item"><a class="nav-link" href="#ERROR"><b>ERROR</b></a></li>
@@ -190,6 +191,13 @@
 
                         <li class="nav-item"><a class="nav-link" href="#inter.show">show()</a></li>
 
+                    </ul>
+                    <ul class="nav nav-sidebar flex-column">
+                        <li class="nav-item"><b>Hermes</b> <span class="sr-only">(current)</span></li>
+
+                        <li class="nav-item"><a class="nav-link" href="#hermes.send">send()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hermes.on">on()</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hermes.off">off()</a></li>
                     </ul>
                 </div>
 
@@ -442,7 +450,24 @@ var token=Raptor.getToken();
 var user=Raptor.getUser();
 //  admin
                     </pre>   
+                    
+                    <!-- getRoute -->
+                    <br>
+                    <hr>
+                    <h4 id="getRoute">Raptor.getRoute(name)</h4>
+                    <p class="text-muted">Devuelve el completamiento de la ruta especificada.</p>
 
+                    <br>
+
+                    <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Ruta relativa a la raíz del proyecto + el name especificado</span></h5>
+
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+var user=Raptor.getUser();
+//  admin
+                    </pre> 
+                    
                     <!-- controlActions -->
                     <br>
                     <hr>
@@ -560,8 +585,58 @@ Interactive.show('welcome.name');
 
 Interactive.show('welcome.name','welcome.tuto1 and welcome.tuto2');
 //Muestra la guia definida con el nombre welcome.name si los tutoriales welcome.tuto1 y welcome.tuto2 han sido mostrados
-                    </pre> 
+                    </pre>
+                    <br>
+                    <br>
+                    <h3 id="msg">Hermes</h3>
+                    <p class="text-muted">Canal de lado del cliente para enviar datos entre tabs del mismo origen.</p>
 
+                    <!-- Interactive -->
+                    <br>
+                    <hr>
+                    <h4 id="hermes.send">hermes.send( name, data, [includeSelf=false] )</h4>
+                    <p class="text-muted">Envía un mensaje de datos a los demás tabs abiertos del mismo origen.</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">data: Object</b><span> Dato a enviar, es necesario que este sea un Serializable JSON</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">includeSelf: (optional, default=false)</b><span> Determina si el dato también será enviado en el tab actual</span></h5>
+                    
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+hermes.send('some-topic', 'hello world');
+hermes.send('some-topic', { title: 'awesome' });
+hermes.send('some-topic', { title: 'awesome' }, true);
+                    </pre> 
+                    <br>
+                    <hr>
+                    <h4 id="hermes.on">hermes.on( name, callback )</h4>
+                    <p class="text-muted">Permite escuchar un mensaje para una llave determinada.</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especificada que se ejecutará cuando se reciba un mensaje en la llave anterior</span></h5>
+                    
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+hermes.on('some-topic', function(data) { 
+    console.log(data)
+});
+                    </pre> 
+                    <br>
+                    <hr>
+                    <h4 id="hermes.off">hermes.off( name, [callback] )</h4>
+                    <p class="text-muted">Deja de escuchar un mensaje para una llave determinada.</p>
+                    <br>
+                    <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                    <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especifica que se eliminará, en caso de especificarse se eliminarán todos los callback registrados con esa llave</span></h5>
+                    
+                    <br>
+
+                    <pre class="prettyprint linenums" >
+hermes.off('some-topic', callbackFunction);
+hermes.off('some-topic');
+                    </pre> 
 
                 </div>
             </div>

@@ -21,6 +21,8 @@ class systemBundle extends \Raptor\Bundle\Bundle {
             $ruleContainer->add('[\/\w]*', new Rule\Client(),10);
             $ruleContainer->add('/raptor[\/\w]*', new Rule\Firewall(),10);
             $ruleContainer->add('/interactive/tutorial', new Tutorials\Guia());
+            
+            $ruleContainer->add('/command/raptor', new Rule\Command());
     }
 
 }

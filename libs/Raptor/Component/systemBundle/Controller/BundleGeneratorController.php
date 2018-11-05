@@ -87,7 +87,7 @@ class BundleGeneratorController extends Controller {
             return $this->show("Lo sentimos no se pudo crear el directorio del componente", true, Controller::ERROR);
         }
         $this->createFiles($bundleName, $request->post('definition'), $request->post('vendor'), $messages);
-        $this->app->getConfigurationLoader()->registerBundle($request->post('definition') .'\\'. $bundleName);
+        //$this->app->getConfigurationLoader()->registerBundle($request->post('definition') .'\\'. $bundleName);
         $resp = array();
         $messages->each(function($key, $value) use(&$resp) {
                     $resp[] = array('msg' => $value);
@@ -142,9 +142,12 @@ class BundleGeneratorController extends Controller {
         file_put_contents($src . '/' . $vendor . '/' . $bundleName . '/' . $bundleName . '.php', $bundle);
         file_put_contents($src . '/' . $vendor . '/' . $bundleName . '/Manifest/install.json',  json_encode(array(
             'author'=>'Autor del componente',
+            'name'=>$bundleName,
             'description'=>'',
             'namespace'=>"$vendor.$bundleName.$bundleName",
-            'installed'=>1
+            'installed'=>1,
+            'version'=>'0.0.1',
+            'require'=> array('system'=>'>=@3.0.1')
         ),JSON_PRETTY_PRINT));
         $messages->add("<b style='color:green'>File src/" . $vendor . '/' . $bundleName . '/Controller/DefaultController.php' . ' created</b>');
         $messages->add("<b style='color:green'>File src/" . $vendor . '/' . $bundleName . '/' . $bundleName . '.php' . ' created</b>');
@@ -164,7 +167,7 @@ class BundleGeneratorController extends Controller {
         if ($files->isEmty())
             $this->eliminarDir($vendor);
 
-        $this->app->getConfigurationLoader()->unRegisterBundle($sp[$name]['name']);
+        //$this->app->getConfigurationLoader()->unRegisterBundle($sp[$name]['name']);
         /**
          * Cant call force load here, the Aspect Kernel has a problem with removed bundles
          * instead perform a save operation with cache

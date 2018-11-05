@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Raptor2\SyntarsusBundle\Model\Entity\SecurityUser
  *
- * @Table(name="public.security_user")
+ * @Table(name="security_user")
  * @Entity(repositoryClass="Raptor2\SyntarsusBundle\Model\Repository\SecurityUserRepository")
  */
 class SecurityUser
@@ -17,8 +17,7 @@ class SecurityUser
      *
      * @Column(name="id", type="integer", nullable=false)
      * @Id
-     * @GeneratedValue(strategy="SEQUENCE")
-     * @SequenceGenerator(sequenceName="public.security_user_id_seq", allocationSize=1, initialValue=1)
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -79,6 +78,21 @@ class SecurityUser
     private $lastattempt;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ManyToMany(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityRol", inversedBy="idUser")
+     * @JoinTable(name="security_user_rol",
+     *   joinColumns={
+     *     @JoinColumn(name="id_user", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @JoinColumn(name="id_rol", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $idRol;
+
+    /**
      * @var Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure
      *
      * @ManyToOne(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityEstructure")
@@ -88,7 +102,11 @@ class SecurityUser
      */
     private $idEstructure;
 
-
+    public function __construct()
+    {
+        $this->idRol = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -273,6 +291,37 @@ class SecurityUser
     public function getLastattempt()
     {
         return $this->lastattempt;
+    }
+
+    /**
+     * Add idRol
+     *
+     * @param Raptor2\SyntarsusBundle\Model\Entity\SecurityRol $idRol
+     */
+    public function addSecurityRol(\Raptor2\SyntarsusBundle\Model\Entity\SecurityRol $idRol)
+    {
+        $this->idRol[] = $idRol;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return SecurityUser
+     */
+    public function clearIdRol()
+    {
+        $this->idRol = [];
+        return $this;
     }
 
     /**

@@ -1,0 +1,6 @@
+{
+    "author": "Proyecto Raptor 2018",
+    "description": "Modulo base de Raptor 3, representa al core como componente",
+    "namespace": "Raptor.Component.systemBundle.systemBundle",
+    "version":"3.0.1"
+}
