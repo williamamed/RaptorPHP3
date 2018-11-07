@@ -41,60 +41,7 @@ class DefaultController extends \Raptor\Bundle\Controller\Controller {
      * @param \Slim\Route $route
      */
     public function indexAction($request, $response, $route) {
-        /**
-         * You can use the next params
-         * The current request, response and the route
-         * 
-         */
-        //\Doctrine\Common\Annotations\AnnotationRegistry::registerAutoloadNamespace("examples\exampleBundle\Annotation", __DIR__."/../../../src");
-
-        /*         * $reader = new \Doctrine\Common\Annotations\AnnotationReader();
-          //\Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('Route');
-          \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('RouteName');
-          \Doctrine\Common\Annotations\AnnotationReader::addGlobalIgnoredName('api');
-
-          $reflClass = new \ReflectionClass($this);
-          $classAnnotations = $reader->getClassAnnotations($reflClass);
-          $methods=$reader->getMethodAnnotation(new \ReflectionMethod('\examples\exampleBundle\Controller\DefaultController','indexAction'),'examples\exampleBundle\Annotation\Route');
-          print_r($methods);
-          foreach ($classAnnotations AS $annot) {
-          print_r($annot);
-          if ($annot instanceof \examples\exampleBundle\Annotation\Route) {
-          echo $annot->name; // prints "foo";
-          }
-          } */
-        /*         * $session_id = session_id();
-          $this->app->getSession()->set('hola', "ddd");
-          $this->app->getSession()->writeSession();
-          session_start($session_id);
-          $this->app->getSession()->set('hola2', "ddduuuuuuuu");
-          $this->app->getSession()->writeSession(); */
-        /*         * $import=$this->app->getStore()
-          ->getImporter();
-          $result = $import
-          ->createIfNotExist(true)
-          ->deleteIfExist()
-          ->import(__DIR__ . '/../../../Raptor2/SyntarsusBundle/Installer/data/security.php');
-
-
-          if ($result)
-          $message = "The Syntarsus Module was installed correctly";
-          else {
-          $error = $import->getErrors();
-          $message = "An error ocurred, the Syntarsus Module cannot be installed correctly:
-          Details:  $error
-          ";
-          }
-          return $message;
-          throw new \Exception("estyo es un error"); */
         
-        if ($this->app->getStore()->getImporter()->tablesExist(array('security_category', 'security_estructure', 'security_privilege', 'security_rol', 'security_trace', 'security_user'))) {
-            echo "Ya estan creadas";
-        } else
-            echo 'no';
-        die;
-        return $this->render('@exampleBundle/MyAppAngular/index.html.twig');
-        print_r($_SESSION);
         return "Hello World !! " . $route->getName();
     }
 
