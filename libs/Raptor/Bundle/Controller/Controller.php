@@ -301,10 +301,10 @@ class Controller {
      * Si el primer paremtro es un objeto lo usa para poblar segun los parametros del request.
      * 
      * @param string/object $class clase u objeto a poblar
-     * @param array $matcher un array con el macheo de parametros que no conciden con los atributos de la clase. ejemplo array('nombre'=>'nombre_c') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
+     * @param array $matcher un array con el macheo de parametros que no coinciden con los atributos de la clase. ejemplo array('nombre_c'=>'nombre') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
      * @return mixed
      */
-    public function collector($class,$matcher = array()) {
+    public function collector($class,$matcher = array(),$method='POST') {
         $classTo = $class;
         if (!is_object($classTo)) {
             $alias = new ItemList(explode(':', $classTo));
@@ -316,8 +316,15 @@ class Controller {
             }
             $classTo = new $classTo();
         }
+        $params=array();
+        if($method=='POST')
+            $params=$this->app->request()->post();
+        if($method=='GET')
+            $params=$this->app->request()->get();
+        if($method=='PUT')
+            $params=$this->app->request()->put();
         
-        return Collector::run($classTo, new ItemList($this->app->request()->params()), $matcher);
+        return Collector::run($classTo, new ItemList($params), $matcher);
     }
 
     /**
