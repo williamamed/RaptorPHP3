@@ -88,7 +88,7 @@ class SecurityUser
      * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ManyToMany(targetEntity="Raptor2\SyntarsusBundle\Model\Entity\SecurityRol", inversedBy="idUser")
-     * @JoinTable(name="public.security_user_rol",
+     * @JoinTable(name="security_user_rol",
      *   joinColumns={
      *     @JoinColumn(name="id_user", referencedColumnName="id")
      *   },
