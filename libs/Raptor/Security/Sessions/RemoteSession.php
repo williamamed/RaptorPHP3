@@ -30,26 +30,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Raptor\Security\Sessions;
+
 /**
  * Description of RemoteSession
  *
  * 
  */
-class RemoteSession implements \SessionHandlerInterface{
+class RemoteSession implements \SessionHandlerInterface {
+
     /**
      *
      * @var Raptor\Raptor
      */
     private $app;
-    
+
     function __construct() {
         $this->app = \Raptor\Raptor::getInstance();
         session_set_save_handler($this, false);
         register_shutdown_function('session_write_close');
-        if (!$this->app->getStore()->getManager()->getConnection()->getSchemaManager()->tablesExist(array('raptor_session'))) {
-            $this->app->getStore()->generateSchema('systemBundle', array('RaptorSession'));
-        }
     }
 
     public function close() {
@@ -58,11 +58,11 @@ class RemoteSession implements \SessionHandlerInterface{
 
     public function destroy($session_id) {
         $session = $this->app->getStore()
-                        ->getManager()
-                        ->getRepository('systemBundle:RaptorSession')
-                        ->findOneBy(array('name' => $session_id));
+                ->getManager()
+                ->getRepository('systemBundle:RaptorSession')
+                ->findOneBy(array('name' => $session_id));
         if ($session) {
-            
+
 
             $this->app->getStore()
                     ->getManager()
@@ -71,8 +71,7 @@ class RemoteSession implements \SessionHandlerInterface{
                     ->getManager()
                     ->flush();
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -81,18 +80,17 @@ class RemoteSession implements \SessionHandlerInterface{
                         ->getManager()
                         ->getRepository('systemBundle:RaptorSession')
                         ->getGarvage($maxlifetime));
-        
+
         if ($sessions->size() > 0) {
             foreach ($sessions as $session) {
                 $this->app->getStore()
                         ->getManager()
                         ->remove($session);
             }
-            
+
             $this->app->getStore()->getManager()->flush();
             return true;
-        }
-        else
+        } else
             return true;
     }
 
@@ -101,31 +99,45 @@ class RemoteSession implements \SessionHandlerInterface{
     }
 
     public function read($session_id) {
-        $session = $this->app->getStore()
-                        ->getManager()
-                        ->getRepository('systemBundle:RaptorSession')
-                        ->findOneBy(array('name' => $session_id));
-       
-        if ($session)
-            return (string) $session->getData();
-        else
-            return "";
+        try {
+            $session = $this->app->getStore()
+                    ->getManager()
+                    ->getRepository('systemBundle:RaptorSession')
+                    ->findOneBy(array('name' => $session_id));
+            if ($session)
+                return (string) $session->getData();
+            else
+                return "";
+        } catch (\Exception $exc) {
+            if (!$this->app->getStore()->getImporter()->tablesExist(array('raptor_session'))) {
+                $this->app->getStore()->generateSchema('systemBundle', array('RaptorSession'));
+            }
+            $session = $this->app->getStore()
+                    ->getManager()
+                    ->getRepository('systemBundle:RaptorSession')
+                    ->findOneBy(array('name' => $session_id));
+
+            if ($session)
+                return (string) $session->getData();
+            else
+                return "";
+        }
     }
 
     public function write($session_id, $session_data) {
-        $session =$this->app->getStore()
-                        ->getManager()
-                        ->getRepository('systemBundle:RaptorSession')
-                        ->findOneBy(array('name' => $session_id));
-        
-        if ($session){
-            
+        $session = $this->app->getStore()
+                ->getManager()
+                ->getRepository('systemBundle:RaptorSession')
+                ->findOneBy(array('name' => $session_id));
+
+        if ($session) {
+
             $session->setData($session_data);
             $session->setTime(time());
             $this->app->getStore()
                     ->getManager()
                     ->persist($session);
-        }else{
+        } else {
             $session = new \Raptor\Component\systemBundle\Model\Entity\RaptorSession();
             $session->setName($session_id);
             $session->setData($session_data);
@@ -133,13 +145,13 @@ class RemoteSession implements \SessionHandlerInterface{
             $this->app->getStore()
                     ->getManager()
                     ->persist($session);
-            
         }
         $this->app->getStore()
-                    ->getManager()
-                    ->flush();
+                ->getManager()
+                ->flush();
         return true;
-    }    
+    }
+
 }
 
 ?>

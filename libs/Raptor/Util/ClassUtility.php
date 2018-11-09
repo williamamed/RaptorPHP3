@@ -29,7 +29,7 @@ class ClassUtility {
                 $item=array();
                 $parent=$reflect->getParentClass();
                 if($parent)
-                    $item= array_merge($item,$this->lookProperties($parent,$obj));
+                    $item= array_merge($item,  self::lookProperties($parent,$obj));
                 foreach ($props as $prop) {
                     $prop->setAccessible(true);
                     $property=$prop->getValue($obj);
@@ -51,7 +51,7 @@ class ClassUtility {
                 $item=array();
                 $parent=$reflect->getParentClass();
                 if($parent)
-                     $item= array_merge($item,$this->lookProperties($parent,$obj));
+                     $item= array_merge($item,  self::lookProperties($parent,$obj));
                 foreach ($props as $prop) {
                     $prop->setAccessible(true);
                     $property=$prop->getValue($obj);
