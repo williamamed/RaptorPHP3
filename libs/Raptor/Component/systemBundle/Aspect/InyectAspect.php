@@ -31,7 +31,7 @@ class InyectAspect implements \Go\Aop\Aspect {
       }
       // echo 'Calling Before Interceptor for ', $invocation, "<br>";
       } */
-
+    
     /**
      * 
      *
