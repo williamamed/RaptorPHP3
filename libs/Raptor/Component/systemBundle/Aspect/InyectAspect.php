@@ -4,7 +4,9 @@ namespace Raptor\Component\systemBundle\Aspect;
 
 use Go\Aop\Aspect;
 use Go\Aop\Intercept\MethodInvocation;
+use Go\Aop\Intercept\FieldAccess;
 use Go\Lang\Annotation\After;
+use Go\Lang\Annotation\Around;
 use Go\Lang\Annotation\Before;
 use Go\Lang\Annotation\Pointcut;
 
@@ -42,7 +44,7 @@ class InyectAspect implements \Go\Aop\Aspect {
     public function aroundCacheable(MethodInvocation $invocation) {
         $arg = $invocation->getArguments();
         $toInyect = explode(',', str_replace(' ', '', $invocation->getMethod()->getAnnotation('Raptor\Bundle\Annotations\Inyect')->params));
-
+        
         foreach ($invocation->getMethod()->getParameters() as $param) {
             // param name
             foreach ($toInyect as $inyect) {
@@ -58,6 +60,24 @@ class InyectAspect implements \Go\Aop\Aspect {
         }
 
        // echo 'Calling Before Interceptor for ', $invocation, "<br>";
+    }
+    
+    /**
+     * 
+     *
+     * @Around("@access(Raptor\Bundle\Annotations\Inyect)")
+     */
+    public function propertyCacheable(FieldAccess $fieldAccess) {
+        $wingu=new \Wingu\OctopusCore\Reflection\ReflectionProperty($fieldAccess->getField()->class, $fieldAccess->getField()->name);
+        $fieldAccess->proceed();
+        if(count($wingu->getReflectionDocComment()->getAnnotationsCollection()->getAnnotation('var'))>0){
+            $datatype=$wingu->getReflectionDocComment()->getAnnotationsCollection()->getAnnotation('var')[0]->getDescription();
+            $split=explode('\\', $datatype);
+            unset($split[0]);
+            
+            return \Raptor\Raptor::getInstance()->getInyector()->getByName(join('\\',$split ));
+        }
+        return NULL;        
     }
 
 }
