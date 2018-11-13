@@ -9,7 +9,7 @@ namespace Raptor\Bundle\Annotations;
 /**
  * 
  * @Annotation
- * @Target("METHOD")
+ * @Target({"METHOD","PROPERTY"})
  * 
  * @author Amed
  */
