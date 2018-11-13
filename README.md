@@ -44,6 +44,6 @@ Características
 
 
 ## Instalación
-Descargue las fuentes, después de solo debe correr el proyecto en:
+Descargue las fuentes, después de esto solo debe correr el proyecto en:
 	http://localhost/RaptorPHP3/web/dev.php
 
