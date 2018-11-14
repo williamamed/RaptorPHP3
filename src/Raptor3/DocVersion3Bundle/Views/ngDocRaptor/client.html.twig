@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="{{ asset('Raptor/v3/img/logo-php.png') }}">
+
+        <title>Cliente</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('angular/angular-material.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <script src="{{ asset('angular/angular.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-route.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-animate.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-aria.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-messages.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-material.min.js') }}"></script>
+        <link href="{{ asset('Raptor/UIR/css/uir-all.css') }}" rel="stylesheet">
+
+        <style>
+            body {
+                padding-top: 56px;
+            }
+            .starter-template {
+                padding: 3rem 1.5rem;
+                text-align: center;
+            }
+            .nav-doc-bar{
+                box-shadow: 2px 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+                background: #606060;
+            }
+            .md-sidenav-left .md-theme-indigo, .md-sidenav-left .nav-theme {
+                background-color: #33393f;
+                min-height: initial !important;
+            }
+            .md-sidenav-left .md-theme-indigo p{
+                padding:8px;
+            }
+            .folder-es{
+                background: #5b5b5b;
+                color: white;
+                padding: 10px
+            }
+            md-autocomplete input{
+                color: white !important
+            }
+            .md-virtual-repeat-container.md-autocomplete-suggestions-container{
+                z-index: 1000000;
+            }
+        </style>
+
+    </head>
+
+    <body ng-app="myApp">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top nav-doc-bar" style="">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"> {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div  class="collapse navbar-collapse col-md-5" id="navbarsExampleDefault">
+                <div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak style="width: 100%;">
+                    <md-autocomplete style="background-color: #3f474f ;border: none"
+                                     ng-disabled="ctrl.isDisabled"
+                                     md-no-cache="ctrl.noCache"
+                                     md-selected-item="ctrl.selectedItem"
+                                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                     md-search-text="ctrl.searchText"
+                                     md-selected-item-change="ctrl.selectedItemChange(item)"
+                                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                     md-item-text="item.display"
+                                     md-min-length="0"
+                                     placeholder="Buscar...">
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{ ng('item.display') }}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            Lo sentimos no encontramos "{{ng('ctrl.searchText')}}" en la documentación.
+
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
+            </div>
+        </nav>
+
+        <div ng-controller="MyController" layout="column" style="height:100%;" ng-cloak>
+
+            <section layout="row" flex>
+
+                <md-sidenav
+                    class="md-sidenav-left"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')"
+                    md-whiteframe="4">
+
+                    <md-toolbar class="md-theme-indigo">
+                        <p class="text-center" ><img src="{{ asset("Raptor3/DocVersion3/img/RaptorDoc2.png") }}" height="100"><img style="margin-left: 20px" src="{{ asset("Raptor3/DocVersion3/img/jsm.png") }}" height="60"></p>
+
+                    </md-toolbar>
+                    <md-content layout-padding >
+                        <ul class="nav nav-sidebar flex-column">
+                            <li class="nav-item" class="active"><b>Raptor</b> <span class="sr-only">(current)</span></li>
+                            <li class="nav-item" ><a href="#msg"><b style="color: #333333">msg</b></a>
+                                <ul class="nav flex-column" style="padding-left: 30px">
+                                    <li class="nav-item"><a class="nav-link" href="#msg.confirm">confirm()</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#msg.error">error()</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#msg.exception">exception()</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#msg.info">info()</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#msg.show">show()</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#msg.wait">wait()</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#getFront">getFront()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getBundleResource">getBundleResource()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getLanguage">getLanguage()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getTag">getTag()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getToken">getToken()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getUser">getUser()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#getUser">getRoute()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#controlActions">controlActions()</a></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#DATA">DATA</a></b></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#ERROR">ERROR</a></b></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#EXCEPTION">EXCEPTION</a></b></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#INFO">INFO</a></b></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#QUESTON">QUESTON</a></b></li>
+                            <li class="nav-item"><b><a class="nav-link" href="#WAIT">WAIT</a></b></li>
+                        </ul>
+                        <ul class="nav nav-sidebar flex-column">
+                            <li class="nav-item"><b>Interactive</b> <span class="sr-only">(current)</span></li>
+
+                            <li class="nav-item"><a class="nav-link" href="#inter.show">show()</a></li>
+
+                        </ul>
+                        <ul class="nav nav-sidebar flex-column">
+                            <li class="nav-item"><b>Hermes</b> <span class="sr-only">(current)</span></li>
+
+                            <li class="nav-item"><a class="nav-link" href="#hermes.send">send()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#hermes.on">on()</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#hermes.off">off()</a></li>
+                        </ul>
+                    </md-content>
+
+                </md-sidenav>
+
+                <md-content flex layout-padding>
+
+                    <div layout="column" layout-align="">
+
+                        <h1 class="page-header">Biblioteca Raptor Javascript </h1>
+                        <p>Las funciones javascript del cliente hacen posible la integración con el lado del servidor, permitiendo mecanismo de seguridad, ajuste al contexto idiomático y una interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap.</p>
+
+
+                        <!-- Confirm -->
+                        <br>
+                        <h3 id="msg">Mensajería</h3>
+                        <p class="text-muted">El paquete de Raptor es una interfaz integrada de mensajería, permitiendo mostrar mensajes estándar de acuerdo a la tecnología que se utilice en el momento(Extjs, Bootstrap)</p>
+
+
+                        <br>
+                        <hr>
+                        <h4 id="msg.confirm">Raptor.msg.confirm( title, msg, fn, scope)</h4>
+                        <p class="text-muted">Muestra una ventana de confimación, permitiendo escojer entre 2 opciones</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">title: string</b><span> Título de la ventana de confirmación (Tener en cuenta que para Extjs este parámetro se omite)</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span> Texto del cuerpo de la ventana de confirmación</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">fn: function</b><span> Función a ejecutar cuando se pulse sí</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">scope: object</b><span> Scope con que se ejecutará la función anterior</span></h5>
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+// Para extjs
+Raptor.msg.confirm('cuerpo del mensaje',function(){
+    alert('ha pulsado en si')
+});
+
+// Para bootstrap
+Raptor.msg.confirm('titulo del mensaje','cuerpo del mensaje',function(){
+    alert('ha pulsado en si')
+});
+                        </pre>
+
+                        <!-- error -->
+                        <br>
+                        <hr>
+                        <h4 id="msg.error">Raptor.msg.error( msg, float)</h4>
+                        <p class="text-muted">Muestra una ventana de error que puede ser configurada como flotante</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">float: boolean (opcional)</b><span>  Determina si es una ventana flotante o fija por defecto true (Solo aplica para Extjs)</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+
+Raptor.msg.error('ventana flotante de error');
+
+                        </pre>
+
+                        <!-- error -->
+                        <br>
+                        <hr>
+                        <h4 id="msg.exception">Raptor.msg.exception( title, msg, trace)</h4>
+                        <p class="text-muted">Muestra una ventana de exception con detalles sobre las trazas del error</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">title: string</b><span> Título de la ventana de exception (Tener en cuenta que para Extjs este parámetro se omite)</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span> Texto del cuerpo de la ventana de exception</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">trace: string</b><span> texto sobre las trazas del error</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+// Para extjs
+Raptor.msg.exception('cuerpo del mensaje');
+
+// Para bootstrap
+Raptor.msg.exception('titulo del mensaje','cuerpo del mensaje');
+                        </pre>
+
+
+
+                        <!-- info -->
+                        <br>
+                        <hr>
+                        <h4 id="msg.info">Raptor.msg.info( msg, duration, background)</h4>
+                        <p class="text-muted">Muestra una ventana flotante de infomación</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">duration: integer (opcional)</b><span>  Duración de la ventana flotante de información, por defecto 15 seg</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">background: string (opcional)</b><span>  Color de del fonde de la ventana de información, por defecto #402878</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+
+Raptor.msg.info('ventana flotante de infomacion');
+
+                        </pre>
+
+
+                        <!-- show -->
+                        <br>
+                        <hr>
+                        <h4 id="msg.show">Raptor.msg.show( cod, arguments...)</h4>
+                        <p class="text-muted">De acuerdo al código pasado por parámetro llama a las funciones del paquete de mensajería, los seguientes parametros serán las opciones de la función a llamar</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">cod: integer</b><span>  Código de la función de mensajería a ejecutar</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">arguments... : objects (opcional)</b><span> Parámetro de la función de mesajería a ejecutar</span></h5>
+
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+
+Raptor.msg.show(Raptor.INFO,'ventana flotante de infomacion');
+
+Raptor.msg.show(Raptor.ERROR,'ventana flotante de error');
+
+                        </pre>
+
+
+                        <!-- wait -->
+                        <br>
+                        <hr>
+                        <h4 id="msg.wait">Raptor.msg.wait( msg )</h4>
+                        <p class="text-muted">Muestra un cuadro de dialógo de espera</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del mensaje de espera</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+
+var msg=Raptor.msg.wait('Por favor espere....');
+// espere por la accion y cierre la ventana
+msg.close();
+
+
+                        </pre>
+
+                        <br>
+                        <h3 >Funciones utilitarias</h3>
+                        <p class="text-muted">Estan funciones permiten la integración con los datos del servidor, además de soporte a mecanismos de seguridad</p>
+
+
+
+                        <!-- getFront -->
+                        <br>
+                        <hr>
+                        <h4 id="getFront">Raptor.getFront()</h4>
+                        <p class="text-muted">Devuelve la URL relativa del frontal de la aplicación</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> URL relativa del frontal de la aplicación </span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var front=Raptor.getFront();
+//  /Raptor2/web/dev.php
+                        </pre>
+
+                        <!-- getBundleResource -->
+                        <br>
+                        <hr>
+                        <h4 id="getBundleResource">Raptor.getBundleResource( resource )</h4>
+                        <p class="text-muted">Devuelve la URL absoluta al recurso especificado por parámetro</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">resource: string</b><span> URL relativa al la locación pública web</span></h5>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> URL absoluta del recurso especificado </span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var res=Raptor.getBundleResource('Raptor/img/logo.png');
+//  /Raptor2/web/bundles/Raptor/img/logo.png
+                        </pre>
+
+
+                        <!-- getLanguage -->
+                        <br>
+                        <hr>
+                        <h4 id="getLanguage">Raptor.getLanguage()</h4>
+                        <p class="text-muted">Devuelve el lenguaje actual de la aplicación</p>
+
+                        <br>
+
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Abreviatura del lenguaje actual, ej. es, en </span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var lang=Raptor.getLanguage();
+//  es
+                        </pre>
+
+
+                        <!-- getTag -->
+                        <br>
+                        <hr>
+                        <h4 id="getTag">Raptor.getTag( tag )</h4>
+                        <p class="text-muted">Devuelve el texto definido para el tag especificado en el lenguaje actual, el tag deberá estar definido en el directorio Translations en los archivos json que representan a cada idioma. Si no se encuentra el tag esta función devolverá una cadena vacía.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">tag: string</b><span> El tag que representa el texto que se desea mostrar para el idioma actual</span></h5>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Texto definido para el tag en el lenguaje actual o una cadena vacía sino se encontró </span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var msg=Raptor.getTag('msg_error');
+//  Un mensaje de error en el lenguaje por defecto, español
+                        </pre>  
+
+
+
+                        <!-- getToken -->
+                        <br>
+                        <hr>
+                        <h4 id="getToken">Raptor.getToken()</h4>
+                        <p class="text-muted">Devuelve el token de seguridad utilizado para la protección CSRF en la sesión activa.</p>
+
+                        <br>
+
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Token CSRF</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var token=Raptor.getToken();
+//  IHihdKUndmu545687NKkdLLJiod
+                
+                        </pre>  
+
+
+                        <!-- getUser -->
+                        <br>
+                        <hr>
+                        <h4 id="getUser">Raptor.getUser()</h4>
+                        <p class="text-muted">Devuelve el nombre de usuario autenticado.</p>
+
+                        <br>
+
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Nombre de usuario autenticado o public si no se encuentra autenticado</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var user=Raptor.getUser();
+//  admin
+                        </pre>   
+
+                        <!-- getRoute -->
+                        <br>
+                        <hr>
+                        <h4 id="getRoute">Raptor.getRoute(name)</h4>
+                        <p class="text-muted">Devuelve el completamiento de la ruta especificada.</p>
+
+                        <br>
+
+                        <h5 style="padding: 5px"><b class="text-muted">return: string</b><span> Ruta relativa a la raíz del proyecto + el name especificado</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+var user=Raptor.getUser();
+//  admin
+                        </pre> 
+
+                        <!-- controlActions -->
+                        <br>
+                        <hr>
+                        <h4 id="controlActions">Raptor.controlActions()</h4>
+                        <p class="text-muted">Ordena al sistema a ejecutar el mecanismo de auto muestra de acciones de los botones.</p>
+                        <p class="text-muted">Cada elemento HTML o componentes visuales Extjs pueden tener una atributo privilegeName que deberá coincidir con el nombre de privilegio registrado en el módulo de seguridad, si el usuario autenticado no tiene los privilegios Raptor machea estos atributos y ejecuta una rutina para no mostrar aquellos componentes a los cuales este usuario no tenga permisos.</p>
+                        <br>
+                        <i>Esta función solo podrá ser invocada cuando el módulo de seguridad Symtarsus se encuentre instalado</i>
+                        <br>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+Ext.create('Ext.Button', {
+    text: Raptor.getTag('delete'),
+    disabled:true,
+    privilegeName:'delete',
+    action:'delete',
+});
+
+Raptor.controlActions();
+//  Pone en hidden todo los componentes con el atributo privilegeName que el usuario autenticado no tenga permisos
+                        </pre>  
+
+                        <!-- DATA -->
+                        <br>
+                        <hr>
+                        <h4 id="DATA">Raptor.DATA</h4>
+                        <p class="text-muted">Código para el envío de datos JSON.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.DATA: 6</b></h5>
+
+                        <br>
+
+
+                        <!-- ERROR -->
+                        <br>
+                        <hr>
+                        <h4 id="ERROR">Raptor.ERROR</h4>
+                        <p class="text-muted">Código mensajes de error.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.ERROR: 3</b></h5>
+
+                        <br>
+
+
+                        <!-- EXCEPTION -->
+                        <br>
+                        <hr>
+                        <h4 id="EXCEPTION">Raptor.EXCEPTION</h4>
+                        <p class="text-muted">Código mensajes de EXCEPTION.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.EXCEPTION: 5</b></h5>
+
+                        <br>
+
+
+                        <!-- INFO -->
+                        <br>
+                        <hr>
+                        <h4 id="INFO">Raptor.INFO</h4>
+                        <p class="text-muted">Código mensajes de INFO.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.INFO: 1</b></h5>
+
+                        <br>
+
+
+                        <!-- QUESTON -->
+                        <br>
+                        <hr>
+                        <h4 id="QUESTON">Raptor.QUESTON</h4>
+                        <p class="text-muted">Código mensajes de confirmación.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.QUESTON: 2</b></h5>
+
+                        <br>
+
+                        <!-- WAIT -->
+                        <br>
+                        <hr>
+                        <h4 id="WAIT">Raptor.WAIT</h4>
+                        <p class="text-muted">Código mensajes de espera.</p>
+
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">Raptor.WAIT: 4</b></h5>
+
+                        <br>
+
+                        <br>
+                        <hr>
+                        <h3 id="msg">Interactive Guide</h3>
+                        <p class="text-muted">El complento javascript de Interactive Guide permite la ejecución de los tutoriales definidos en cada módulo, el nombre especificado deberá estar definido anteriormente.</p>
+
+                        <!-- Interactive -->
+                        <br>
+                        <hr>
+                        <h4 id="inter.show">Interactive.show( name, condition )</h4>
+                        <p class="text-muted">Ordena a Interactive Guide ejecutar el tutorial especificado.</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la guia a ejecutar</span></h5>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">condition: string(opcional)</b><span> Nombres de tutoriales separado por OR, AND que serán evaluados para verificar si han sido mostrados</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+Interactive.show('welcome.name');
+//Muestra la guia definida con el nombre welcome.name
+
+Interactive.show('welcome.name','welcome.tuto1 and welcome.tuto2');
+//Muestra la guia definida con el nombre welcome.name si los tutoriales welcome.tuto1 y welcome.tuto2 han sido mostrados
+                        </pre>
+                        <br>
+                        <br>
+                        <h3 id="msg">Hermes</h3>
+                        <p class="text-muted">Canal de lado del cliente para enviar datos entre tabs del mismo origen.</p>
+
+                        <!-- Interactive -->
+                        <br>
+                        <hr>
+                        <h4 id="hermes.send">hermes.send( name, data, [includeSelf=false] )</h4>
+                        <p class="text-muted">Envía un mensaje de datos a los demás tabs abiertos del mismo origen.</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">data: Object</b><span> Dato a enviar, es necesario que este sea un Serializable JSON</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">includeSelf: (optional, default=false)</b><span> Determina si el dato también será enviado en el tab actual</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+hermes.send('some-topic', 'hello world');
+hermes.send('some-topic', { title: 'awesome' });
+hermes.send('some-topic', { title: 'awesome' }, true);
+                        </pre> 
+                        <br>
+                        <hr>
+                        <h4 id="hermes.on">hermes.on( name, callback )</h4>
+                        <p class="text-muted">Permite escuchar un mensaje para una llave determinada.</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especificada que se ejecutará cuando se reciba un mensaje en la llave anterior</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+hermes.on('some-topic', function(data) { 
+    console.log(data)
+});
+                        </pre> 
+                        <br>
+                        <hr>
+                        <h4 id="hermes.off">hermes.off( name, [callback] )</h4>
+                        <p class="text-muted">Deja de escuchar un mensaje para una llave determinada.</p>
+                        <br>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especifica que se eliminará, en caso de especificarse se eliminarán todos los callback registrados con esa llave</span></h5>
+
+                        <br>
+
+                        <pre class="prettyprint linenums" >
+hermes.off('some-topic', callbackFunction);
+hermes.off('some-topic');
+                        </pre> 
+
+                    </div>
+
+                    <div flex></div>
+
+                </md-content>
+
+
+            </section>
+
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+        <script src="{{ asset('bootstrap/v4/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script src="{{ asset('Raptor/UIR/js/uir-all.js') }}"></script>
+        <script>
+var app = angular.module('myApp', ['ngMaterial']);
+app.controller('DemoCtrl', function ($scope, $mdSidenav, $q, $log, $timeout) {
+    var self = this;
+
+    self.simulateQuery = false;
+    self.isDisabled = false;
+
+    // list of `state` value/display objects
+    self.states = loadAll();
+    self.querySearch = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange = searchTextChange;
+
+    self.newState = newState;
+
+    function newState(state) {
+        alert("Sorry! You'll need to create a Constitution for " + state + " first!");
+    }
+
+    // ******************************
+    // Internal methods
+    // ******************************
+
+    /**
+     * Search for states... use $timeout to simulate
+     * remote dataservice call.
+     */
+    function querySearch(query) {
+        var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                deferred;
+        if (self.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function () {
+                deferred.resolve(results);
+            }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
+    }
+
+    function searchTextChange(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+        if(item){
+            
+            window.location.hash=item.ref
+            console.log(item.el)
+            $log.info('Item changed to ' + JSON.stringify(item));
+        }
+    }
+
+    /**
+     * Build `states` list of key/value pairs
+     */
+    function loadAll() {
+        var r=[]
+        $('.nav-sidebar .nav-link').each(function(index,el){
+            r.push({
+                value: $(el).html().toLowerCase(),
+                display: $(el).html(),
+                ref: $(el).attr('href')
+            })
+        })
+        return r;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = query.toLowerCase();
+
+        return function filterFn(state) {
+            return (state.value.indexOf(lowercaseQuery) === 0);
+        };
+
+    }
+});
+app.controller('MyController', function ($scope, $mdSidenav) {
+
+    window.prettyPrint && prettyPrint();
+});
+        </script>
+    </body>
+</html>

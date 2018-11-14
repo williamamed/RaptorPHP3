@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="{{ asset('Raptor/v3/img/logo-php.png') }}">
+
+        <title>Abstracción</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('angular/angular-material.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <script src="{{ asset('angular/angular.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-route.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-animate.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-aria.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-messages.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-material.min.js') }}"></script>
+        <link href="{{ asset('Raptor/UIR/css/uir-all.css') }}" rel="stylesheet">
+
+        <style>
+            body {
+                padding-top: 56px;
+            }
+            .starter-template {
+                padding: 3rem 1.5rem;
+                text-align: center;
+            }
+            .nav-doc-bar{
+                box-shadow: 2px 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+                background: #606060;
+            }
+            .md-sidenav-left .md-theme-indigo, .md-sidenav-left .nav-theme {
+                background-color: #33393f;
+                min-height: initial !important;
+            }
+            .md-sidenav-left .md-theme-indigo p{
+                padding:8px;
+            }
+            .folder-es{
+                background: #5b5b5b;
+                color: white;
+                padding: 10px
+            }
+            md-autocomplete input{
+                color: white !important
+            }
+            .md-virtual-repeat-container.md-autocomplete-suggestions-container{
+                z-index: 1000000;
+            }
+        </style>
+
+    </head>
+
+    <body ng-app="myApp">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top nav-doc-bar" style="">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"> {{ version }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div  class="collapse navbar-collapse col-md-5" id="navbarsExampleDefault">
+                <div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak style="width: 100%;">
+                    <md-autocomplete style="background-color: #3f474f ;border: none"
+                                     ng-disabled="ctrl.isDisabled"
+                                     md-no-cache="ctrl.noCache"
+                                     md-selected-item="ctrl.selectedItem"
+                                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                     md-search-text="ctrl.searchText"
+                                     md-selected-item-change="ctrl.selectedItemChange(item)"
+                                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                     md-item-text="item.display"
+                                     md-min-length="0"
+                                     placeholder="Buscar...">
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{ ng('item.display') }}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            Lo sentimos no encontramos "{{ng('ctrl.searchText')}}" en la documentación.
+
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
+            </div>
+        </nav>
+
+        <div ng-controller="MyController" layout="column" style="height:100%;" ng-cloak>
+
+            <section layout="row" flex>
+
+                <md-sidenav
+                    class="md-sidenav-left"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')"
+                    md-whiteframe="4">
+
+                    <md-toolbar class="md-theme-indigo">
+                        <p class="text-center" ><img src="{{ asset("Raptor3/DocVersion3/img/RaptorDoc2.png") }}" height="100"><img style="margin-left: 20px" src="{{ asset("Raptor3/DocVersion3/img/absm.png") }}" height="60"></p>
+
+                    </md-toolbar>
+                    <md-content layout-padding >
+                        <ul class="nav nav-sidebar flex-column">
+                            <li class="nav-item"><a class="nav-link" href="#">Introducción</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#Configuracion">Configuración</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#Herramientas">Herramientas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#Bundles">Bundles</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#Componentes">Creación de componentes</a></li>
+                        </ul>
+                    </md-content>
+
+                </md-sidenav>
+
+                <md-content flex layout-padding>
+
+                    <div layout="column" layout-align="">
+
+                        <h1 class="page-header">Introducción a componentes de abstracción</h1>
+                        <p>Para Raptor PHP 2 estos componentes siguen siendo quienes garantizan en mayor medida la abstracción necesaria en el desarrollo. La inclusión de nuevos componentes con nuevas funciones tributa a esa mejora necesaria. Dentro de los nuevos componentes aparece Interactive Guide encargado de las guías interactivas de usuario.</p>
+                        <p>Para esta versión aparece nuevamente Syntarsus Security Module con muchos cambios, inclusión de nuevas características, mejoras en las técnicas de protección contra ataques y los procesos de identificación-autenticación, autorización y auditoría.  Además con un mejor soporte a las rutinas de instalación y exportación.</p>
+                        <p>El nuevo componente de instalación garantiza de forma visual la importación e instalación de nuevos componentes o la instalación directa desde el repositorio interno existente. Para dar soporte a todo este proceso se implantó en la estructura de bundles el concepto de manifiesto de instalación. Este concepto determina el estado en que se encuentra el bundle y directivas de instalación para Raptor. De esta manera el sistema implementa también la detección e instalación automática de bundles y la remoción de falsos positivos o bundles fantasmas.</p>
+                        <hr>
+                        <h3 id="Configuracion">Configuración</h3>
+                        <p>Para la configuración de Raptor debemos acceder a la opción Configuration en el panel de control.</p>
+                        <p>Al igual que la versión anterior se configura las credenciales para el acceso a la base de datos, así como otros parámetros de seguridad.</p>
+                        <p>
+                            <img src="{{ asset("Raptor3/DocVersion3/img/rp-1.png") }}">
+                        </p>
+                        <br><br>
+                        <b>Notas.</b>
+                        <p>El nombre especificado de la base de datos deberá estar creado para establecer la conexión.</p>
+                        <p>En cada interfaz la guía interactiva te explicará algunos de los elementos que debes saber acerca de la función en específico.</p>
+
+                        <hr>
+                        <h3 id="Herramientas">Herramientas</h3>
+                        <p>Las herramientas representan el primer paquete de abstracción donde se encuentran las funcionalidades de limpiado de cache, estadística de rendimiento, el publicador de servicios SOAP y un generador de iconos añadido en esta nueva versión.</p>
+
+                        <h4 >Cache</h4>
+                        <p>La funcionalidad de limpiado de caché es bastante utilizada dentro del sistema puesto que cada cambio de configuración que se haga dentro de nuestro código necesita del llamado de esta función para el re-cacheo de la información.</p>
+                        <p>Es posible evitar este comportamiento obligando al ConfigurationLoader a cargarse en cada ejecución, colocando este llamado en el método de inicio en la clase Main</p>
+                        <p>
+                            <img src="{{ asset("Raptor3/DocVersion3/img/tool.png") }}">
+                        </p>
+                        <h4 >Servicios SOAP</h4>
+                        <p>El Soap Service Publisher te permitirá configurar la url de publicación y la reconstrucción de la clase principal de acuerdo a los servicios públicos declarados en tu proyecto.</p>
+
+                        <h4 >Generador iconos</h4>
+                        <p>Aunque está en una versión beta es bastante útil en la generación de iconos que no se encuentren declarados en la librería de iconos de Raptor.</p>
+
+                        <hr>
+                        <h3 id="Bundles">Bundles</h3>
+                        <p>Las opciones que aquí aparecen representan el segundo paquete de abstracción donde se generan todos elementos relacionados a los componentes, desde vistas, modelos, recursos web, creación, instalación y exportación de componentes.</p>
+                        <p>
+                            <img src="{{ asset("Raptor3/DocVersion3/img/bundle.png") }}">
+                        </p>    
+                        <h4 >Generación de componentes</h4>
+                        <p>Esta funcionalidad permite la gestión de vendors y bundles dentro del sistema, así como la exportación de componentes que tengan declarados manifiestos de instalación.</p>
+
+                        <h4 >Generadores Doctrine</h4>
+                        <p>Los generadores de doctrine se encargan de la generación a través del mapeo de modelos y esquemas definidos.</p>
+
+                        <h4 >Generador de interfaces</h4>
+                        <p>El UI generator permite la creación de plantillas de interfaces tanto para Extjs 4 como para Bootstrap 3 dentro de nuestros componentes. Las plantillas Ext se encuentran enlazadas y configuradas para su uso en el momento de la creación, además son creadas de acuerdo a la arquitectura MVC planteada por Sencha, solamente necesitamos llamarlas y editarlas a nuestro propósito.</p>
+
+                        <h4 >Publicador de recursos</h4>
+                        <p>Esta funcionalidad te permite una vez terminado el proyecto la publicación de los recursos web de tu bundle a través de las directivas establecidas en el compiler del componente. El compiler establece la configuración de minificación de nuestros recursos. Esta operación solo se realiza en la liberación ya que Raptor en modo desarrollo copia los recursos pre-procesados hacia su locación en web.</p>
+
+                        <h4 >Instalador de componentes</h4>
+                        <p>Dentro de esta funcionalidad encontrarás facilidades para la importación e instalación de componentes, tanto de bundles propios previamente exportados, como de los bundles definidos en el repositorio interno de Raptor. Por defecto este repositorio contiene el componente de seguridad Syntarsus que puede ser instalado si se requiere.</p>
+
+
+                        <hr>
+                        <h3 id="Componentes">Creación de componentes</h3>
+                        <p>Una vez explicado las funciones en los paquetes de abstracción podemos empezar con la demostración de la creación de un componente. Para esto vamos a la opción bundles y pulsamos sobre Generate Bundle.</p>
+                        <p>A continuación debe aparecer una interfaz como esta.</p>
+                        <p>
+                            <img src="{{ asset("Raptor3/DocVersion3/img/comp.png") }}">
+                        </p>
+                        <p>Los componentes como dije siempre estarán agrupados por vendors, así que si no utilizamos los vendors registrados debemos crear uno y colocar nuestro bundle. En este caso existe un vendors examples que podemos utilizar para este ejemplo.</p>
+                        <p>Para crear el bundle marcamos en el árbol el vendor donde crearemos el bundle y pulsamos en Create. Luego aparecerá una pequeña ventana que nos pedirá el nombre del bundle que queremos crear.</p>
+                        <p>
+                            <img src="{{ asset("Raptor3/DocVersion3/img/ejemplobundle.png") }}">
+                        </p>
+                        <p>Como se puede ver en la imagen anterior solo es necesario indicarle el nombre ya que automáticamente se le coloca el sufijo bundle. Luego pulsamos aceptar y el sistema debe darte notificación de que todo salió como se debía.</p>
+                        <p>Ahora podemos ir a nuestro proyecto en la carpeta src/examples/MiEjemploBundle y verificar que todo está bien.</p>
+                        <p>Una vez creado el componente hagamos un paréntesis para hablar de su estructura.</p>
+
+
+                    </div>
+
+                    <div flex></div>
+
+                </md-content>
+
+
+            </section>
+
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+        <script src="{{ asset('bootstrap/v4/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script src="{{ asset('Raptor/UIR/js/uir-all.js') }}"></script>
+        <script>
+var app = angular.module('myApp', ['ngMaterial']);
+app.controller('DemoCtrl', function($scope, $mdSidenav, $q, $log, $timeout) {
+    var self = this;
+
+    self.simulateQuery = false;
+    self.isDisabled = false;
+
+    // list of `state` value/display objects
+    self.states = loadAll();
+    self.querySearch = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange = searchTextChange;
+
+    self.newState = newState;
+
+    function newState(state) {
+        alert("Sorry! You'll need to create a Constitution for " + state + " first!");
+    }
+
+    // ******************************
+    // Internal methods
+    // ******************************
+
+    /**
+     * Search for states... use $timeout to simulate
+     * remote dataservice call.
+     */
+    function querySearch(query) {
+        var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                deferred;
+        if (self.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function() {
+                deferred.resolve(results);
+            }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
+    }
+
+    function searchTextChange(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+        if (item) {
+
+            window.location.hash = item.ref
+            console.log(item.el)
+            $log.info('Item changed to ' + JSON.stringify(item));
+        }
+    }
+
+    /**
+     * Build `states` list of key/value pairs
+     */
+    function loadAll() {
+        var r = []
+        $('.nav-sidebar .nav-link').each(function(index, el) {
+            r.push({
+                value: $(el).html().toLowerCase(),
+                display: $(el).html(),
+                ref: $(el).attr('href')
+            })
+        })
+        return r;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = query.toLowerCase();
+
+        return function filterFn(state) {
+            return (state.value.indexOf(lowercaseQuery) === 0);
+        };
+
+    }
+});
+app.controller('MyController', function($scope, $mdSidenav) {
+
+    window.prettyPrint && prettyPrint();
+});
+        </script>
+    </body>
+</html>

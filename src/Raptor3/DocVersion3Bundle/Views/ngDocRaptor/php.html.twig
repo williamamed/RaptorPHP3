@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="{{ asset('Raptor/v3/img/logo-php.png') }}">
+
+        <title>{{ classname }}</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bootstrap/v4/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('angular/angular-material.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bootstrap/js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+        <script src="{{ asset('angular/angular.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-route.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-animate.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-aria.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-messages.min.js') }}"></script>
+        <script src="{{ asset('angular/angular-material.min.js') }}"></script>
+        <link href="{{ asset('Raptor/UIR/css/uir-all.css') }}" rel="stylesheet">
+
+        <style>
+            body {
+                padding-top: 56px;
+            }
+            .starter-template {
+                padding: 3rem 1.5rem;
+                text-align: center;
+            }
+            .nav-doc-bar{
+                box-shadow: 2px 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);
+                background: #606060;
+            }
+            .md-sidenav-left .md-theme-indigo, .md-sidenav-left .nav-theme {
+                background-color: #33393f;
+                min-height: initial !important;
+            }
+            .md-sidenav-left .md-theme-indigo p{
+                padding:8px;
+            }
+            .folder-es{
+                background: #5b5b5b;
+                color: white;
+                padding: 10px
+            }
+            md-autocomplete input{
+                color: white !important
+            }
+            .md-virtual-repeat-container.md-autocomplete-suggestions-container{
+                z-index: 1000000;
+            }
+        </style>
+
+    </head>
+
+    <body ng-app="myApp">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top nav-doc-bar" style="">
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"> {{ version }}</a><a class="navbar-brand" href="{{ path("_raptor_apidoc_server") }}"> > <img src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" height="25"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div  class="collapse navbar-collapse col-md-5" id="navbarsExampleDefault">
+                <div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak style="width: 100%;">
+                    <md-autocomplete style="background-color: #3f474f ;border: none"
+                                     ng-disabled="ctrl.isDisabled"
+                                     md-no-cache="ctrl.noCache"
+                                     md-selected-item="ctrl.selectedItem"
+                                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                                     md-search-text="ctrl.searchText"
+                                     md-selected-item-change="ctrl.selectedItemChange(item)"
+                                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                     md-item-text="item.display"
+                                     md-min-length="0"
+                                     placeholder="Buscar...">
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{ ng('item.display') }}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            Lo sentimos no encontramos "{{ng('ctrl.searchText')}}" en la documentación.
+
+                        </md-not-found>
+                    </md-autocomplete>
+                </div>
+            </div>
+        </nav>
+
+        <div ng-controller="MyController" layout="column" style="height:100%;" ng-cloak>
+
+            <section layout="row" flex>
+
+                <md-sidenav
+                    class="md-sidenav-left"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')"
+                    md-whiteframe="4">
+
+                    <md-toolbar class="md-theme-indigo">
+                        <p class="text-center" ><img src="{{ asset("Raptor3/DocVersion3/img/RaptorDoc2.png") }}" height="100"><img style="margin-left: 20px" src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" height="60"></p>
+
+                    </md-toolbar>
+                    <md-content layout-padding >
+                        <ul class="nav nav-sidebar flex-column">
+                            <li class="nav-item"><b>{{ classname }}</b></li>
+                                    {% for item in prop %}
+                                <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}" style="color: #00cc66">{{ item['name'] }}</a></li>
+                                    {% endfor %}
+
+                            {% for item in cons %}
+                                <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}" style="color: #ff3333">{{ item['name'] }}</a></li>
+                                    {% endfor %}
+
+                            {% for item in method %}
+                                <li class="nav-item"><a class="nav-link" href="#{{ item['name'] }}">{{ item['name'] }}()</a></li>
+                                {% endfor %}
+
+                        </ul>
+                    </md-content>
+
+                </md-sidenav>
+
+                <md-content flex layout-padding>
+
+                    <div class="container-fluid" >
+
+                        <h1 class="page-header">Clase {{ classname }} </h1>
+                        <p>Para usar esta clase usted debe especificar el namespace <b>{{ classname }}</b>.</p>
+                        <br>
+                        <p class="text-muted">{{ description }}</p>
+
+
+
+                        <pre class="prettyprint linenums" >
+use {{ classname }};
+                        </pre>
+                        <h2>Constantes</h2>  
+                        {% for item in cons %}
+
+                            <br>
+                            <hr>
+                            <h4 id="{{ item['name'] }}" style="color: #ff3333">{{ item['name'] }}</h4>
+
+                            <pre class="text-muted">{{ classname }}::{{ item['name'] }}</pre>
+
+
+                            <p style="padding: 5px"><b class="text-muted">Valor: </b><span> {{ item['value'] }}</span></p>
+                            <br>
+                            
+
+                        {% endfor %}
+
+                        <h2>Propiedades públicas</h2>  
+                        {% for item in prop %}
+
+                            <hr>
+                            <h4 id="{{ item['name'] }}" style="color: #6666ff">{{ item['name'] }}</h4>
+                            {% if item['description'] %}
+                                <pre class="text-muted">{{ item['description'] }}</pre>
+                            {% else %}
+                                <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
+                            {% endif %}
+
+                            <p style="padding: 5px"><b class="text-muted">Tipo: </b><span> {{ item['type'] }}</span></p>
+                            <br>
+
+
+                        {% endfor %}
+                        <h2>Métodos</h2>    
+                        {% for item in method %}
+
+                            <hr>
+                            <h4 id="{{ item['name'] }}">{% if item['static'] %} <span class="text-muted">static public </span>{% else %}<span class="text-muted"> public </span>{% endif %}{{ item['name'] }}({{ item['param']|join(', ') }})</h4>
+                            {% if item['description'] %}
+                                <p class="text-muted">{{ item['description']|raw }}</p>
+                            {% else %}
+                                <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
+                            {% endif %}
+
+                            <br>
+                            {% for tag in item['tag'] %}
+                                <p style="padding: 5px"><b class="text-muted">{{ tag[0] }}: </b><span> {{ tag[1] }}</span></p>
+                            {% endfor %}
+                            <br>
+
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div flex></div>
+
+                </md-content>
+
+
+            </section>
+
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{{ asset('bootstrap/js/jquery.js') }}"></script>
+        <script src="{{ asset('bootstrap/v4/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/google-code-prettify/prettify.js') }}"></script>
+        <script src="{{ asset('Raptor/js/raptor-core.js') }}"></script>
+        <script src="{{ asset('Raptor/UIR/js/uir-all.js') }}"></script>
+        <script>
+var app = angular.module('myApp', ['ngMaterial']);
+app.controller('DemoCtrl', function($scope, $mdSidenav, $q, $log, $timeout) {
+    var self = this;
+
+    self.simulateQuery = false;
+    self.isDisabled = false;
+
+    // list of `state` value/display objects
+    self.states = loadAll();
+    self.querySearch = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange = searchTextChange;
+
+    self.newState = newState;
+
+    function newState(state) {
+        alert("Sorry! You'll need to create a Constitution for " + state + " first!");
+    }
+
+    // ******************************
+    // Internal methods
+    // ******************************
+
+    /**
+     * Search for states... use $timeout to simulate
+     * remote dataservice call.
+     */
+    function querySearch(query) {
+        var results = query ? self.states.filter(createFilterFor(query)) : self.states,
+                deferred;
+        if (self.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function() {
+                deferred.resolve(results);
+            }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
+    }
+
+    function searchTextChange(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+        if (item) {
+
+            window.location.hash = item.ref
+            console.log(item.el)
+            $log.info('Item changed to ' + JSON.stringify(item));
+        }
+    }
+
+    /**
+     * Build `states` list of key/value pairs
+     */
+    function loadAll() {
+        var r = []
+        $('.nav-sidebar .nav-link').each(function(index, el) {
+            r.push({
+                value: $(el).html().toLowerCase(),
+                display: $(el).html(),
+                ref: $(el).attr('href')
+            })
+        })
+        return r;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+        var lowercaseQuery = query.toLowerCase();
+
+        return function filterFn(state) {
+            return (state.value.indexOf(lowercaseQuery) === 0);
+        };
+
+    }
+});
+app.controller('MyController', function($scope, $mdSidenav) {
+
+    window.prettyPrint && prettyPrint();
+});
+        </script>
+    </body>
+</html>

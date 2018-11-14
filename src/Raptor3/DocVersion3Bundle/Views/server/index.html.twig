@@ -20,7 +20,7 @@
                 padding: 40px 15px;
                 text-align: center;
                 width: 100% !important;
-                background-image: url({{ asset('Raptor3/DocVersion3/img/layer.png') }});
+                background: #262b30;
                 background-position: center;
             }
 
@@ -62,21 +62,19 @@
 
     <body class="fondo">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
-            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php.png") }}" height="35"></i> {{ version }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-form navbar-">
-                <input type="text" id="buscar" class="form-control" placeholder="Buscar...">
-            </div>
+            
         </nav>
 
         <div class="starter-template">
-            <img src="{{ asset("Raptor3/DocVersion3/img/php.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
-            <h1>Servidor</h1>
+            <img src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" width="120" class="" alt="Generic placeholder thumbnail">
+            <h1 class="text-white">Servidor(PHP)</h1>
 
-            <p class="lead">Contiene toda la lógica detrás del servidor, implementando una arquitectura orientada a componentes en base a la extensión del núcleo Slim y complementando con tecnologías como Doctrine ORM, Twig y AOP.</p>
-            <hr>
+            <p class="lead text-white">Contiene toda la lógica detrás del servidor, implementando una arquitectura orientada a componentes en base a la extensión del núcleo Slim y complementando con tecnologías como Doctrine ORM, Twig y AOP.</p>
+            
 
         </div>     
         <div class="container">

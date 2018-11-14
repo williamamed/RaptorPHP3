@@ -31,22 +31,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Raptor3\DocVersion3Bundle\Tutorials;
+use Raptor\Bundle\Annotations\Inyect;
 /**
  * Description of Guia
  *
  * 
  */
 class Guia implements \Raptor\Bundle\Route\Rule{
-    /**
-     *
-     * @var \Raptor2\InteractiveBundle\Manager\InteractiveManager
-     */
-    private $interactive;
     
-
-    public function call(\Raptor\Raptor $app) {
-        $this->interactive=$app->getInyector()->get('InteractiveManager');
-        $this->interactive->add(array(
+    /**
+     * @Inyect("interactive")
+     */
+    public function call(\Raptor\Raptor $app, \Raptor2\InteractiveBundle\Manager\InteractiveManager $interactive=NULL) {
+        $interactive->add(array(
             'name'=>'welcome',
             'seconds'=>35,
             'style'=>array(
@@ -56,11 +53,10 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'author'=>'jhon',
             'position'=>'right top'
         ),'DocVersion3Bundle');
-        
         return false;
     }
     
-        
+       
 }
 
 ?>

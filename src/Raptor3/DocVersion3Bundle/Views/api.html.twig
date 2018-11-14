@@ -17,8 +17,10 @@
 
             }
             .jumbotron{
-                background-image: url({{ asset('Raptor3/DocVersion3/img/layer.png') }});
+                /**background-image: url({{ asset('Raptor3/DocVersion3/img/layer.png') }});*/
                 background-position: center;
+                height: 400px;
+                background: #262b30;
             }
 
 
@@ -40,7 +42,7 @@
 
     <body class="fondo">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark raptor-panel">
-            <a class="navbar-brand" href="#"><i style="margin-right: 5px;"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="35"></i> Doc {{ version }}</a>
+            <a class="navbar-brand" href="#"><i style="margin-right: 5px;"><img src="{{ asset('Raptor/v3/img/logo-php.png') }}" height="35"></i> Doc {{ version }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -51,30 +53,30 @@
 
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
-            <div class="container">
-                <h1 style="color: #5a32a3;text-shadow: 0 2px 0 #FFFFFF;">Raptor PHP 3</h1>
-                <p style="text-shadow: 0 1px 0 #FFFFFF;">Aprende sobre la estructura, arquitectura y opciones de configuración, el framework full stack  Raptor hace del desarrollo un proceso más fácil, con un índice de reducción del tiempo de un 50%.</p>
-                <p><a class="btn btn-primary btn-lg" href="{{ path("_raptor_apidoc_proyect") }}" role="button">Ver más &raquo;</a></p>
+            <div class="container text-center">
+                <h1 style="color: #5a32a3;text-shadow: 0 2px 0 #FFFFFF;margin-bottom: 30px"><img src="{{ asset("Raptor/v3/img/logo-php-extend.png") }}" height="100"></h1>
+                <p style="color: #FFFFFF;">Aprende sobre la estructura, arquitectura y opciones de configuración, el framework full stack  Raptor hace del desarrollo un proceso más fácil, con un índice de reducción del tiempo de un 50%.</p>
+                <p><a class="btn btn-primary btn-lg" href="{{ path("_raptor_apidoc_proyect") }}" role="button">Comenzar &raquo;</a></p>
             </div>
         </div>
 
-        <div class="container">
+            <div class="container" style="padding: 60px">
             <!-- Example row of columns -->
             <div class="row" style="text-align: center">
                 <div class="col-md-4">
-                    <img src="{{ asset("Raptor3/DocVersion3/img/js.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/jsm.png") }}" width="120" class="" alt="Generic placeholder thumbnail">
                     <h2>Cliente(javascript)</h2>
                     <p>Las funciones javascript del cliente hacen posible la integración con el lado del servidor, permitiendo mecanismo de seguridad, ajuste al contexto idiomático y una interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap. </p>
                     <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_client") }}" role="button">Ver más &raquo;</a></p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{{ asset("Raptor3/DocVersion3/img/php.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
-                    <h2>Servidor</h2>
+                    <img src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" width="120" class="" alt="Generic placeholder thumbnail">
+                    <h2>Servidor(PHP)</h2>
                     <p>Contiene toda la lógica detrás del servidor, implementando una arquitectura orientada a componentes en base a la extensión del núcleo Slim y complementando con tecnologías como Doctrine ORM, Twig y AOP.</p>
                     <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_server") }}" role="button">Ver más &raquo;</a></p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{{ asset("Raptor3/DocVersion3/img/abs.png") }}" width="200" class="" alt="Generic placeholder thumbnail">
+                    <img src="{{ asset("Raptor3/DocVersion3/img/absm.png") }}" width="120" class="" alt="Generic placeholder thumbnail">
                     <h2>Capa de abstracción</h2>
                     <p>Funciones visuales de utilidad para el desarrollo, contiene todo la lógica para un desarrollo ágil aportando la abstracción necesaria en la realización de las tareas. Podrás encontrarlas accediendo al Panel de control de Raptor.</p>
                     <p><a class="btn btn-primary" href="{{ path("_raptor_apidoc_abstraction") }}" role="button">Ver más &raquo;</a></p>

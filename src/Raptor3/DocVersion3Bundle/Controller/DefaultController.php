@@ -43,8 +43,8 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function proyectAction($request,$response,$route) {
+        return $this->render('@DocVersion3Bundle/ngDocRaptor/index.html.twig',array('version'=>  DefaultController::VERSION));
         
-        return $this->render('@DocVersion3Bundle/organization/index.html.twig',array('version'=>  DefaultController::VERSION));
     }
     
     /**
@@ -58,7 +58,8 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function clientAction($request,$response,$route) {
-        return $this->render('@DocVersion3Bundle/client/index.html.twig',array('version'=>  DefaultController::VERSION));
+        return $this->render('@DocVersion3Bundle/ngDocRaptor/client.html.twig',array('version'=>  DefaultController::VERSION));
+        
     }
     
     
@@ -73,8 +74,8 @@ class DefaultController extends Controller{
      * @param \Slim\Route $route
      */
     public function abstractionAction($request,$response,$route) {
+        return $this->render('@DocVersion3Bundle/ngDocRaptor/abs.html.twig',array('version'=>  DefaultController::VERSION));
         
-        return $this->render('@DocVersion3Bundle/abs/index.html.twig',array('version'=>  DefaultController::VERSION));
     }
     
     /**
@@ -156,8 +157,7 @@ class DefaultController extends Controller{
                     $class_method[]=$class_obj_method;
             }
             
-           
-            return $this->render('@DocVersion3Bundle/server/class/gen.html.twig',array(
+            return $this->render('@DocVersion3Bundle/ngDocRaptor/php.html.twig',array(
                 'method'=>$class_method,
                 'namespace'=>$class->getNamespaceName(),
                 'classname'=>$class->getName(),
@@ -168,6 +168,7 @@ class DefaultController extends Controller{
             ));
             
             
+            
 //            if(file_exists(__DIR__.'/../Views/server/class/'.$request->get('class').'.html.twig'))
 //                return $this->render('@DocBundle/server/class/'.$request->get('class').'.html.twig');
 //            else
@@ -176,7 +177,7 @@ class DefaultController extends Controller{
         return $this->render('@DocVersion3Bundle/server/index.html.twig',array('version'=>  DefaultController::VERSION));
     }
     
-    
+   
 }
 
 ?>
