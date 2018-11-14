@@ -111,7 +111,7 @@ class UiPublisherController extends \Raptor\Bundle\Controller\Controller{
                 
                 $location = $bundles[$value]['location'];
                 \Raptor\Bundle\Publisher\Publisher::run($bundles[$value]['name'],true);
-                if (file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
+                /**if (file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
                     $compiler = $bundles[$value]['namespace'] . '\\Compiler\\Compiler';
                     $comp = new $compiler();
                     $fileBundle = str_replace('Bundle', '',$bundles[$value]['namespace']);
@@ -121,7 +121,7 @@ class UiPublisherController extends \Raptor\Bundle\Controller\Controller{
                     $comp->setBundleName($fileBundle);
                     $comp->setForce(true);
                     $comp->create();
-                }
+                }*/
                 $console[]="The resources of $value are published";
             }
         }

@@ -45,6 +45,7 @@ class Collector {
 
                 if ($metadata && $metadata->associationMappings && isset($metadata->associationMappings[$prop->getName()])) {
                     if (isset($metadata->associationMappings[$prop->getName()]['joinColumns'])) {
+                        $prop->setAccessible(true);
                         $prop->setValue($class, $app->getStore()->getManager()->getRepository($metadata->associationMappings[$prop->getName()]['targetEntity'])->find($request->get($prop->getName())));
                     }
                 } else {

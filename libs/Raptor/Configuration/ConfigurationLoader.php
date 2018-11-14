@@ -547,7 +547,7 @@ class ConfigurationLoader {
                         'nameinbundles'=> $name
                     );
                     
-                    $this->options['bundles'][]=$name;
+                    $this->options['bundles'][$name]=$name;
                 }
             }
         }
