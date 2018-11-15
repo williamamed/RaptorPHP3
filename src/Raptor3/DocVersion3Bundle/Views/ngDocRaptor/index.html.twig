@@ -177,7 +177,7 @@
                         <hr>
                         <h3 id="arquitectura">Arquitectura</h3>
                         <p>Raptor plantea una arquitectura basada en componentes, promoviendo la reutilización y buenas prácticas en el desarrollo.</p>
-                        <p>La lógica de nuestro código estará dividida en <b>módulos(bundles)</b> que estarán a su vez agrupados por vendors, los vendors solo representarán un ente agrupador determinante solo de forma organizativa.</p>
+                        <p>La lógica de nuestro código estará dividida en <b>módulos(bundles)</b> que estarán a su vez agrupados por vendors, los vendors representarán un ente agrupador determinante solo de forma organizativa.</p>
                         <div class="folder-es">
                             <ul class="nav nav-sidebar" style="margin-left: 0px !important">
                                 <li><img width="30" src="{{ asset("Raptor3/DocVersion3/img/folder.png") }}"><b>ejemplo</b><i> (nombre del vendor)</i>
@@ -205,7 +205,7 @@
                         </div>
 
 
-                        <br>  
+                        <hr>  
                         <h4 id="aspect">Definición de Aspectos</h4>
                         <p>La Programación Orientada a Aspectos(AOP) es una de las funcionalidades que se mantiene en esta versión y la lógica estará determinada por el framework Go! AOP.</p>
                         <p>Go! AOP permite resolver los problemas de la tradicional programación orientada a objetos, garantizando un eficiente sistema de intersección de funciones del código existente.</p>
@@ -290,7 +290,7 @@ class EconomiaBundle extends Bundle{
                         </pre>
 
 
-                        <br>
+                        <hr>
                         <h4 id="controller">Definición de Controladores</h4>
                         <p>Los controladores son el concepto que modela la lógica de interacción de la capa de negocio con la capa de presentación, como en el resto de las tecnologías es bastante simple su definición.</p>
                         <p>Residirán en el directorio Controller en forma de clases que deberán contener sufijo Controller, ejemplo DefaultController.</p>
@@ -321,9 +321,9 @@ class DefaultController extends Controller{
     
 }
                         </pre>
-                        <p>Todas las acciones iran acompañadas de un bloque de anotaciones de código que establecerán su configuración(rutas, descripción etc..).</p>
+                        <p>Todas las acciones estarán acompañadas de un bloque de anotaciones de código que establecerán su configuración(rutas, descripción etc..).</p>
 
-                        <br>
+                        <hr>
                         <h4 id="compiler">Definición de un Compiler</h4>
                         <p>El compiler residirá en el directorio Compiler y se encargará de las directivas de minificación de nuestros recursos web(js, css) contenidos en el directorio Resources.</p>
                         <p>Por defecto Raptor mueve nuestros recursos tal y como están en la carpeta Resources hacia el directorio público(web/bundles), el compiler se encarga de realizar un proceso de minificación en la movida, creando un nuevo archivo con el contenido especificado para un mejor rendimiento en la carga de estos recursos por el navegador.</p>
@@ -350,7 +350,7 @@ class Compiler extends Resources{
                         </pre>
 
 
-                        <br>
+                        <hr>
                         <h4 id="manifiest">Manifiesto de instalación</h4>
                         <p>El manifiesto contiene todos los metadatos relacionados a la instalación del componente, el cargador de componentes de Raptor 3 requiere que exista este archivo para poder reconocer el componente.</p>
                         <p>Lo primero es la creación del directorio Manifest dentro de nuestro componente, luego se crea el archivo install.json dentro del mismo con las siguientes claves.</p>
@@ -382,7 +382,7 @@ return $message;
 
 
 
-                        <br>
+                        <hr>
                         <h4 id="reglas">Definición de Reglas de Rutas</h4>
                         <p>Una regla de ruta es similar a los Aspectos, solo que sirven como instersectores de ejecución de determinados patrones de rutas.</p>
                         <p>Las reglas son definidas en base a expresiones regulares, en caso de coicidir con la ruta actual se ejecuta dicha regla. Estarán ubicadas en el directorio Rule de nuestro módulo y se definen en forma de clases.</p>
@@ -463,10 +463,10 @@ class DefaultController extends Controller{
 
 
                         <br>
-                        <br>
+                        <hr>
                         <h4 id="mainclass">La clase principal</h4>
                         <p>Cada módulo contendrá una clase principal con el sufijo Bundle, esta clase determina el comportamiento global de nuestro módulo registrando los Aspectos, Reglas de Rutas, método de ejecución inicial y el prefijo de ruta del módulo si se desea.</p>
-                        <p>La anotación @Route determina el prefijo de ruta que utilizarán todas las rutas declaradas en los controladores, así que a todas la rutas del módulo se le añadirá el valor especificado al inicio.</p>
+                        <p>La anotación @Route determina el prefijo de ruta que utilizarán todas las rutas declaradas en los controladores, así que a todas la rutas del módulo se le añadirá el valor especificado aquí.</p>
 
                         <pre class="prettyprint linenums" >
 namespace ejemplo\EconomiaBundle;
@@ -494,7 +494,7 @@ class EconomiaBundle extends Bundle{
 
 }
                         </pre>
-                        <br>
+                        <hr>
 
                         <h4 id="tutorials">Tutoriales(Interactive Guide)</h4>
                         <p>El directorio Tutorials servirá para definir todas las guías interactivas de usuario, estas serán manejadas por el componente Interactive Guide.</p>
@@ -508,7 +508,7 @@ class EconomiaBundle extends Bundle{
     "reference":"Founder of this proyect"
 }
                         </pre>
-                        <p>Solo deberá especificarse el nombre, la imagen que representa al autor y una pequeña referencia de quien es.</p>
+                        <p>Solo deberá especificarse el nombre, la imagen que representa al autor y una pequeña referencia de quién es.</p>
 
                         <p>La carpeta <b>docs</b> contendrá los tutoriales en cuestión, organizados en carpetas en la forma que desees, estos serán llamados separados por (.) de acuerdo a la estructura de carpetas.</p>
                         <p>Los tutoriales dentro del directorio docs seran definidos con marcado html con la misma extensión.</p>
@@ -546,9 +546,9 @@ class EconomiaBundle extends Bundle{
                             </ul>
                         </div>
 
-                        <br>
+                        <hr>
 
-                        <p>Hasta este punto ya se encuentra definido el marcado de nuestra guía, ahora será necesario otorgarle el comportamiento a nuestro tutorial. Para esto debemos definir una clase Guia.php que implementa la interfaz \Raptor\Bundle\Route\Rule. Una vez creada la clase en el método call definiremos el comportamiento de la siguiente forma.</p>
+                        <p>Hasta este punto ya se encuentra definido el marcado de nuestra guía, ahora será necesario otorgarle el comportamiento a nuestro tutorial. Para esto debemos definir una clase Guia.php que implementa la interfaz \Raptor\Bundle\Route\Rule. Una vez creada la clase, en el método call definiremos el comportamiento de la siguiente forma.</p>
 
                         <pre class="prettyprint linenums" >
 namespace ejemplo\EconomiaBundle\Tutorials;
@@ -595,7 +595,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
                         <p><b>waitSeconds: </b>Esta será la cantidad de segundos que se esperará antes de mostrar el tutorial.</p>
                         <p><b>pointer: </b>Este atributo de ser definido mostrará un apuntador en forma de flecha, este apuntará al elemento html definido en el selector, antes del selector puede ser definido la orientación de la flecha. ejemplo. <b>arrow:down #idElemento</b>, esto mostrará una flecha apuntando hacia abajo el elemento especificado. Las propiedades de orientacion pueden ser <b>arrow:right</b>, <b>arrow:left</b>, <b>arrow:up</b> y <b>arrow:down</b></p>
                         <br>
-                        <p>Para que el sistema se ponga en espera para la ejecución de nuestro tutoriales debemos registrar la clase Guia.php como un regla de ruta en la clase principal.</p>
+                        <p>Para que el sistema se ponga en espera para la ejecución de nuestros tutoriales debemos registrar la clase Guia.php como un regla de ruta en la clase principal.</p>
                         <pre class="prettyprint linenums" >
 namespace ejemplo\EconomiaBundle;
 use Raptor\Bundle\Bundle;
@@ -630,9 +630,9 @@ class EconomiaBundle extends Bundle{
                         <h3 id="enrutamiento">Enrutamiento</h3>
                         <p>El sistema de rutas es una de las partes mejoradas para esta versión, además siendo uno de los factores más importantes dentro de cualquier framework.</p>
                         <p>Una ruta esta compuesta por 2 partes, la ruta físca y la ruta virtual. La ruta física es la parte de la dirección URL que representa una locación física en el servidor web, donde en una dirección como la siguiente <b>http://localhost/Raptor2/web/dev.php/economia/index</b> la ruta física correspondería a <b>/Raptor2/web/dev.php</b></p>
-                        <p>Para el enrutamiento de Raptor solo se tomarán en cuenta las rutas virtuales, que en el ejemplo anterior correspondería a <b>/economia/index</b>. Ahora bien, la mejora en el enrutamiento radica en la definición de las rutas virtuales, ya que ahora estas son definidas mediante anotaciones de código <b>@Route</b> en las propias acciones de los controladores</p>
-                        <p>Esto trae consigo que las rutas siempre sean definidas en conjunto con la acción, tributando a la unión de estos conceptos ya que el sistema se basa precisamente en la ejecución de una acción de acuerdo a su patrón de ruta virtual. Además de agrupar y remover todas las configuraciones excesivas esto garantiza que toda la definición esté donde por responsabilidad debe estar de acuerdo a la arquitectura orientada a componentes planteada.</p>
-                        <p>De igual forma en esta versión se añade a la configuración de rutas opcionalmente, el método por donde escuchará esta ruta, y si se ejecutará siguiendo la protección CSRF</p>
+                        <p>Para el enrutamiento de Raptor solo se tomarán en cuenta las rutas virtuales, que en el ejemplo anterior correspondería a <b>/economia/index</b>. Ahora bien, la mejora en el enrutamiento radica en la definición de las rutas virtuales, ya que ahora estas son definidas mediante anotaciones de código <b>@Route</b> en las propias acciones de los controladores.</p>
+                        <p>Esto trae consigo que las rutas siempre sean definidas en conjunto con la acción, tributando a la unión de estos conceptos, ya que el sistema se basa precisamente en la ejecución de una acción de acuerdo a su patrón de ruta virtual. Además de agrupar y remover todas las configuraciones excesivas, esto garantiza que toda la definición esté donde por responsabilidad debe estar de acuerdo a la arquitectura orientada a componentes planteada.</p>
+                        <p>De igual forma en esta versión se añade a la configuración de rutas opcionalmente el método por donde escuchará esta ruta, y si se ejecutará siguiendo la protección CSRF</p>
                         <pre class="prettyprint linenums" >
 
     /**
