@@ -121,39 +121,46 @@
                     <div layout="column" layout-align="">
 
                         <h1 class="page-header">Introducción a componentes de abstracción</h1>
-                        <p>Para Raptor PHP 2 estos componentes siguen siendo quienes garantizan en mayor medida la abstracción necesaria en el desarrollo. La inclusión de nuevos componentes con nuevas funciones tributa a esa mejora necesaria. Dentro de los nuevos componentes aparece Interactive Guide encargado de las guías interactivas de usuario.</p>
+                        <p>Para Raptor PHP 3 estos componentes siguen siendo quienes garantizan en mayor medida la abstracción necesaria en el desarrollo. La inclusión de nuevos componentes con nuevas funciones tributa a esa mejora necesaria. Dentro de los nuevos componentes aparece Interactive Guide encargado de las guías interactivas de usuario.</p>
                         <p>Para esta versión aparece nuevamente Syntarsus Security Module con muchos cambios, inclusión de nuevas características, mejoras en las técnicas de protección contra ataques y los procesos de identificación-autenticación, autorización y auditoría.  Además con un mejor soporte a las rutinas de instalación y exportación.</p>
                         <p>El nuevo componente de instalación garantiza de forma visual la importación e instalación de nuevos componentes o la instalación directa desde el repositorio interno existente. Para dar soporte a todo este proceso se implantó en la estructura de bundles el concepto de manifiesto de instalación. Este concepto determina el estado en que se encuentra el bundle y directivas de instalación para Raptor. De esta manera el sistema implementa también la detección e instalación automática de bundles y la remoción de falsos positivos o bundles fantasmas.</p>
                         <hr>
                         <h3 id="Configuracion">Configuración</h3>
-                        <p>Para la configuración de Raptor debemos acceder a la opción Configuration en el panel de control.</p>
-                        <p>Al igual que la versión anterior se configura las credenciales para el acceso a la base de datos, así como otros parámetros de seguridad.</p>
+                        <p>Para la configuración de Raptor debemos acceder a la opción Configuración en el panel de control.</p>
+                        <p>Al igual que la versión anterior se configura las credenciales para el acceso 
+                            a la base de datos, así como otros parámetros de seguridad.</p>
                         <p>
                             <img src="{{ asset("Raptor3/DocVersion3/img/rp-1.png") }}">
                         </p>
                         <br><br>
                         <b>Notas.</b>
                         <p>El nombre especificado de la base de datos deberá estar creado para establecer la conexión.</p>
-                        <p>En cada interfaz la guía interactiva te explicará algunos de los elementos que debes saber acerca de la función en específico.</p>
+                        <p>En cada interfaz la guía interactiva te explicará algunos de los elementos que
+                            debes saber acerca de la función en específico.</p>
 
                         <hr>
                         <h3 id="Herramientas">Herramientas</h3>
-                        <p>Las herramientas representan el primer paquete de abstracción donde se encuentran las funcionalidades de limpiado de cache, estadística de rendimiento, el publicador de servicios SOAP y un generador de iconos añadido en esta nueva versión.</p>
+                        <p>Las herramientas representan el primer paquete de abstracción donde se encuentran las funcionalidades de limpiado de caché,
+                            estadística de rendimiento, el publicador de servicios SOAP y un generador de iconos 
+                            añadido en esta nueva versión.</p>
 
-                        <h4 >Cache</h4>
-                        <p>La funcionalidad de limpiado de caché es bastante utilizada dentro del sistema puesto que cada cambio de configuración que se haga dentro de nuestro código necesita del llamado de esta función para el re-cacheo de la información.</p>
-                        <p>Es posible evitar este comportamiento obligando al ConfigurationLoader a cargarse en cada ejecución, colocando este llamado en el método de inicio en la clase Main</p>
+                        <h4 >Caché</h4>
+                        <p>La funcionalidad de limpiado de caché es bastante utilizada dentro del sistema puesto,
+                            que cada cambio de configuración que se haga dentro de nuestro código necesita del llamado 
+                            de esta función para el re-cacheo de la información.</p>
+                        <p>Es posible evitar este comportamiento obligando al ConfigurationLoader a cargarse en cada 
+                            ejecución, colocando este llamado en el método de inicio en la clase Main</p>
                         <p>
                             <img src="{{ asset("Raptor3/DocVersion3/img/tool.png") }}">
                         </p>
                         <h4 >Servicios SOAP</h4>
-                        <p>El Soap Service Publisher te permitirá configurar la url de publicación y la reconstrucción de la clase principal de acuerdo a los servicios públicos declarados en tu proyecto.</p>
+                        <p>El Soap Service Publisher te permitirá configurar la url de publicación y la reconstrucción de la clase principal de acuerdo a los servicios públicos declarados en tu proyecto (Actualmente marcado para remoción).</p>
 
                         <h4 >Generador iconos</h4>
                         <p>Aunque está en una versión beta es bastante útil en la generación de iconos que no se encuentren declarados en la librería de iconos de Raptor.</p>
 
                         <hr>
-                        <h3 id="Bundles">Bundles</h3>
+                        <h3 id="Bundles">Componentes</h3>
                         <p>Las opciones que aquí aparecen representan el segundo paquete de abstracción donde se generan todos elementos relacionados a los componentes, desde vistas, modelos, recursos web, creación, instalación y exportación de componentes.</p>
                         <p>
                             <img src="{{ asset("Raptor3/DocVersion3/img/bundle.png") }}">
@@ -165,7 +172,7 @@
                         <p>Los generadores de doctrine se encargan de la generación a través del mapeo de modelos y esquemas definidos.</p>
 
                         <h4 >Generador de interfaces</h4>
-                        <p>El UI generator permite la creación de plantillas de interfaces tanto para Extjs 4 como para Bootstrap 3 dentro de nuestros componentes. Las plantillas Ext se encuentran enlazadas y configuradas para su uso en el momento de la creación, además son creadas de acuerdo a la arquitectura MVC planteada por Sencha, solamente necesitamos llamarlas y editarlas a nuestro propósito.</p>
+                        <p>El UI generator permite la creación de plantillas de interfaces tanto para Extjs 4 como para Bootstrap 4 y Angularjs dentro de nuestros componentes. Las plantillas Ext se encuentran enlazadas y configuradas para su uso en el momento de la creación, además son creadas de acuerdo a la arquitectura MVC planteada por Sencha, solamente necesitamos llamarlas y editarlas a nuestro propósito.</p>
 
                         <h4 >Publicador de recursos</h4>
                         <p>Esta funcionalidad te permite una vez terminado el proyecto la publicación de los recursos web de tu bundle a través de las directivas establecidas en el compiler del componente. El compiler establece la configuración de minificación de nuestros recursos. Esta operación solo se realiza en la liberación ya que Raptor en modo desarrollo copia los recursos pre-procesados hacia su locación en web.</p>
@@ -176,20 +183,29 @@
 
                         <hr>
                         <h3 id="Componentes">Creación de componentes</h3>
-                        <p>Una vez explicado las funciones en los paquetes de abstracción podemos empezar con la demostración de la creación de un componente. Para esto vamos a la opción bundles y pulsamos sobre Generate Bundle.</p>
+                        <p>Una vez explicado las funciones en los paquetes de abstracción podemos empezar
+                            con la demostración de la creación de un componente. Para esto vamos a la 
+                            opción Componentes y pulsamos sobre Generar Componente.</p>
                         <p>A continuación debe aparecer una interfaz como esta.</p>
                         <p>
                             <img src="{{ asset("Raptor3/DocVersion3/img/comp.png") }}">
                         </p>
-                        <p>Los componentes como dije siempre estarán agrupados por vendors, así que si no utilizamos los vendors registrados debemos crear uno y colocar nuestro bundle. En este caso existe un vendors examples que podemos utilizar para este ejemplo.</p>
-                        <p>Para crear el bundle marcamos en el árbol el vendor donde crearemos el bundle y pulsamos en Create. Luego aparecerá una pequeña ventana que nos pedirá el nombre del bundle que queremos crear.</p>
+                        <p>Los componentes siempre estarán agrupados por vendors, así 
+                            que si no utilizamos los vendors registrados debemos crear uno y 
+                            colocar nuestro bundle. En este caso existe un vendors examples que podemos
+                            utilizar para este ejemplo.</p>
+                        <p>Para crear el bundle marcamos en el árbol el vendor donde crearemos el 
+                            componente y pulsamos en Crear. Luego aparecerá una pequeña ventana que 
+                            nos pedirá el nombre del bundle que queremos crear.</p>
                         <p>
                             <img src="{{ asset("Raptor3/DocVersion3/img/ejemplobundle.png") }}">
                         </p>
-                        <p>Como se puede ver en la imagen anterior solo es necesario indicarle el nombre ya que automáticamente se le coloca el sufijo bundle. Luego pulsamos aceptar y el sistema debe darte notificación de que todo salió como se debía.</p>
-                        <p>Ahora podemos ir a nuestro proyecto en la carpeta src/examples/MiEjemploBundle y verificar que todo está bien.</p>
-                        <p>Una vez creado el componente hagamos un paréntesis para hablar de su estructura.</p>
-
+                        <p>Como se puede ver en la imagen anterior solo es necesario indicarle el nombre, 
+                            ya que automáticamente se le coloca el sufijo bundle. Luego pulsamos aceptar
+                            y el sistema debe darte notificación de que todo salió como debía.</p>
+                        <p>Ahora podemos ir a nuestro proyecto en la carpeta src/examples/MiEjemploBundle y 
+                            verificar que todo está bien.</p>
+                        
 
                     </div>
 

@@ -60,7 +60,7 @@
     <body ng-app="myApp">
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top nav-doc-bar" style="">
-            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"> {{ version }}</a><a class="navbar-brand" href="{{ path("_raptor_apidoc_server") }}"> > <img src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" height="25"></a>
+            <a class="navbar-brand" href="{{ path("_raptor_apidoc") }}"> {{ version }} </a><a class="navbar-brand" href="{{ path("_raptor_apidoc_server") }}"> > <img style="" src="{{ asset("Raptor3/DocVersion3/img/phpm.png") }}" height="25"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -126,7 +126,7 @@
 
                 <md-content flex layout-padding>
 
-                    <div class="container-fluid" >
+                    <div class="container-fluid">
 
                         <h1 class="page-header">Clase {{ classname }} </h1>
                         <p>Para usar esta clase usted debe especificar el namespace <b>{{ classname }}</b>.</p>
@@ -148,7 +148,7 @@ use {{ classname }};
                             <pre class="text-muted">{{ classname }}::{{ item['name'] }}</pre>
 
 
-                            <p style="padding: 5px"><b class="text-muted">Valor: </b><span> {{ item['value'] }}</span></p>
+                            <h5 style="padding: 5px"><b class="text-muted">Valor: </b><span> {{ item['value'] }}</span></h5>
                             <br>
                             
 
@@ -157,6 +157,7 @@ use {{ classname }};
                         <h2>Propiedades públicas</h2>  
                         {% for item in prop %}
 
+                            <br>
                             <hr>
                             <h4 id="{{ item['name'] }}" style="color: #6666ff">{{ item['name'] }}</h4>
                             {% if item['description'] %}
@@ -165,7 +166,7 @@ use {{ classname }};
                                 <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
                             {% endif %}
 
-                            <p style="padding: 5px"><b class="text-muted">Tipo: </b><span> {{ item['type'] }}</span></p>
+                            <h5 style="padding: 5px"><b class="text-muted">Tipo: </b><span> {{ item['type'] }}</span></h5>
                             <br>
 
 
@@ -173,10 +174,11 @@ use {{ classname }};
                         <h2>Métodos</h2>    
                         {% for item in method %}
 
+                            <br>
                             <hr>
                             <h4 id="{{ item['name'] }}">{% if item['static'] %} <span class="text-muted">static public </span>{% else %}<span class="text-muted"> public </span>{% endif %}{{ item['name'] }}({{ item['param']|join(', ') }})</h4>
                             {% if item['description'] %}
-                                <p class="text-muted">{{ item['description']|raw }}</p>
+                                <pre class="text-muted">{{ item['description'] }}</pre>
                             {% else %}
                                 <pre class="text-muted">NO SE ENCONTRO DOCUMENTACION</pre>
                             {% endif %}

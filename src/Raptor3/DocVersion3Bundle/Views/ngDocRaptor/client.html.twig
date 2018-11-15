@@ -5,8 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Bliblioteca javascript de Raptor PHP 3">
+        <meta name="author" content="Proyecto Raptor">
         <link rel="shortcut icon" href="{{ asset('Raptor/v3/img/logo-php.png') }}">
 
         <title>Cliente</title>
@@ -154,13 +154,17 @@
                     <div layout="column" layout-align="">
 
                         <h1 class="page-header">Biblioteca Raptor Javascript </h1>
-                        <p>Las funciones javascript del cliente hacen posible la integración con el lado del servidor, permitiendo mecanismo de seguridad, ajuste al contexto idiomático y una interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap.</p>
+                        <p>Las funciones javascript del cliente hacen posible la integración con el lado del 
+                            servidor, permitiendo mecanismos de seguridad, ajuste al contexto idiomático y una 
+                            interfaz integrada de mensajeria para las tecnologías Extjs y Bootstrap.</p>
 
 
                         <!-- Confirm -->
                         <br>
                         <h3 id="msg">Mensajería</h3>
-                        <p class="text-muted">El paquete de Raptor es una interfaz integrada de mensajería, permitiendo mostrar mensajes estándar de acuerdo a la tecnología que se utilice en el momento(Extjs, Bootstrap)</p>
+                        <p class="text-muted">El paquete de Raptor es una interfaz integrada de mensajería, 
+                            permitiendo mostrar mensajes estándar de acuerdo a la tecnología que se 
+                            utilice en el momento(Extjs, Bootstrap)</p>
 
 
                         <br>
@@ -194,7 +198,7 @@ Raptor.msg.confirm('titulo del mensaje','cuerpo del mensaje',function(){
                         <p class="text-muted">Muestra una ventana de error que puede ser configurada como flotante</p>
                         <br>
                         <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
-                        <h5 style="padding: 5px"><b class="text-muted">float: boolean (opcional)</b><span>  Determina si es una ventana flotante o fija por defecto true (Solo aplica para Extjs)</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">float: boolean (opcional)</b><span>  Determina si es una ventana flotante o fija, por defecto true (Solo aplica para Extjs)</span></h5>
 
                         <br>
 
@@ -229,19 +233,55 @@ Raptor.msg.exception('titulo del mensaje','cuerpo del mensaje');
                         <!-- info -->
                         <br>
                         <hr>
-                        <h4 id="msg.info">Raptor.msg.info( msg, duration, background)</h4>
-                        <p class="text-muted">Muestra una ventana flotante de infomación</p>
+                        <h4 id="msg.info">Raptor.msg.info( msg, options )</h4>
+                        <p class="text-muted">Muestra una ventana flotante de información</p>
                         <br>
                         <h5 style="padding: 5px"><b class="text-muted">msg: string</b><span>  Texto del cuerpo de la ventana de confirmación</span></h5>
-                        <h5 style="padding: 5px"><b class="text-muted">duration: integer (opcional)</b><span>  Duración de la ventana flotante de información, por defecto 15 seg</span></h5>
-                        <h5 style="padding: 5px"><b class="text-muted">background: string (opcional)</b><span>  Color de del fonde de la ventana de información, por defecto #402878</span></h5>
-
+                        <h5 style="padding: 5px"><b class="text-muted">options: Object (opcional)</b><span>  Opciones de configuración del mensaje para la biblioteca Bootstrap notify(Solo aplica para bootstrap)</span></h5>
+                        
                         <br>
 
                         <pre class="prettyprint linenums" >
 
 Raptor.msg.info('ventana flotante de infomacion');
 
+//Opcionalmente para bootstrap
+Raptor.msg.info({
+	// options
+	icon: 'glyphicon glyphicon-warning-sign',
+	title: 'Bootstrap notify',
+	message: 'Turning standard Bootstrap alerts into "notify" like notifications',
+	url: 'https://github.com/mouse0270/bootstrap-notify',
+	target: '_blank'
+},{
+	// settings
+	element: 'body',
+	position: null,
+	type: "info",
+	allow_dismiss: true,
+	newest_on_top: false,
+	showProgressbar: false,
+	placement: {
+		from: "top",
+		align: "right"
+	},
+	offset: 20,
+	spacing: 10,
+	z_index: 1031,
+	delay: 5000,
+	timer: 1000,
+	url_target: '_blank',
+	mouse_over: null,
+	animate: {
+		enter: 'animated fadeInDown',
+		exit: 'animated fadeOutUp'
+	},
+	onShow: null,
+	onShown: null,
+	onClose: null,
+	onClosed: null,
+	icon_type: 'class'
+});
                         </pre>
 
 
@@ -414,8 +454,8 @@ var user=Raptor.getUser();
                         <br>
 
                         <pre class="prettyprint linenums" >
-var user=Raptor.getUser();
-//  admin
+Raptor.getRoute('/user/list');
+//  localhost/server/index.php/user/list
                         </pre> 
 
                         <!-- controlActions -->
@@ -539,7 +579,7 @@ Interactive.show('welcome.name','welcome.tuto1 and welcome.tuto2');
                         <br>
                         <br>
                         <h3 id="msg">Hermes</h3>
-                        <p class="text-muted">Canal de lado del cliente para enviar datos entre tabs del mismo origen.</p>
+                        <p class="text-muted">Canal utilizado del lado del cliente para enviar datos entre tabs abiertos del mismo origen.</p>
 
                         <!-- Interactive -->
                         <br>
@@ -547,7 +587,7 @@ Interactive.show('welcome.name','welcome.tuto1 and welcome.tuto2');
                         <h4 id="hermes.send">hermes.send( name, data, [includeSelf=false] )</h4>
                         <p class="text-muted">Envía un mensaje de datos a los demás tabs abiertos del mismo origen.</p>
                         <br>
-                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el dato</span></h5>
                         <h5 style="padding: 5px"><b class="text-muted">data: Object</b><span> Dato a enviar, es necesario que este sea un Serializable JSON</span></h5>
                         <h5 style="padding: 5px"><b class="text-muted">includeSelf: (optional, default=false)</b><span> Determina si el dato también será enviado en el tab actual</span></h5>
 
@@ -563,8 +603,8 @@ hermes.send('some-topic', { title: 'awesome' }, true);
                         <h4 id="hermes.on">hermes.on( name, callback )</h4>
                         <p class="text-muted">Permite escuchar un mensaje para una llave determinada.</p>
                         <br>
-                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
-                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especificada que se ejecutará cuando se reciba un mensaje en la llave anterior</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave que se escuchará</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> Función especificada que se ejecutará cuando se reciba un mensaje en la llave anterior</span></h5>
 
                         <br>
 
@@ -578,8 +618,8 @@ hermes.on('some-topic', function(data) {
                         <h4 id="hermes.off">hermes.off( name, [callback] )</h4>
                         <p class="text-muted">Deja de escuchar un mensaje para una llave determinada.</p>
                         <br>
-                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave con que se enviará el datos</span></h5>
-                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> función especifica que se eliminará, en caso de especificarse se eliminarán todos los callback registrados con esa llave</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">name: string</b><span> Nombre de la llave que se dejará de escuchar</span></h5>
+                        <h5 style="padding: 5px"><b class="text-muted">callback: function</b><span> Función especifica que se eliminará, en caso de no especificarse se eliminarán todos los callback registrados con esa llave</span></h5>
 
                         <br>
 
