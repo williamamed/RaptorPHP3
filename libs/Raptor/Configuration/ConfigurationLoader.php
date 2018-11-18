@@ -121,24 +121,18 @@ class ConfigurationLoader {
             $aop = Location::get(Location::CACHE) . '/AOP';
             \Raptor\Util\Files::delete($aop);
             \Raptor\Util\Files::delete($cache . '/7u136');
-            
+            /**
+             * Aspect Kernel antes del lector de metadatos
+             */
             $appr=\Raptor\Raptor::getInstance();
             
-            
-
-            $this->reader->setBundles($this->options['bundles']);
-            $this->reader->load();
-            $this->options['routes'] = $this->reader->getDefinitions();
-            $this->options['location'] = $this->reader->getLocation();
-            //$this->options['specifications'] = $this->reader->getSpecifications();
-            $this->options['description'] = $this->reader->getDescriptions();
-            $this->options['rules'] = $this->reader->getRules();
             $appr->getAppAspectKernel()->init(array(
                 'debug' => $appr->config('debug'),
                 'appDir' => Location::get(Location::SRC),
                 'cacheDir' => Location::get(Location::CACHE) . '/AOP'
             ));
             $container = \Raptor\Raptor::getInstance()->getAppAspectKernel()->getContainer();
+            
             foreach ($this->options['bundles'] as $bundle) {
                 $cmp_str = $bundle;
                 $cmp = new $cmp_str();
@@ -150,8 +144,18 @@ class ConfigurationLoader {
                 $container->addResource($trace[1]['file']);
                 $container->addResource($refClass->getFileName());
             }
+
+            $this->reader->setBundles($this->options['bundles']);
+            $this->reader->load();
+            $this->options['routes'] = $this->reader->getDefinitions();
+            $this->options['location'] = $this->reader->getLocation();
+            //$this->options['specifications'] = $this->reader->getSpecifications();
+            $this->options['description'] = $this->reader->getDescriptions();
+            
+            $this->options['rules'] = $this->reader->getRules();
             $this->cache->setData($this->options);
             $this->cache->save();
+            
             /**
              * Save the API to access in the main Raptor class
              */
