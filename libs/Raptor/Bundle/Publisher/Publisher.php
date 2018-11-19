@@ -48,7 +48,7 @@ class Publisher {
      * @param string $bundle El bundle que se copiara los recursos
      * @param boolean $extPreCompile Si este parametro es true, se ejecutaram ademas una rutina de busqueda dentro de los recursos para la compilacion de recursos Extjs
      */
-    static public function run($bundle, $extPreCompile = false) {
+    static public function run($bundle, $extPreCompile = false,$compiler=false) {
         $class = new \Wingu\OctopusCore\Reflection\ReflectionClass($bundle);
         $location = dirname($class->getFileName());
 
@@ -65,7 +65,7 @@ class Publisher {
             if ($extPreCompile)
                 Extjs::preCompileApp($web . '/' . $fileBundle);
         }
-        if (file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
+        if ($compiler && file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
             $compiler = '\\'.$class->getNamespaceName() . '\\Compiler\\Compiler';
             $comp = new $compiler();
             $fileBundle = str_replace('Bundle', '', $class->getNamespaceName());

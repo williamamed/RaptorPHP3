@@ -110,7 +110,7 @@ class UiPublisherController extends \Raptor\Bundle\Controller\Controller{
                 $class = $bundles[$value]['name'];
                 
                 $location = $bundles[$value]['location'];
-                \Raptor\Bundle\Publisher\Publisher::run($bundles[$value]['name'],true);
+                \Raptor\Bundle\Publisher\Publisher::run($bundles[$value]['name'],true,true);
                 /**if (file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
                     $compiler = $bundles[$value]['namespace'] . '\\Compiler\\Compiler';
                     $comp = new $compiler();

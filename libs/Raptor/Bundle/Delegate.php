@@ -60,7 +60,7 @@ class Delegate {
         $cmp = new $cmp_str();
         $app = \Raptor\Raptor::getInstance();
         $app->setCurrentBundle($cmp);
-        if(\Raptor\Raptor::getInstance()->config('debug'))
+        if($app->config('debug') && !$app->request()->isAjax())
             Publisher\Publisher::run($cmp, true);
         call_user_func_array(array($cmp, 'entrance'), array(\Raptor\Raptor::getInstance()));
         
