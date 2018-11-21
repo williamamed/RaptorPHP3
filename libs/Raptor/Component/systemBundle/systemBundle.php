@@ -30,6 +30,8 @@ class systemBundle extends \Raptor\Bundle\Bundle {
             $this->app->getInyector()->add($this->app->request());
             $this->app->getInyector()->add($this->app->response());
             $this->app->getInyector()->add($this->app->router());
+            
+            $this->app->addCommand(new Command\MigrateCommand());
     }
 
 }
