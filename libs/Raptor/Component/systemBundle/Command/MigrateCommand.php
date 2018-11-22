@@ -33,7 +33,7 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $src = \Raptor\Core\Location::get(\Raptor\Core\Location::SRC);
-        $files = \Raptor\Util\Files::find($src . '/AtencionOnline', '*.php');
+        $files = \Raptor\Util\Files::find($src , '*.php');
         $result = "";
         $output->writeln("--------------------------------------------------------------");
         $output->writeln("Buscando archivos fuentes... ");
@@ -68,7 +68,7 @@ EOT
         $output->writeln("--------------------------------------------------------------");
         $output->writeln("Analizando los metadatos de instalacion de componentes... ");
         $output->writeln("--------------------------------------------------------------");
-        $bundles = \Raptor\Util\Files::find($src . '/AtencionOnline', '*Bundle');
+        $bundles = \Raptor\Util\Files::find($src , '*Bundle');
         foreach ($bundles as $dir) {
             if (is_dir($dir)) {
                 $manifest = \Raptor\Util\Files::find($dir, 'install.json');
