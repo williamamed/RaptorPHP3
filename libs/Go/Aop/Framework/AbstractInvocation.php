@@ -34,9 +34,4 @@ abstract class AbstractInvocation extends AbstractJoinpoint implements Invocatio
     {
         return $this->arguments;
     }
-    
-    public function setArguments($arguments)
-    {
-       $this->arguments=$arguments;
-    }
 }

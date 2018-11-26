@@ -42,7 +42,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
      * @var \Raptor2\InteractiveBundle\Manager\InteractiveManager
      */
     private $interactive;
-    
+    static public $COLOR='#6200EE';
 
     public function call(\Raptor\Raptor $app) {
         $this->interactive=$app->getInyector()->get('InteractiveManager');
@@ -51,7 +51,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'name'=>'raptor.panel.welcome',
             'seconds'=>40,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>  self::$COLOR
             ),
             'next'=>'raptor.panel.start',
             'author'=>'amed',
@@ -62,7 +62,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'name'=>'raptor.panel.start',
             'seconds'=>20,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'pointer'=>'.navbar-nav li:first',
             'author'=>'amed',
@@ -73,7 +73,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'name'=>'raptor.configuration.conf',
             'seconds'=>60,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'author'=>'amed',
             'next'=>'raptor.tools.toolpresent',
@@ -84,7 +84,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'name'=>'raptor.start.startopen',
             'seconds'=>60,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'pointer'=>'.navbar-nav li:eq(1)',
             'author'=>'amed',
@@ -96,7 +96,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'seconds'=>60,
             'waitSeconds'=>45,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'pointer'=>'.navbar-nav li:eq(2)',
             'author'=>'amed',
@@ -109,7 +109,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'seconds'=>45,
             'waitSeconds'=>30,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'pointer'=>'.navbar-nav>li:eq(3)',
             'author'=>'amed',
@@ -122,7 +122,7 @@ class Guia implements \Raptor\Bundle\Route\Rule{
             'seconds'=>45,
             'waitSeconds'=>30,
             'style'=>array(
-                'background'=>'darkblue'
+                'background'=>self::$COLOR
             ),
             'pointer'=>'.navbar-nav.navbar-right li:first',
             'author'=>'amed',

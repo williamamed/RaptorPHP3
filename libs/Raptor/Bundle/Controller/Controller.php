@@ -30,31 +30,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 namespace Raptor\Bundle\Controller;
-
 use Raptor\Util\ItemList;
 use Raptor\Bundle\Collector;
-
 /**
  * Clase controladora de los bundles del sistema
  *
  * 
  */
 class Controller {
-
     const INFO = 1;
     const QUESTION = 2;
     const ERROR = 3;
     const WAIT = 4;
     const EXCEPTION = 5;
     const DATA = 6;
-
     /**
      * Access to Raptor App
      * @var \Raptor\Raptor
      */
     protected $app;
+    
+
 
     /**
      * Retorna la instancia a la clase principal de la aplicacion
@@ -64,11 +61,10 @@ class Controller {
     public function getApp() {
         return $this->app;
     }
-
+            
     function __construct() {
         $this->app = \Raptor\Raptor::getInstance();
     }
-
     /**
      * Inyector de dependencias
      * 
@@ -85,7 +81,7 @@ class Controller {
     public function get($class) {
         return $this->app->getInyector()->get($class);
     }
-
+    
     /**
      * Este es un Alias para extMessage, retorna un mensaje en el formato SON especificado por Extjs
      * 
@@ -110,12 +106,12 @@ class Controller {
         $msgObj->set('success', $success);
         $msgObj->set('cod', $cod);
         foreach ($other as $key => $value) {
-            $msgObj->set($key, $value);
+            $msgObj->set($key,$value);
         }
         $this->app->contentType(\Raptor\Raptor::JSON);
         return $msgObj->toJson();
     }
-
+    
     /**
      * Manda a renderizar una plantilla twig con sus parametros
      * 
@@ -129,7 +125,7 @@ class Controller {
     public function render($template, $arguments = array(), $status = NULL) {
         return \Raptor\Raptor::getInstance()->render($template, $arguments, $status);
     }
-
+    
     /**
      * 
      * Retorna el texto del tag especificado en el idioma actual del sistema.
@@ -143,14 +139,12 @@ class Controller {
     public function lang($tag, $scope = null) {
         return \Raptor\Raptor::getInstance()->getLanguage()->getBundleLanguage($tag, $scope);
     }
-
     /**
      * Establece el lenguaje definido en el navegador 
      */
     public function setPreferedLanguage() {
         $this->app->getLanguage()->setUserPreferedLanguage();
     }
-
     /**
      * Retorna el request activo para la peticion actual
      * 
@@ -159,7 +153,6 @@ class Controller {
     public function getRequest() {
         return $this->app->request();
     }
-
     /**
      * Retorna el manejador de persistencia para esta aplicacion(Doctrine ORM)
      * 
@@ -168,7 +161,7 @@ class Controller {
     public function getStore() {
         return $this->app->getStore();
     }
-
+    
     /**
      * Retorna el manejador de Doctrine ORM
      * 
@@ -177,7 +170,7 @@ class Controller {
     public function getStoreManager() {
         return $this->app->getStore()->getManager();
     }
-
+    
     /**
      * Retorna el repositorio de la entidad especificada. Si se especifica solamente
      * el nombre de la entidad esta funcion buscara los repositorios del bundle actual al 
@@ -192,15 +185,15 @@ class Controller {
      * @return \Doctrine\ORM\EntityRepository
      */
     public function repo($entityName) {
-        if (count(explode(':', $entityName)) > 1)
+        if(count(explode(':', $entityName))>1)
             return $this->app->getStore()->getManager()->getRepository($entityName);
-        else {
+        else{
             $reflect = new \ReflectionClass($this->getApp()->getCurrentBundle());
-
-            return $this->app->getStore()->getManager()->getRepository($reflect->getShortName() . ":" . $entityName);
+            
+            return $this->app->getStore()->getManager()->getRepository($reflect->getShortName().":".$entityName);
         }
     }
-
+    
     /**
      * Retorna el SessionStore del usuario autenticado
      * 
@@ -226,13 +219,13 @@ class Controller {
             $route = $this->app->router()->getNamedRoute($routeName);
 
             if ($route != NULL) {
-
-                $this->app->redirect($this->app->request()->getScriptName() . $route->getPattern(), $status);
+                
+                $this->app->redirect($this->app->request()->getScriptName().$route->getPattern(), $status);
             } else {
                 throw new \Exception("The route name ( $routeName ) do not exist", 3);
             }
         } else {
-            $this->app->redirect($routeName, $status);
+           $this->app->redirect($routeName, $status);
         }
     }
 
@@ -246,8 +239,8 @@ class Controller {
         if ($this->app->getSecurity()->verifyToken($this->app->request()->params('token')))
             return true;
         else {
-            if ($this->app->config('debug'))
-                $this->app->halt(403, $app->config('debug') ? "El token especificado para esta petición es inválido<br>Esperado: " . $app->getSecurity()->getToken() . "<br> Recibido: " . $app->request()->params('token') : 'Peticion invalida');
+            if($this->app->config('debug'))
+                $this->app->halt(403,$app->config('debug')?"El token especificado para esta petición es inválido<br>Esperado: ".$app->getSecurity()->getToken()."<br> Recibido: ".$app->request()->params('token'):'Peticion invalida');
             //throw new \Raptor\Exception\Csrf("El token especificado para esta petición es inválido<br>Esperado: ".$this->app->getSecurity()->getToken()."<br> Recibido: ".$this->app->request()->params('token'));
         }
     }
@@ -265,7 +258,7 @@ class Controller {
         if ($_FILES[$name] and $_FILES[$name]['tmp_name'])
             return move_uploaded_file($_FILES[$name]['tmp_name'], $dir);
     }
-
+    
     /**
      * Este metodo es usado para enviar datos desde el lado del servidor al cliente en formato JSON,
      * establece el contentType apropiado para la respuesta
@@ -290,13 +283,13 @@ class Controller {
     public function data($data) {
         $cod = Controller::DATA;
         $msgObj = new ItemList();
-
+        
         $msgObj->set('success', true);
         $msgObj->set('cod', $cod);
         foreach ($data as $key => $value) {
             $msgObj->set($key, $value);
         }
-
+        
         $this->app->contentType(\Raptor\Raptor::JSON);
         return $msgObj->toJson();
     }
@@ -308,60 +301,23 @@ class Controller {
      * Si el primer paremtro es un objeto lo usa para poblar segun los parametros del request.
      * 
      * @param string/object $class clase u objeto a poblar
-     * @param array $matcher un array con el macheo de parametros que no coinciden con los atributos de la clase. ejemplo array('nombre_c'=>'nombre') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
+     * @param array $matcher un array con el macheo de parametros que no conciden con los atributos de la clase. ejemplo array('nombre'=>'nombre_c') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
      * @return mixed
      */
-    public function collector($class, $matcher = array(), $method = 'POST') {
+    public function collector($class,$matcher = array()) {
         $classTo = $class;
-
-        $params = array();
-        if ($method == 'POST')
-            $params = $this->app->request()->post();
-        if ($method == 'GET')
-            $params = $this->app->request()->get();
-        if ($method == 'PUT')
-            $params = $this->app->request()->put();
-
         if (!is_object($classTo)) {
-            $values = array();
-            preg_match('/(.+)\((.+)\)/', $classTo, $values);
-            if (count($values) > 0) {
-                $filter = array();
-                $items = new \Raptor\Util\ItemList($params);
-                $filter[$values[2]] = $items->get($values[2], NULL);
-                $classTo = $this->app->getStore()->getManager()->getRepository($values[1])->findOneBy($filter);
-                if (!$classTo) {
-                    $classTo = $alias->get(0);
-                    $classTo = new $classTo();
-                }
-            } else {
-                $alias = new ItemList(explode(':', $classTo));
-                if ($alias->size() > 1) {
-                    $classTo = $alias->get(0);
-                    $namespace = $this->getStore()->getManager()->getConfiguration()->getEntityNamespace($classTo);
-                    $namespace.='\\' . $alias->get(1);
-                    $classTo = $namespace;
-                }
-                $classTo = new $classTo();
+            $alias = new ItemList(explode(':', $classTo));
+            if ($alias->size() > 1) {
+                $classTo = $alias->get(0);
+                $namespace = $this->getStore()->getManager()->getConfiguration()->getEntityNamespace($classTo);
+                $namespace.='\\' . $alias->get(1);
+                $classTo = $namespace;
             }
+            $classTo = new $classTo();
         }
-
-
-        return Collector::run($classTo, new ItemList($params), $matcher);
-    }
-
-    /**
-     * Pobla los atributos de la clase o objeto especificado con los parametros provenientes en el request actual
-     * 
-     * Si el primer parametro es una clase el colector crea un instancia de esta.
-     * Si el primer paremtro es un objeto lo usa para poblar segun los parametros del request.
-     * 
-     * @param string/object $class clase u objeto a poblar
-     * @param array $matcher un array con el macheo de parametros que no coinciden con los atributos de la clase. ejemplo array('nombre_c'=>'nombre') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
-     * @return mixed
-     */
-    public function collectorManager($class, $matcher = array(), $method = 'POST') {
-        return new \Raptor\Bundle\CollectorManager($class, $matcher, $method);
+        
+        return Collector::run($classTo, new ItemList($this->app->request()->params()), $matcher);
     }
 
     /**
@@ -374,5 +330,4 @@ class Controller {
     }
 
 }
-
 ?>

@@ -35,10 +35,10 @@ namespace Raptor;
 /**
  * Raptor es la clase principal del framework del lado del
  * servidor. Extiende de la clase principal Slim implementando
- * la lógica general del sistema.
+ * la logica general del sistema.
  * 
  * @package Raptor
- * @since   3.0.1
+ * @since   2.0.0
  */
 class Raptor extends \Slim\Slim {
     
@@ -141,17 +141,16 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Setea el bundle actual en la ejecución del sistema de rutas
-     * @param Bundle\Bundle $bundle Instancia del bundle actual en ejecución
+     * Setea el bundle actual en la ejecucuion del sistema de rutas
+     * @param Bundle\Bundle $bundle
      */
     public function setCurrentBundle($bundle) {
         $this->bundle=$bundle;
     }
     /**
-     * 
-     * Devuelve el bundle actual en la ejecución del sistema de rutas.
-     * Tenga presente que este valor solo estará presente cuando se ejecuten las rutas correspondientes
-     * a un bundle en específico, de lo contrario el valor sera null.
+     * Devuelve el bundle actual en la ejecucion del sistema de rutas, tenga presente
+     * que este valor solo estara presente cuando se ejecuten las rutas correspondientes
+     * a un bundle en especifico, de lo contrario el valor sera null.
      * 
      * @return Bundle\Bundle
      */
@@ -170,10 +169,7 @@ class Raptor extends \Slim\Slim {
      * @var Bundle\Route\RuleContainer 
      */
     private $ruleContainer;
-    /**
-     * Manda a ejecutar el core de Raptor
-     * 
-     */
+
     public function run() {
         
         $this->timer = new Util\Timer();
@@ -256,9 +252,9 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Setea un mensaje flash para peticiones subsiguientes
-     * @param  string   $key llave del mensaje
-     * @param  mixed    $value mensaje a enviar
+     * Set flash message for subsequent request
+     * @param  string   $key
+     * @param  mixed    $value
      */
     public function flash($key, $value)
     {
@@ -267,9 +263,9 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Setea un mensaje flash para la petición actual
-     * @param  string   $key llave del mensaje
-     * @param  mixed    $value mensaje a enviar
+     * Set flash message for current request
+     * @param  string   $key
+     * @param  mixed    $value
      */
     public function flashNow($key, $value)
     {
@@ -278,7 +274,7 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Mantiene los mensajes flash de peticiones anteriores para las peticiones subsiguientes
+     * Keep flash messages from previous request for subsequent request
      */
     public function flashKeep()
     {
@@ -286,15 +282,13 @@ class Raptor extends \Slim\Slim {
         $this->environment['slim.flash']->save();
     }
     
-    /**
-     * Ejecuta una operación de salvado de los mensajes actuales para peticiones subsiguientes
-     */
     public function flashSave()
     {
         $this->environment['slim.flash']->save();
     }
     /**
-     * Elimina de la respuesta actual el script enviado por Raptor para las librerias por defecto del lado del cliente.
+     * Elimina de la respuesta actual el script enviado por Raptor
+     * para las librerias por defecto del lado del cliente.
      */
     public function removeClientWebScript()
     {
@@ -303,12 +297,12 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Retorna la instancia del cargador de configuración del sistema
-     * El cargador contiene las directivas de configuración
-     * general del sistema almacenados en options.json
+     * Retorna la instancia del cargador de configuracion del
+     * sistema, el cargador contiene las directivas de configuracion
+     * general del sistema almacenados en options.yml
      * 
-     * Tener en cuenta que la configuración es levantada desde cache, nunca
-     * directamente desde el archivo de configuración.
+     * Tener en cuenta que la configuracion es levantada desde cache, nunca
+     * directamente desde el archivo de configuracion.
      * 
      * @return Configuration\ConfigurationLoader
      */
@@ -317,10 +311,10 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Retorna la instancia del Inyector de Dependencias
+     * Retorna la instanacia del Inyector de Dependencias
      * 
      * Este contiene todas las instancias de objetos previamente
-     * registrados y seran identificados por su nombre de clase.
+     * registrados ys eran llamados por su nombre de clase.
      * 
      * @return Core\Inyector\Container
      */
@@ -329,9 +323,9 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Retorna el contenedor de reglas para el sistema.
-     * Devolverá todas reglas registradas en los bundles de
-     * la aplicación.
+     * Retorna el contenedor de reglas para el sistema, debe
+     * de devolver todas reglas registradas en los bundles de
+     * la aplicacion
      * 
      * @return Bundle\Route\RuleContainer
      */
@@ -339,7 +333,7 @@ class Raptor extends \Slim\Slim {
         return $this->ruleContainer;
     }
     /**
-     * Establece la clase controladora del lenguaje de la aplicación
+     * Establece la clase controladora del lenguaje de la aplicacion
      * 
      * @param \Raptor\Language\Language $language La clase controladora del lenguaje
      */
@@ -357,8 +351,8 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Devuelve la instancia del núcleo de Aspectos de la aplicación.
-     * Este núcleo es el contenedor de Aspectos registrados en todos los
+     * Devuelve la instancia del nucleo de Aspectos de la aplicacion.
+     * Este nucleo es el contenedor de Aspectos registrados en todos los
      * bundles del sistema.
      * 
      * @return \App\AppAspectKernel
@@ -377,19 +371,19 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Establece el manejador de sesion para esta aplicación.
+     * Establece el manejador de sesion para esta aplicacion.
      * 
      * [ Esta funcion es usada por el Security para establecer el manejador en el momento
-     * preciso con una verificación a sesiones remotas ]
+     * preciso con una verificacion a sesiones remotas ]
      * 
-     * @param Security\Sessions\NativeSession $session  El manejador de sesión
+     * @param Security\Sessions\NativeSession $session  El manejador de sesion
      */
     public function setSession($session) {
         $this->session=$session;
     }
 
     /**
-     * Retorna la instancia del Store (Manejador de Persistencia, Doctrine ORM)
+     * Retorna la instancia del Store(Manejador de Persistencia, Doctrine ORM)
      * 
      * @return Persister\Store
      */
@@ -398,9 +392,9 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Establece la instancia del Store (Manejador de Persistencia, Doctrine ORM)
+     * Establece la instancia del Store(Manejador de Persistencia, Doctrine ORM)
      * 
-     * [ Esta función es usada por Raptor para establecer el manejador ]
+     * [ Esta funcion es usada por Raptor para establecer el manejador ]
      * 
      * @param \Raptor\Persister\Store $store Manejador de Persistencia, Doctrine ORM
      */
@@ -411,7 +405,7 @@ class Raptor extends \Slim\Slim {
     /**
      * Establece la instancia del Manejador de seguridad del sistema.
      * 
-     * [ Esta función es usada por Raptor para establecer el manejador ]
+     * [ Esta funcion es usada por Raptor para establecer el manejador ]
      * 
      * @param \Raptor\Security\Security $security El manejador de seguridad para esta aplicacion
      */
@@ -430,19 +424,19 @@ class Raptor extends \Slim\Slim {
     /**
      * Registra e inyecta codigo para un nombre de plugin determinado.
      * 
-     * El primer parámetro establece para que punto de inyección se inyectará
-     * el código pasado por el segundo parámetro.
+     * El primer parametro establece para que punto de inyeccion se inyectara
+     * el codigo pasado por el segundo parametro.
      * 
      * Los hotpots declarados en Raptor por defecto son:
      * 
      * raptor_bundle:
-     * nombre de plugin reservado para inyectar contenido html en el menú Componentes del panel de control.
+     * nombre de plugin reservado para inyectar contenido html en el menú bundles del panel de control.
      * 
      * raptor_tools:
-     * nombre de plugin reservado para inyectar contenido html en el menú Herramientas del panel de control.
+     * nombre de plugin reservado para inyectar contenido html en el menú tools del panel de control.
      * 
      * raptor_panel:
-     * nombre de plugin reservado para inyectar contenido html en la barra principal del panel de control.
+     * nombre de plugin reservado para inyectar contenido html en el menú principal del panel de control.
      * 
      * core_library_inside: 
      * nombre de plugin reservado para inyectar funciones javascript en la clase core enviada al cliente. 
@@ -450,15 +444,15 @@ class Raptor extends \Slim\Slim {
      * 
      * core_library_outside:
      * nombre de plugin reservado para inyectar funciones javascript en el espacio de variables de la biblioteca
-     * core, este contenido es inyectadoo luego de la creación del objeto Raptor.
+     * core, este contenido es inyectadoo luego de la creacion del objeto Raptor.
      * 
      * core_header: 
      * nombre de plugin reservado para inyectar contenido html en la sección header de la respuesta actual, 
      * es inyectado luego del script del core de Raptor.
      * 
-     * PUEDES ADEMÁS CRETAR TUS PROPIOS PUNTOS DE INYECCIÓN Y LLAMARLOS EN LAS PLANTILLAS TWIG A TRAVÉS DE LA FUNCIÓN plugin()
+     * PUEDES ADEMAS CRETAR TUAS PROPIOS PUNTOS DE INYECCION Y LLAMARLOS EN LAS PLANTILLAS TWIG A TRAVES DE LA FUNCION plugin()
      * 
-     * @param string $key nombre del punto de inyección eje. raptor_bundle
+     * @param string $key nombre del punto de inyeccion eje. raptor_bundle
      * @param string $value el contenido o codigo a inyectar, normalmente utilizado en conjunto con render()
      */
     public function setViewPlugin($key,$value) {
@@ -469,7 +463,7 @@ class Raptor extends \Slim\Slim {
         
     }
     /**
-     * Retorna un array de todo el contenido registrado para ese nombre de punto de inyección.
+     * Retorna un array de todo el contenido registrado para ese nombre de punto de inyeccion.
      * 
      * @param string|NULL $key nombre del punto de inyeccion
      * @return array|false
@@ -485,7 +479,7 @@ class Raptor extends \Slim\Slim {
         }
     }
     /**
-     * Retorna el Manejador de API de Raptor, esta debe devolver toda la documentación declarada en Raptor.
+     * Retorna el Manejador de API de Raptor, esta debe devolver toda la documentacion declarada en Raptor.
      * 
      * @return boolean
      */
@@ -499,8 +493,8 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Devuelve la instancia de la clase utilitaria Timer, esta devuelve información sobre el
-     * tiempo en ejecución de bloques de codigo etc.
+     * Devuelve la instancia de la clase utilitaria Timer, esta devuelve informacion sobre el
+     * tiempo en ejecucion de bloques de codigo etc.
      * 
      * @return Util\Timer
      */
@@ -509,9 +503,9 @@ class Raptor extends \Slim\Slim {
     }
 
     /**
-     * Retorna una instancia única de esta aplicación Raptor de acuerdo a su nombre
+     * Retorna una instancia unica de esta aplicacion Raptor de acuerdo a su nombre
      * 
-     * @param  string $name El nombre de la aplicación
+     * @param  string $name El nombre de la aplicacion
      * @return \Raptor\Raptor|null
      */
      public static function getInstance($name = 'default') {
@@ -519,7 +513,7 @@ class Raptor extends \Slim\Slim {
     }
     
     /**
-     * Renderiza una plantilla twig. 
+     * Render a template. 
      * $this->render('@exampleBundle/index.twig');
      *
      * Call this method within a GET, POST, PUT, PATCH, DELETE, NOT FOUND, or ERROR
@@ -597,11 +591,7 @@ class Raptor extends \Slim\Slim {
         //echo self::generateTemplateMarkup('Error', '<p>A website error has occurred. The website administrator has been notified of the issue. Sorry for the temporary inconvenience.</p>');
     }
     
-    /**
-     * Datos a debuguear, serán encontrados en el directorio app en el archivo debug
-     * @param mixed $data
-     */
-    static public function debug($data) {
+    static public function debug($param) {
         $trace = debug_backtrace();
         if(file_exists(Core\Location::get(Core\Location::APP).'/debug'))
             $current=  file_get_contents(Core\Location::get(Core\Location::APP).'/debug');

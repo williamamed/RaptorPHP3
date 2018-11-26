@@ -40,39 +40,30 @@ namespace Raptor\Core\Inyector;
 class Container {
 
     private $container;
-    private $map;
     
     function __construct() {
         $this->container = array();
-        $this->map=array();
+        
     }
     /**
      * Registra la instancia de una clase en el contenedor
      * 
      * @param mixed $instance la instancia
      */
-    public function add($instance,$alias='') {
+    public function add($instance) {
         $reflect = new \Wingu\OctopusCore\Reflection\ReflectionClass($instance);
-        $this->container[$reflect->getName()] = $instance;
         
-        $this->map[strtolower($reflect->getShortName())] = $reflect->getName();
+        $this->container[strtolower($reflect->getShortName())] = $instance;
     }
     /**
      * Obtiene la instancia especificada del conteneder
      * Debe especificarse el nombre de la clase a obtener
-     * Utilice la funcion getInstance en sustitucion de esta
-     * @deprecated desde version 3.0.1 
      * @param string $class
      * @return object|null
      */
     public function get($class) {
-        return (isset($this->map[strtolower($class)])? $this->container[$this->map[strtolower($class)]] : null) ;
+        return (isset($this->container[strtolower($class)])? $this->container[strtolower($class)] : null) ;
     }
-    
-    public function getByName($class) {
-        return (isset($this->container[$class])? $this->container[$class] : null) ;
-    }
-    
     /**
      * Devuelve la cantidad de instancias registradas en este contenedor
      * @return int

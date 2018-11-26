@@ -30,9 +30,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 namespace Raptor\Bundle\Publisher;
-
 /**
  * 
  *
@@ -41,43 +39,30 @@ namespace Raptor\Bundle\Publisher;
  * 
  */
 class Publisher {
-
     /**
      * Los archivos copiados seran aquellos contenidos en el directrorio Resources del bundle
      * 
      * @param string $bundle El bundle que se copiara los recursos
      * @param boolean $extPreCompile Si este parametro es true, se ejecutaram ademas una rutina de busqueda dentro de los recursos para la compilacion de recursos Extjs
      */
-    static public function run($bundle, $extPreCompile = false,$compiler=false) {
-        $class = new \Wingu\OctopusCore\Reflection\ReflectionClass($bundle);
-        $location = dirname($class->getFileName());
-
-        if (file_exists($location . DIRECTORY_SEPARATOR . 'Resources')) {
-
-            $fileBundle = str_replace('Bundle', '', $class->getNamespaceName());
-            $fileBundle = str_replace('\\', '/', $fileBundle);
-
-
-            $web = \Raptor\Core\Location::get(\Raptor\Core\Location::WEBBUNDLES);
-            if (!file_exists($web . '/' . $fileBundle))
-                mkdir($web . '/' . $fileBundle, 0777, true);
-            \Raptor\Util\Files::copy($location . DIRECTORY_SEPARATOR . 'Resources', $web . '/' . $fileBundle);
-            if ($extPreCompile)
-                Extjs::preCompileApp($web . '/' . $fileBundle);
-        }
-        if ($compiler && file_exists($location . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Compiler.php')) {
-            $compiler = '\\'.$class->getNamespaceName() . '\\Compiler\\Compiler';
-            $comp = new $compiler();
-            $fileBundle = str_replace('Bundle', '', $class->getNamespaceName());
-            $fileBundle = str_replace('\\', '/', $fileBundle);
+    static public function run($bundle,$extPreCompile=false) {
+        $class= new \Wingu\OctopusCore\Reflection\ReflectionClass($bundle);
+        $location= dirname($class->getFileName());
+       
+        if(file_exists($location.DIRECTORY_SEPARATOR.'Resources')){
             
-            $comp->setBundle($bundle);
-            $comp->setBundleName($fileBundle);
-            $comp->setForce(true);
-            $comp->create();
-        }
+                $fileBundle=  str_replace('Bundle','', $class->getNamespaceName());
+                $fileBundle=  str_replace('\\','/', $fileBundle);
+                
+                
+                $web=\Raptor\Core\Location::get(\Raptor\Core\Location::WEBBUNDLES);
+                if(!file_exists($web.'/'.$fileBundle))
+                    mkdir ($web.'/'.$fileBundle,0777,true);
+                \Raptor\Util\Files::copy($location.DIRECTORY_SEPARATOR.'Resources',$web.'/'.$fileBundle);
+                if($extPreCompile)
+                    Extjs::preCompileApp($web.'/'.$fileBundle);
+         }
     }
-
 }
 
 ?>
