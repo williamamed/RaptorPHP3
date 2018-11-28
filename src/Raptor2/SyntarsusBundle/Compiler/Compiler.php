@@ -14,6 +14,7 @@ class Compiler extends Resources{
                 ->add('Category/js/app.js')
                 ->compile(Resources::JS);
         
+		
         $this->setAsset('Auditories/js/all.js')
                 ->add('Raptor2/Syntarsus/Auditories/js/all-classes.js',false)
                 ->add('Auditories/js/app.js')
