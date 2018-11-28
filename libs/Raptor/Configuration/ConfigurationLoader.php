@@ -134,7 +134,7 @@ class ConfigurationLoader {
             $this->options['description'] = $this->reader->getDescriptions();
             $this->options['rules'] = $this->reader->getRules();
             $appr->getAppAspectKernel()->init(array(
-                'debug' => $appr->config('debug'),
+                'debug' => true,
                 'appDir' => Location::get(Location::SRC),
                 'cacheDir' => Location::get(Location::CACHE) . '/AOP'
             ));
@@ -169,7 +169,7 @@ class ConfigurationLoader {
             $this->options = $this->cache->getData();
             $app=\Raptor\Raptor::getInstance();
             $app->getAppAspectKernel()->init(array(
-                'debug' => $app->config('debug'),
+                'debug' => true,
                 'appDir' => Location::get(Location::SRC),
                 'cacheDir' => Location::get(Location::CACHE) . '/AOP'
             ));
