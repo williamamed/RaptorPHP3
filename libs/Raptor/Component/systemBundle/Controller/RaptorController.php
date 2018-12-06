@@ -68,7 +68,8 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
         return $this->render('@systemBundle/control/panel.html.twig', array(
                     'user' => $this->app->getSession()->get('admin_auth'),
                     'username' => $this->app->getSession()->get('admin_auth_user'),
-                    'docs' => false
+                    'docs' => false,
+                    'version'=> $this->app->getConfigurationLoader()->getBundlesSpecifications()['systemBundle']['version']
         ));
     }
     

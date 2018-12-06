@@ -60,7 +60,7 @@ class Delegate {
         $cmp = new $cmp_str();
         $app = \Raptor\Raptor::getInstance();
         $app->setCurrentBundle($cmp);
-        if(\Raptor\Raptor::getInstance()->config('debug'))
+        if($app->config('debug') && !$app->request()->isAjax())
             Publisher\Publisher::run($cmp, true);
         call_user_func_array(array($cmp, 'entrance'), array(\Raptor\Raptor::getInstance()));
         
@@ -70,7 +70,7 @@ class Delegate {
                 $app->halt(403,$app->config('debug')?"El token especificado para esta petición es inválido<br>Esperado: ".$app->getSecurity()->getToken()."<br> Recibido: ".$app->request()->params('token'):'Peticion invalida');
             }
             //    throw new \Raptor\Exception\Csrf("El token especificado para esta petición es inválido<br>Esperado: ".$app->getSecurity()->getToken()."<br> Recibido: ".$app->request()->params('token'));
-
+            
         $return = call_user_func_array(array(new $this->instance(), $this->action), array($app->request(), $app->response(), $app->router()->getCurrentRoute()));
         if ($return != false || $return != null || !($return instanceof \Slim\Http\Response)) {
             $app->response()->write($return);

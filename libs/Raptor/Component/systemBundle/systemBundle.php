@@ -9,7 +9,7 @@ use Raptor\Bundle\Annotations\Route;
 class systemBundle extends \Raptor\Bundle\Bundle {
 
     public function registerBundleAspect(\Go\Core\AspectContainer $appAspectContainer) {
-        
+        $appAspectContainer->registerAspect(new Aspect\InyectAspect());
     }
 
     public function entrance(\Raptor\Raptor $app) {
@@ -23,6 +23,15 @@ class systemBundle extends \Raptor\Bundle\Bundle {
             $ruleContainer->add('/interactive/tutorial', new Tutorials\Guia());
             
             $ruleContainer->add('/command/raptor', new Rule\Command());
+            
+            $this->app->getInyector()->add($this->app->getSecurity());
+            $this->app->getInyector()->add($this->app);
+            $this->app->getInyector()->add($this->app->getStore());
+            $this->app->getInyector()->add($this->app->request());
+            $this->app->getInyector()->add($this->app->response());
+            $this->app->getInyector()->add($this->app->router());
+            
+            $this->app->addCommand(new Command\MigrateCommand());
     }
 
 }

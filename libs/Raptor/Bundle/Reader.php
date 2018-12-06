@@ -169,7 +169,7 @@ class Reader {
                 }
                 $namespaceClass = str_replace('.php', '', $real);
                 $namespace = str_replace('/', '\\', $namespaceClass);
-
+                
                 $controller = new \Wingu\OctopusCore\Reflection\ReflectionClass($namespace);
 
                 $reflClassController = new \ReflectionClass($namespace);
@@ -180,7 +180,7 @@ class Reader {
                     echo \Raptor\Raptor::getInstance()->response()->body($template->errorTemplate($exc));
                     die;
                 }
-
+                
                 foreach ($classAnnotationsController AS $annot) {
 
                     if ($annot instanceof \Raptor\Bundle\Annotations\Route) {
@@ -252,8 +252,9 @@ class Reader {
                             $descrip = $methods->description;
                             $this->description[$prefixController . $methods->path] = array($descrip, $method->getReflectionDocComment()->getFullDescription());
                         }
+                        
                         $api->route = $prefixController . $methods->path;
-                        $this->definitions[$collectionName] = array($prefixController . $methods->path, $method->getDeclaringClass()->getName(), $method->getName(), $class->getName(), 'method' => $methodName, 'csrf' => $methods->csrf ? true : false);
+                        $this->definitions[$collectionName] = array($prefixController . $methods->path, $controller->getName(), $method->getName(), $class->getName(), 'method' => $methodName, 'csrf' => $methods->csrf ? true : false);
                     }
                     if ($api->hasApi) {
                         if (!isset($this->api[$api->category]))

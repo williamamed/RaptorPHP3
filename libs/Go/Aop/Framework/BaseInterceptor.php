@@ -43,7 +43,7 @@ abstract class BaseInterceptor extends BaseAdvice implements Interceptor, Serial
      */
     public function __construct($adviceMethod, $order = 0, $pointcut = null)
     {
-        assert('is_callable($adviceMethod) /* Advice method should be callable */');
+        //assert('is_callable($adviceMethod) /* Advice method should be callable */');
 
         $this->adviceMethod = $adviceMethod;
         $this->order        = $order;

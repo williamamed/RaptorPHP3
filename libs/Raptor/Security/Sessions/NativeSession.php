@@ -123,7 +123,6 @@ class NativeSession implements SessionInterface {
         // Let's start the session
         //print_r("abriendo ".session_id()." <br>");
         session_name(\Raptor\Security\Security::getSessionName());
-        
         session_start();
         
         $this->id = session_id();

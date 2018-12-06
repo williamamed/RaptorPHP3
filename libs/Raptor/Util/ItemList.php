@@ -240,7 +240,6 @@ class ItemList extends \Slim\Helper\Set {
                 
             }
             if(is_callable($callback)){
-//                   $callback($this->data[$key]);
                    call_user_func_array($callback,array(&$this->data[$key],&$this));
             }
         }
@@ -248,16 +247,19 @@ class ItemList extends \Slim\Helper\Set {
     }
     
     private function convertObject($obj) {
-                $reflect = new ReflectionClass($obj);
-                $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE);
-                $item=array();
-                $parent=$reflect->getParentClass();
-                if($parent)
-                    $item= array_merge($item,$this->lookProperties($parent,$obj));
-                foreach ($props as $prop) {
-                    $prop->setAccessible(true);
-                    $property=$prop->getValue($obj);
-                    $item[$prop->getName()] = $property;
+        $reflect = new ReflectionClass($obj);
+        $props   = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE);
+        $item=array();
+        $parent=$reflect->getParentClass();
+        if($parent)
+            $item= array_merge($item,$this->lookProperties($parent,$obj));
+        if (method_exists($obj, "__load")) {
+            return $item;
+        }
+        foreach ($props as $prop) {
+            $prop->setAccessible(true);
+            $property=$prop->getValue($obj);
+            $item[$prop->getName()] = $property;
         }
 
               
