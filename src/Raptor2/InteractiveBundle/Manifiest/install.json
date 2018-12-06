@@ -1,6 +1,10 @@
 {
     "author": "Dinobyte S.L",
+    "name": "InteractiveBundle",
     "description": "Interactive Guide",
     "namespace": "Raptor2.InteractiveBundle.InteractiveBundle",
-    "version": "1.0.2"
+    "version": "1.0.2",
+    "require": {
+        "system": ">=@3.0.1"
+    }
 }

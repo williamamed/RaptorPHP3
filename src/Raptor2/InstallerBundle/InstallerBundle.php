@@ -12,7 +12,7 @@ use Raptor\Raptor;
 use Raptor\Bundle\Route\RuleContainer;
 use Raptor\Bundle\Annotations\Route;
 /**
- * @Route
+ * @Route("")
  */
 class InstallerBundle extends Bundle{
 
