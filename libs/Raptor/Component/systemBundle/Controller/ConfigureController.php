@@ -76,8 +76,8 @@ class ConfigureController extends \Raptor\Bundle\Controller\Controller {
             $this->redirect($request->getReferer().'#!/raptor/configuration',false);
             
         }
-        $this->app->flash('config_succ','Raptor was properly configured');
-        $this->app->flash('config_succ_detail','Enjoy the new features of Raptor 2 !');
+        $this->app->flash('config_succ','Raptor 3 correctamente configurado');
+        $this->app->flash('config_succ_detail','Disfrute de las nuevas caracteristicas !');
         $this->redirect($request->getReferer().'#!/raptor/configuration',false);
     }
 
