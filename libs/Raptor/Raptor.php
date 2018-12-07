@@ -129,6 +129,11 @@ class Raptor extends \Slim\Slim {
         $userSettings['view'] = '\Raptor\Template\View';
         
         parent::__construct($userSettings);
+        // Define default middleware stack
+        $this->middleware = array($this);
+        $this->add(new Template\Flash());
+        $this->add(new \Slim\Middleware\MethodOverride());
+        
         $this->container->singleton('router', function ($c) {
                     return new Core\Router();
         });
@@ -264,6 +269,15 @@ class Raptor extends \Slim\Slim {
     {
         parent::flash($key, $value);
         $this->environment['slim.flash']->save();
+    }
+    
+    public function getFlash($key)
+    {
+        $data=$this->environment['slim.flash']->getMessages();
+        if(isset($data[$key])){
+            return $data[$key];
+        }else
+            return NULL;
     }
 
     /**

@@ -64,7 +64,7 @@ class RaptorController extends \Raptor\Bundle\Controller\Controller {
      * @Route ("",name="_raptor_front")
      */
     public function frontAction() {
-
+        $this->app->flashKeep();
         return $this->render('@systemBundle/control/panel.html.twig', array(
                     'user' => $this->app->getSession()->get('admin_auth'),
                     'username' => $this->app->getSession()->get('admin_auth_user'),
