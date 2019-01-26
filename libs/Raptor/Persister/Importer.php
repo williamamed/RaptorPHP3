@@ -205,7 +205,7 @@ class Importer {
                             break;
                         }
                     }
-                    if($find && $metaDisconect){
+                    if($find && $metaDisconect && $this->store->getManager()->getConnection()->getDatabasePlatform()->supportsSequences()){
                         
                         $currentValue=$this->store
                                 ->getManager()
@@ -218,7 +218,7 @@ class Importer {
 
                         $sequence=new \Doctrine\DBAL\Schema\Sequence($metaDisconect->sequenceGeneratorDefinition['sequenceName'], 1, 21);
 
-                                    
+                                  
                         $affected=$this->store
                                 ->getManager()
                                 ->getConnection()

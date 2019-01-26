@@ -1,5 +1,5 @@
 ﻿-----------------------------------------------------
-VERSION 3.0.1
+VERSION 3.0.2
 -----------------------------------------------------
 - X Arreglar la instalacion del modulo de seguridad para postgres 
 - X Mejorar mecanismo de gestion de sesiones, evitar el bloqueo 

@@ -59,9 +59,10 @@ class View extends \Slim\View {
         $locations = \Raptor\Raptor::getInstance()->getConfigurationLoader()->getOptions();
         $templates = $locations['location'];
         foreach ($templates as $key => $value) {
-            if (!file_exists($value . '/Views'))
-                mkdir($value . '/Views');
-            $loader->addPath($value . '/Views', $key);
+            if (file_exists($value . '/Views')){
+                //mkdir($value . '/Views');
+                $loader->addPath($value . '/Views', $key);
+            }
         }
         
 //        if (\Raptor\Raptor::getInstance()->getMode() == 'development') {
