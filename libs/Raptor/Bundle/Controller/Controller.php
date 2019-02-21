@@ -360,8 +360,8 @@ class Controller {
      * @param array $matcher un array con el macheo de parametros que no coinciden con los atributos de la clase. ejemplo array('nombre_c'=>'nombre') en el ejemplo nombre es el parametro que viene en el request y nombre_c el que esta en la clase, el colector pone el valor de nombre en nombre_c
      * @return mixed
      */
-    public function collectorManager($class, $matcher = array(), $method = 'POST') {
-        return new \Raptor\Bundle\CollectorManager($class, $matcher, $method);
+    public function collectorManager($class,$method = 'POST') {
+        return new \Raptor\Bundle\CollectorManager($class,$method);
     }
 
     /**
