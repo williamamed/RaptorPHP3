@@ -1,7 +1,7 @@
 {
     "database": {
         "driver": "pdo_mysql",
-        "dbname": "test",
+        "dbname": "tutorial1",
         "user": "root",
         "port": "3306",
         "password": "root",
@@ -16,5 +16,9 @@
             "en"
         ],
         "name": "Raptor3"
+    },
+    "syntarsus": {
+        "auth": "native",
+        "samlbase": "http:\/\/localhost\/Raptor3\/RaptorPHP3\/web"
     }
 }
